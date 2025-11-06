@@ -1,0 +1,30 @@
+# Dart/Pub
+.dart_tool/
+.packages
+.pub/
+pubspec.lock
+build/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (Excel files with user data)
+data/*.xlsx
+data/*.xls
+
+# Launcher scripts (user-specific)
+*.bat
+*.vbs
+*.ps1
+
+# Windows build files
+windows/flutter/ephemeral/
+
