@@ -327,7 +327,7 @@ class ExcelRepository implements RepositoryInterface {
   }
 
   Future<void> _saveHourRegistrations(List<HourRegistration> registrations) async {
-    final headers = ['HourRegistrationId', 'OrderId', 'UserId', 'StartTime', 'EndTime', 'ElapsedTime', 'IsActive', 'CreatedOn', 'ModifiedOn'];
+    final headers = ['HourRegistrationId', 'OrderId', 'UserId', 'StartTime', 'EndTime', 'ElapsedTime', 'IsActive', 'IsPaused', 'PausedElapsedTime', 'CreatedOn', 'ModifiedOn'];
     final filePath = await ExcelService.getExcelFilePath(_hourRegistrationFile);
     
     Excel excel;

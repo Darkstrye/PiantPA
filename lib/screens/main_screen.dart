@@ -7,6 +7,7 @@ import '../services/auth_service.dart';
 import '../services/timer_service.dart';
 import '../widgets/order_list_item.dart';
 import '../widgets/order_detail_panel.dart';
+import 'completed_orders_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final AuthService authService;
@@ -45,9 +46,9 @@ class _MainScreenState extends State<MainScreen> {
 
     try {
       final orders = await _repository.getAllOrders();
-      // Filter out completed orders and sort by CreatedOn descending
+      // Filter to show only pending and in-progress orders, sort by CreatedOn descending
       final filteredOrders = orders
-          .where((order) => order.status != OrderStatus.completed)
+          .where((order) => order.status == OrderStatus.pending || order.status == OrderStatus.inProgress)
           .toList();
       filteredOrders.sort((a, b) => b.createdOn.compareTo(a.createdOn));
 
@@ -144,29 +145,57 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  Future<void> _stopTimer() async {
-    final success = await _timerService.stopTimer();
+  Future<void> _pauseTimer() async {
+    final success = await _timerService.pauseTimer();
+    
+    if (success) {
+      // Update elapsed time from paused state
+      final activeReg = _timerService.activeRegistration;
+      if (activeReg != null && activeReg.pausedElapsedTime != null) {
+        final duration = Duration(seconds: (activeReg.pausedElapsedTime! * 3600).toInt());
+        setState(() {
+          _elapsedTime = duration;
+        });
+      }
+      
+      _timerSubscription?.cancel();
+      _timerSubscription = null;
+      
+      await _loadData();
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Timer paused')),
+        );
+      }
+    }
+  }
+
+  Future<void> _finishOrder() async {
+    if (_selectedOrder == null) return;
+
+    final success = await _timerService.finishTimer();
     
     if (success) {
       _timerSubscription?.cancel();
       _timerSubscription = null;
       
+      // Mark order as completed
+      final updatedOrder = _selectedOrder!.copyWith(
+        status: OrderStatus.completed,
+      );
+      await _repository.updateOrder(updatedOrder);
+      
       setState(() {
+        _selectedOrder = updatedOrder;
         _elapsedTime = null;
       });
-
-      // Update order if it's the selected one
-      if (_selectedOrder != null) {
-        final activeReg = _timerService.activeRegistration;
-        if (activeReg == null || activeReg.orderId == _selectedOrder!.orderId) {
-          // Order status might remain In Progress or be updated elsewhere
-          await _loadData();
-        }
-      }
+      
+      await _loadData();
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Timer stopped')),
+          const SnackBar(content: Text('Order completed')),
         );
       }
     }
@@ -175,26 +204,32 @@ class _MainScreenState extends State<MainScreen> {
   void _selectOrder(Order order) {
     setState(() {
       _selectedOrder = order;
-      _elapsedTime = null;
     });
 
-    // Check if there's an active timer for this order
+    // Check if there's an active timer (for any order - timer persists)
     final activeReg = _timerService.activeRegistration;
-    if (activeReg != null && activeReg.orderId == order.orderId && activeReg.isActive) {
-      setState(() {
-        _elapsedTime = DateTime.now().difference(activeReg.startTime);
-      });
-      
-      // Subscribe to timer updates if not already subscribed
-      _timerSubscription?.cancel();
-      _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
-        if (mounted) {
-          setState(() {
-            _elapsedTime = duration;
-          });
-        }
-      });
+    if (activeReg != null && activeReg.isActive) {
+      // Show timer if it's for this order, or if timer is running for another order
+      if (activeReg.isPaused && activeReg.pausedElapsedTime != null) {
+        final duration = Duration(seconds: (activeReg.pausedElapsedTime! * 3600).toInt());
+        setState(() {
+          _elapsedTime = duration;
+        });
+      } else {
+        // Subscribe to timer updates
+        _timerSubscription?.cancel();
+        _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
+          if (mounted) {
+            setState(() {
+              _elapsedTime = duration;
+            });
+          }
+        });
+      }
     } else {
+      setState(() {
+        _elapsedTime = null;
+      });
       _timerSubscription?.cancel();
       _timerSubscription = null;
     }
@@ -216,25 +251,66 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isTimerRunning = _timerService.isTimerRunning && 
+    final activeReg = _timerService.activeRegistration;
+    final isTimerRunning = _timerService.isTimerRunning;
+    final isTimerPaused = _timerService.isTimerPaused;
+    final hasActiveTimer = activeReg != null && activeReg.isActive;
+    final isTimerForSelectedOrder = activeReg != null && 
         _selectedOrder != null &&
-        _timerService.activeRegistration?.orderId == _selectedOrder!.orderId;
+        activeReg.orderId == _selectedOrder!.orderId;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Order Processing'),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Text(
-              widget.authService.getCurrentUserDisplayName() ?? 'User',
-              style: const TextStyle(fontSize: 16),
+          // Completed Orders Button - More prominent with badge style
+          Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CompletedOrdersScreen(
+                      authService: widget.authService,
+                    ),
+                  ),
+                ).then((_) {
+                  // Refresh data when returning from completed orders
+                  _loadData();
+                });
+              },
+              icon: const Icon(Icons.assignment_turned_in, size: 20),
+              label: const Text('Completed'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green.shade700,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ),
           ),
+          // User name with icon
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Row(
+              children: [
+                const Icon(Icons.person, size: 20),
+                const SizedBox(width: 4),
+                Text(
+                  widget.authService.getCurrentUserDisplayName() ?? 'User',
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+          // Logout button
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: _handleLogout,
             tooltip: 'Logout',
+            color: Colors.red.shade700,
           ),
         ],
       ),
@@ -259,16 +335,26 @@ class _MainScreenState extends State<MainScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Orders',
-                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              Row(
+                                children: [
+                                  Icon(Icons.list_alt, color: Colors.blue.shade700, size: 28),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Active Orders (${_orders.length})',
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.refresh),
-                                onPressed: _loadData,
-                                tooltip: 'Refresh',
+                              Tooltip(
+                                message: 'Refresh Orders',
+                                child: IconButton(
+                                  icon: const Icon(Icons.refresh),
+                                  onPressed: _loadData,
+                                  tooltip: 'Refresh',
+                                  color: Colors.blue.shade700,
+                                ),
                               ),
                             ],
                           ),
@@ -300,9 +386,13 @@ class _MainScreenState extends State<MainScreen> {
                   child: OrderDetailPanel(
                     order: _selectedOrder,
                     isTimerRunning: isTimerRunning,
+                    isTimerPaused: isTimerPaused,
+                    hasActiveTimer: hasActiveTimer,
+                    isTimerForSelectedOrder: isTimerForSelectedOrder,
                     elapsedTime: _elapsedTime,
                     onStartTimer: _startTimer,
-                    onStopTimer: _stopTimer,
+                    onPauseTimer: _pauseTimer,
+                    onFinishOrder: _finishOrder,
                   ),
                 ),
               ],

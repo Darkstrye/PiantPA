@@ -6,6 +6,8 @@ class HourRegistration {
   final DateTime? endTime;
   final double? elapsedTime;
   final bool isActive;
+  final bool isPaused;
+  final double? pausedElapsedTime; // Accumulated time when paused
   final DateTime createdOn;
   final DateTime modifiedOn;
 
@@ -17,6 +19,8 @@ class HourRegistration {
     this.endTime,
     this.elapsedTime,
     required this.isActive,
+    this.isPaused = false,
+    this.pausedElapsedTime,
     required this.createdOn,
     required this.modifiedOn,
   });
@@ -30,33 +34,52 @@ class HourRegistration {
       'EndTime': endTime?.toIso8601String() ?? '',
       'ElapsedTime': elapsedTime ?? 0.0,
       'IsActive': isActive ? 1 : 0,
+      'IsPaused': isPaused ? 1 : 0,
+      'PausedElapsedTime': pausedElapsedTime ?? 0.0,
       'CreatedOn': createdOn.toIso8601String(),
       'ModifiedOn': modifiedOn.toIso8601String(),
     };
   }
 
   factory HourRegistration.fromJson(Map<String, dynamic> json) {
+    bool parseBool(dynamic value) {
+      if (value == null) return false;
+      if (value is bool) return value;
+      if (value is int) return value == 1;
+      if (value is String) {
+        final str = value.toLowerCase().trim();
+        return str == '1' || str == 'true';
+      }
+      return false;
+    }
+
     return HourRegistration(
-      hourRegistrationId: json['HourRegistrationId'] ?? '',
-      orderId: json['OrderId'] ?? '',
-      userId: json['UserId'] ?? '',
+      hourRegistrationId: json['HourRegistrationId']?.toString() ?? '',
+      orderId: json['OrderId']?.toString() ?? '',
+      userId: json['UserId']?.toString() ?? '',
       startTime: json['StartTime'] != null
-          ? DateTime.parse(json['StartTime'])
+          ? DateTime.parse(json['StartTime'].toString())
           : DateTime.now(),
       endTime: json['EndTime'] != null && json['EndTime'].toString().isNotEmpty
-          ? DateTime.parse(json['EndTime'])
+          ? DateTime.parse(json['EndTime'].toString())
           : null,
       elapsedTime: json['ElapsedTime'] != null
           ? (json['ElapsedTime'] is double
               ? json['ElapsedTime']
               : double.tryParse(json['ElapsedTime'].toString()) ?? 0.0)
           : null,
-      isActive: json['IsActive'] == 1 || json['IsActive'] == true,
+      isActive: parseBool(json['IsActive']),
+      isPaused: parseBool(json['IsPaused']),
+      pausedElapsedTime: json['PausedElapsedTime'] != null
+          ? (json['PausedElapsedTime'] is double
+              ? json['PausedElapsedTime']
+              : double.tryParse(json['PausedElapsedTime'].toString()))
+          : null,
       createdOn: json['CreatedOn'] != null
-          ? DateTime.parse(json['CreatedOn'])
+          ? DateTime.parse(json['CreatedOn'].toString())
           : DateTime.now(),
       modifiedOn: json['ModifiedOn'] != null
-          ? DateTime.parse(json['ModifiedOn'])
+          ? DateTime.parse(json['ModifiedOn'].toString())
           : DateTime.now(),
     );
   }
@@ -69,6 +92,8 @@ class HourRegistration {
     DateTime? endTime,
     double? elapsedTime,
     bool? isActive,
+    bool? isPaused,
+    double? pausedElapsedTime,
     DateTime? createdOn,
     DateTime? modifiedOn,
   }) {
@@ -80,6 +105,8 @@ class HourRegistration {
       endTime: endTime ?? this.endTime,
       elapsedTime: elapsedTime ?? this.elapsedTime,
       isActive: isActive ?? this.isActive,
+      isPaused: isPaused ?? this.isPaused,
+      pausedElapsedTime: pausedElapsedTime ?? this.pausedElapsedTime,
       createdOn: createdOn ?? this.createdOn,
       modifiedOn: modifiedOn ?? this.modifiedOn,
     );
@@ -89,7 +116,14 @@ class HourRegistration {
     if (endTime != null) {
       return endTime!.difference(startTime).inSeconds / 3600.0;
     }
-    return DateTime.now().difference(startTime).inSeconds / 3600.0;
+    // If paused, return the paused elapsed time
+    if (isPaused && pausedElapsedTime != null) {
+      return pausedElapsedTime!;
+    }
+    // If we have accumulated paused time, add current running time
+    final baseTime = pausedElapsedTime ?? 0.0;
+    final currentRunning = DateTime.now().difference(startTime).inSeconds / 3600.0;
+    return baseTime + currentRunning;
   }
 }
 

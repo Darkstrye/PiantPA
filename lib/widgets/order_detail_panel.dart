@@ -5,17 +5,25 @@ import 'timer_display.dart';
 class OrderDetailPanel extends StatelessWidget {
   final Order? order;
   final bool isTimerRunning;
+  final bool isTimerPaused;
+  final bool hasActiveTimer;
+  final bool isTimerForSelectedOrder;
   final Duration? elapsedTime;
   final VoidCallback? onStartTimer;
-  final VoidCallback? onStopTimer;
+  final VoidCallback? onPauseTimer;
+  final VoidCallback? onFinishOrder;
 
   const OrderDetailPanel({
     super.key,
     this.order,
     this.isTimerRunning = false,
+    this.isTimerPaused = false,
+    this.hasActiveTimer = false,
+    this.isTimerForSelectedOrder = false,
     this.elapsedTime,
     this.onStartTimer,
-    this.onStopTimer,
+    this.onPauseTimer,
+    this.onFinishOrder,
   });
 
   @override
@@ -81,37 +89,102 @@ class OrderDetailPanel extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           if (order!.status != OrderStatus.completed) ...[
-            if (isTimerRunning && elapsedTime != null) ...[
+            // Show timer if it's running or paused (for this order or any order)
+            if (hasActiveTimer && elapsedTime != null) ...[
               TimerDisplay(duration: elapsedTime!),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: onStopTimer,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+              if (!isTimerForSelectedOrder) ...[
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.orange.withOpacity(0.3)),
                   ),
-                  child: const Text(
-                    'Stop Timer',
-                    style: TextStyle(fontSize: 16),
+                  child: Row(
+                    children: [
+                      Icon(Icons.info_outline, color: Colors.orange.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Timer is running for another order',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.orange.shade700,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
+              ],
+              const SizedBox(height: 16),
+              // Pause/Resume button (only if timer is for this order)
+              if (isTimerForSelectedOrder) ...[
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: isTimerPaused ? onStartTimer : onPauseTimer,
+                    icon: Icon(
+                      isTimerPaused ? Icons.play_arrow : Icons.pause,
+                      size: 24,
+                    ),
+                    label: Text(
+                      isTimerPaused ? 'Resume Timer' : 'Pause Timer',
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isTimerPaused ? Colors.green.shade700 : Colors.orange.shade700,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+              // Finish Order button (only if timer is for this order)
+              if (isTimerForSelectedOrder) ...[
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: onFinishOrder,
+                    icon: const Icon(Icons.check_circle, size: 24),
+                    label: const Text(
+                      'Finish Order',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red.shade700,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ] else ...[
+              // No active timer - show Start Timer button
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
                   onPressed: onStartTimer,
+                  icon: const Icon(Icons.play_arrow, size: 24),
+                  label: const Text(
+                    'Start Timer',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Colors.green.shade700,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  child: const Text(
-                    'Start Timer',
-                    style: TextStyle(fontSize: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
               ),
