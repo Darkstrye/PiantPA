@@ -23,6 +23,7 @@ data/*.xls
 # Launcher scripts (user-specific)
 *.bat
 *.vbs
+!OpenApp.vbs
 *.ps1
 
 # Windows build files
