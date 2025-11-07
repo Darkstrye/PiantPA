@@ -1,16 +1,32 @@
-# piantpa
+# PIANT Order Processing Application
 
-A new Flutter project.
+Flutter desktop application for order processing and time tracking.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- User authentication
+- Order management (In Progress, Completed)
+- Time tracking with pause/resume functionality
+- Hour registration per order
+- Completed orders overview
 
-A few resources to get you started if this is your first Flutter project:
+## Quick Start
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Keyboard Shortcut:** Press `Ctrl+Alt+F` to launch the app
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app uses Excel files for data storage (test environment) located in the `data/` folder.
+
+## Project Structure
+
+- `lib/models/` - Data models (Order, LoginDetails, HourRegistration)
+- `lib/repositories/` - Data access layer (ExcelRepository, SqlRepository placeholder)
+- `lib/services/` - Business logic (AuthService, TimerService, ExcelService)
+- `lib/screens/` - UI screens (LoginScreen, MainScreen, CompletedOrdersScreen)
+- `lib/widgets/` - Reusable UI components
+- `data/` - Excel data files (not in git)
+
+## Development
+
+Run the app:
+- Use `Ctrl+Alt+F` keyboard shortcut (recommended)
+- Or run `run_app.bat` directly

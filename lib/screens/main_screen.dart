@@ -8,6 +8,7 @@ import '../services/timer_service.dart';
 import '../widgets/order_list_item.dart';
 import '../widgets/order_detail_panel.dart';
 import 'completed_orders_screen.dart';
+import '../utils/reset_completed_orders.dart';
 
 class MainScreen extends StatefulWidget {
   final AuthService authService;
@@ -46,14 +47,25 @@ class _MainScreenState extends State<MainScreen> {
 
     try {
       final orders = await _repository.getAllOrders();
-      // Filter to show only pending and in-progress orders, sort by CreatedOn descending
+      // Filter to show only in-progress orders
       final filteredOrders = orders
-          .where((order) => order.status == OrderStatus.pending || order.status == OrderStatus.inProgress)
+          .where((order) => order.status == OrderStatus.inProgress)
           .toList();
-      filteredOrders.sort((a, b) => b.createdOn.compareTo(a.createdOn));
+      
+      // Remove duplicates by orderNumber - keep the most recent one
+      final uniqueOrders = <String, Order>{};
+      for (var order in filteredOrders) {
+        if (!uniqueOrders.containsKey(order.orderNumber) ||
+            uniqueOrders[order.orderNumber]!.modifiedOn.isBefore(order.modifiedOn)) {
+          uniqueOrders[order.orderNumber] = order;
+        }
+      }
+      
+      final finalOrders = uniqueOrders.values.toList();
+      finalOrders.sort((a, b) => b.createdOn.compareTo(a.createdOn));
 
       setState(() {
-        _orders = filteredOrders;
+        _orders = finalOrders;
         if (_selectedOrder != null) {
           // Update selected order if it still exists
           final updated = _orders.firstWhere(
@@ -93,8 +105,15 @@ class _MainScreenState extends State<MainScreen> {
       // Check if timer is running for current selected order
       final activeReg = _timerService.activeRegistration;
       if (activeReg != null && _selectedOrder?.orderId == activeReg.orderId) {
-        setState(() {
-          _elapsedTime = DateTime.now().difference(activeReg.startTime);
+        // Subscribe to timer updates instead of calculating directly
+        // This ensures we get the correct value from the timer service
+        _timerSubscription?.cancel();
+        _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
+          if (mounted) {
+            setState(() {
+              _elapsedTime = duration;
+            });
+          }
         });
       }
     }
@@ -109,7 +128,8 @@ class _MainScreenState extends State<MainScreen> {
     final success = await _timerService.startTimer(_selectedOrder!.orderId, userId);
     
     if (success) {
-      // Subscribe to timer updates
+      // Subscribe to timer updates FIRST, before any other operations
+      // This ensures we get the correct initial value from the timer service
       _timerSubscription?.cancel();
       _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
         if (mounted) {
@@ -131,6 +151,9 @@ class _MainScreenState extends State<MainScreen> {
       
       await _loadData(); // Refresh list
       
+      // Don't reload elapsed time here - the stream will provide the correct value
+      // Loading from database could overwrite the correct stream value
+      
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Timer started')),
@@ -138,9 +161,19 @@ class _MainScreenState extends State<MainScreen> {
       }
     } else {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Cannot start timer. You may already have an active timer.')),
-        );
+        // Check why it failed
+        final allRegistrations = await _repository.getHourRegistrationsByOrderId(_selectedOrder!.orderId);
+        final hasCompleted = allRegistrations.any((reg) => !reg.isActive && reg.elapsedTime != null && reg.elapsedTime! > 0);
+        
+        if (hasCompleted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('This order has already been completed. You can only start an order once.')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Cannot start timer. You may already have an active timer.')),
+          );
+        }
       }
     }
   }
@@ -163,6 +196,11 @@ class _MainScreenState extends State<MainScreen> {
       
       await _loadData();
       
+      // Reload elapsed time for the selected order
+      if (_selectedOrder != null) {
+        await _loadElapsedTimeForOrder(_selectedOrder!.orderId);
+      }
+      
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Timer paused')),
@@ -173,6 +211,17 @@ class _MainScreenState extends State<MainScreen> {
 
   Future<void> _finishOrder() async {
     if (_selectedOrder == null) return;
+
+    // Check if there's an active timer for this order
+    final activeReg = _timerService.activeRegistration;
+    if (activeReg == null || activeReg.orderId != _selectedOrder!.orderId) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No active timer found for this order.')),
+        );
+      }
+      return;
+    }
 
     final success = await _timerService.finishTimer();
     
@@ -188,50 +237,68 @@ class _MainScreenState extends State<MainScreen> {
       
       setState(() {
         _selectedOrder = updatedOrder;
-        _elapsedTime = null;
       });
       
       await _loadData();
+      
+      // Reload elapsed time for the selected order
+      if (_selectedOrder != null) {
+        await _loadElapsedTimeForOrder(_selectedOrder!.orderId);
+      }
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Order completed')),
         );
       }
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to finish order. Please try again.')),
+        );
+      }
     }
   }
 
-  void _selectOrder(Order order) {
+  void _selectOrder(Order order) async {
     setState(() {
       _selectedOrder = order;
     });
 
-    // Check if there's an active timer (for any order - timer persists)
+    // Check if there's an active timer for this order
     final activeReg = _timerService.activeRegistration;
-    if (activeReg != null && activeReg.isActive) {
-      // Show timer if it's for this order, or if timer is running for another order
-      if (activeReg.isPaused && activeReg.pausedElapsedTime != null) {
-        final duration = Duration(seconds: (activeReg.pausedElapsedTime! * 3600).toInt());
-        setState(() {
-          _elapsedTime = duration;
-        });
-      } else {
-        // Subscribe to timer updates
-        _timerSubscription?.cancel();
-        _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
-          if (mounted) {
-            setState(() {
-              _elapsedTime = duration;
-            });
-          }
-        });
-      }
-    } else {
-      setState(() {
-        _elapsedTime = null;
+    if (activeReg != null && activeReg.isActive && activeReg.orderId == order.orderId) {
+      // Active timer for this order - subscribe to live updates
+      _timerSubscription?.cancel();
+      _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
+        if (mounted) {
+          setState(() {
+            _elapsedTime = duration;
+          });
+        }
       });
+    } else {
+      // No active timer for this order - load total elapsed time from all registrations
+      await _loadElapsedTimeForOrder(order.orderId);
       _timerSubscription?.cancel();
       _timerSubscription = null;
+    }
+  }
+
+  Future<void> _loadElapsedTimeForOrder(String orderId) async {
+    try {
+      final totalElapsed = await _timerService.getTotalElapsedTimeForOrder(orderId);
+      if (mounted) {
+        setState(() {
+          _elapsedTime = totalElapsed;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _elapsedTime = null;
+        });
+      }
     }
   }
 
@@ -347,14 +414,81 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                                 ],
                               ),
-                              Tooltip(
-                                message: 'Refresh Orders',
-                                child: IconButton(
-                                  icon: const Icon(Icons.refresh),
-                                  onPressed: _loadData,
-                                  tooltip: 'Refresh',
-                                  color: Colors.blue.shade700,
-                                ),
+                              Row(
+                                children: [
+                                  // Small reset button
+                                  Tooltip(
+                                    message: 'Reset All Completed Orders',
+                                    child: IconButton(
+                                      icon: const Icon(Icons.restart_alt, size: 18),
+                                      onPressed: () async {
+                                        final confirmed = await showDialog<bool>(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text('Reset Completed Orders'),
+                                            content: const Text(
+                                              'This will reset all completed orders to In Progress and delete all their time registrations. This action cannot be undone.\n\nAre you sure?',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.of(context).pop(false),
+                                                child: const Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.of(context).pop(true),
+                                                style: TextButton.styleFrom(
+                                                  foregroundColor: Colors.red,
+                                                ),
+                                                child: const Text('Reset All'),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+
+                                        if (confirmed == true) {
+                                          try {
+                                            await ResetCompletedOrders.resetAll();
+                                            if (mounted) {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text('All completed orders have been reset'),
+                                                  backgroundColor: Colors.green,
+                                                ),
+                                              );
+                                              _loadData(); // Refresh the list
+                                            }
+                                          } catch (e) {
+                                            if (mounted) {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text('Error resetting orders: $e'),
+                                                  backgroundColor: Colors.red,
+                                                ),
+                                              );
+                                            }
+                                          }
+                                        }
+                                      },
+                                      tooltip: 'Reset Completed Orders',
+                                      color: Colors.orange.shade700,
+                                      padding: const EdgeInsets.all(8),
+                                      constraints: const BoxConstraints(
+                                        minWidth: 32,
+                                        minHeight: 32,
+                                      ),
+                                    ),
+                                  ),
+                                  // Refresh button
+                                  Tooltip(
+                                    message: 'Refresh Orders',
+                                    child: IconButton(
+                                      icon: const Icon(Icons.refresh),
+                                      onPressed: _loadData,
+                                      tooltip: 'Refresh',
+                                      color: Colors.blue.shade700,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

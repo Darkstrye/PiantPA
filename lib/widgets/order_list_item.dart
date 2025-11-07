@@ -17,8 +17,6 @@ class OrderListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color getStatusColor() {
       switch (order.status) {
-        case OrderStatus.pending:
-          return Colors.orange;
         case OrderStatus.inProgress:
           return Colors.blue;
         case OrderStatus.completed:

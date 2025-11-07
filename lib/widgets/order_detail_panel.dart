@@ -39,8 +39,6 @@ class OrderDetailPanel extends StatelessWidget {
 
     Color getStatusColor() {
       switch (order!.status) {
-        case OrderStatus.pending:
-          return Colors.orange;
         case OrderStatus.inProgress:
           return Colors.blue;
         case OrderStatus.completed:
@@ -90,7 +88,7 @@ class OrderDetailPanel extends StatelessWidget {
           const SizedBox(height: 32),
           if (order!.status != OrderStatus.completed) ...[
             // Show timer if it's running or paused (for this order or any order)
-            if (hasActiveTimer && elapsedTime != null) ...[
+            if (hasActiveTimer && elapsedTime != null && elapsedTime!.inSeconds > 0) ...[
               TimerDisplay(duration: elapsedTime!),
               if (!isTimerForSelectedOrder) ...[
                 const SizedBox(height: 8),
@@ -168,7 +166,7 @@ class OrderDetailPanel extends StatelessWidget {
                 ),
               ],
             ] else ...[
-              // No active timer - show Start Timer button
+              // No active timer - show Start Timer button (if order hasn't been completed)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
@@ -190,12 +188,26 @@ class OrderDetailPanel extends StatelessWidget {
               ),
             ],
           ] else ...[
-            const Center(
-              child: Text(
-                'This order is completed',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+            // Completed order - show total elapsed time if available
+            if (elapsedTime != null) ...[
+              const Text(
+                'Total Time:',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
+              const SizedBox(height: 8),
+              TimerDisplay(duration: elapsedTime!),
+            ] else ...[
+              const Center(
+                child: Text(
+                  'This order is completed',
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              ),
+            ],
           ],
         ],
       ),

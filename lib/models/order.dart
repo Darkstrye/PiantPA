@@ -1,12 +1,9 @@
 enum OrderStatus {
-  pending,
   inProgress,
   completed;
 
   String get displayName {
     switch (this) {
-      case OrderStatus.pending:
-        return 'Pending';
       case OrderStatus.inProgress:
         return 'In Progress';
       case OrderStatus.completed:
@@ -16,14 +13,12 @@ enum OrderStatus {
 
   static OrderStatus fromString(String status) {
     switch (status.toLowerCase()) {
-      case 'pending':
-        return OrderStatus.pending;
       case 'in progress':
         return OrderStatus.inProgress;
       case 'completed':
         return OrderStatus.completed;
       default:
-        return OrderStatus.pending;
+        return OrderStatus.inProgress;
     }
   }
 }
@@ -67,7 +62,7 @@ class Order {
       orderId: json['OrderId'] ?? '',
       orderNumber: json['OrderNumber'] ?? '',
       machine: json['Machine'] ?? '',
-      status: OrderStatus.fromString(json['Status'] ?? 'Pending'),
+      status: OrderStatus.fromString(json['Status'] ?? 'In Progress'),
       createdOn: json['CreatedOn'] != null
           ? DateTime.parse(json['CreatedOn'])
           : DateTime.now(),

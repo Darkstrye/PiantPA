@@ -175,6 +175,24 @@ class ExcelRepository implements RepositoryInterface {
   @override
   Future<Order> createOrder(Order order) async {
     final all = await getAllOrders();
+    
+    // Check if order number already exists
+    final existingOrder = all.firstWhere(
+      (item) => item.orderNumber == order.orderNumber,
+      orElse: () => Order(
+        orderId: '',
+        orderNumber: '',
+        machine: '',
+        status: OrderStatus.inProgress,
+        createdOn: DateTime.now(),
+        modifiedOn: DateTime.now(),
+      ),
+    );
+    
+    if (existingOrder.orderNumber.isNotEmpty && existingOrder.orderId != order.orderId) {
+      throw Exception('Order number "${order.orderNumber}" already exists. Each order number must be unique.');
+    }
+    
     final newOrder = order.copyWith(
       orderId: order.orderId.isEmpty ? _uuid.v4() : order.orderId,
       createdOn: DateTime.now(),
@@ -192,6 +210,23 @@ class ExcelRepository implements RepositoryInterface {
     final index = all.indexWhere((item) => item.orderId == order.orderId);
     
     if (index != -1) {
+      // Check if the new order number conflicts with another order
+      final existingOrderWithSameNumber = all.firstWhere(
+        (item) => item.orderNumber == order.orderNumber && item.orderId != order.orderId,
+        orElse: () => Order(
+          orderId: '',
+          orderNumber: '',
+          machine: '',
+          status: OrderStatus.inProgress,
+          createdOn: DateTime.now(),
+          modifiedOn: DateTime.now(),
+        ),
+      );
+      
+      if (existingOrderWithSameNumber.orderNumber.isNotEmpty) {
+        throw Exception('Order number "${order.orderNumber}" already exists for another order. Each order number must be unique.');
+      }
+      
       all[index] = order.copyWith(modifiedOn: DateTime.now());
       await _saveOrders(all);
       return all[index];
@@ -301,9 +336,10 @@ class ExcelRepository implements RepositoryInterface {
     final index = all.indexWhere((item) => item.hourRegistrationId == registration.hourRegistrationId);
     
     if (index != -1) {
+      final computedElapsed = registration.elapsedTime ?? registration.calculateElapsedTime();
       final updated = registration.copyWith(
         modifiedOn: DateTime.now(),
-        elapsedTime: registration.calculateElapsedTime(),
+        elapsedTime: computedElapsed,
       );
       all[index] = updated;
       await _saveHourRegistrations(all);
