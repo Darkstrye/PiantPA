@@ -7,7 +7,9 @@ class HourRegistration {
   final double? elapsedTime;
   final bool isActive;
   final bool isPaused;
-  final double? pausedElapsedTime; // Accumulated time when paused
+  final double? pausedElapsedTime; // Accumulated productive time when paused
+  final double? downtimeElapsedTime; // Accumulated downtime while paused
+  final DateTime? downtimeStartTime; // When downtime tracking started
   final DateTime createdOn;
   final DateTime modifiedOn;
 
@@ -21,6 +23,8 @@ class HourRegistration {
     required this.isActive,
     this.isPaused = false,
     this.pausedElapsedTime,
+    this.downtimeElapsedTime,
+    this.downtimeStartTime,
     required this.createdOn,
     required this.modifiedOn,
   });
@@ -36,6 +40,8 @@ class HourRegistration {
       'IsActive': isActive ? 1 : 0,
       'IsPaused': isPaused ? 1 : 0,
       'PausedElapsedTime': pausedElapsedTime ?? 0.0,
+      'DowntimeElapsedTime': downtimeElapsedTime ?? 0.0,
+      'DowntimeStartTime': downtimeStartTime?.toIso8601String() ?? '',
       'CreatedOn': createdOn.toIso8601String(),
       'ModifiedOn': modifiedOn.toIso8601String(),
     };
@@ -75,6 +81,15 @@ class HourRegistration {
               ? json['PausedElapsedTime']
               : double.tryParse(json['PausedElapsedTime'].toString()))
           : null,
+      downtimeElapsedTime: json['DowntimeElapsedTime'] != null
+          ? (json['DowntimeElapsedTime'] is double
+              ? json['DowntimeElapsedTime']
+              : double.tryParse(json['DowntimeElapsedTime'].toString()))
+          : null,
+      downtimeStartTime: json['DowntimeStartTime'] != null &&
+              json['DowntimeStartTime'].toString().isNotEmpty
+          ? DateTime.parse(json['DowntimeStartTime'].toString())
+          : null,
       createdOn: json['CreatedOn'] != null
           ? DateTime.parse(json['CreatedOn'].toString())
           : DateTime.now(),
@@ -94,6 +109,8 @@ class HourRegistration {
     bool? isActive,
     bool? isPaused,
     double? pausedElapsedTime,
+    double? downtimeElapsedTime,
+    DateTime? downtimeStartTime,
     DateTime? createdOn,
     DateTime? modifiedOn,
   }) {
@@ -107,6 +124,8 @@ class HourRegistration {
       isActive: isActive ?? this.isActive,
       isPaused: isPaused ?? this.isPaused,
       pausedElapsedTime: pausedElapsedTime ?? this.pausedElapsedTime,
+      downtimeElapsedTime: downtimeElapsedTime ?? this.downtimeElapsedTime,
+      downtimeStartTime: downtimeStartTime ?? this.downtimeStartTime,
       createdOn: createdOn ?? this.createdOn,
       modifiedOn: modifiedOn ?? this.modifiedOn,
     );
@@ -124,6 +143,16 @@ class HourRegistration {
     final baseTime = pausedElapsedTime ?? 0.0;
     final currentRunning = DateTime.now().difference(startTime).inSeconds / 3600.0;
     return baseTime + currentRunning;
+  }
+
+  double calculateDowntime() {
+    final baseDowntime = downtimeElapsedTime ?? 0.0;
+    if (isPaused && downtimeStartTime != null) {
+      final currentDowntime =
+          DateTime.now().difference(downtimeStartTime!).inSeconds / 3600.0;
+      return baseDowntime + currentDowntime;
+    }
+    return baseDowntime;
   }
 }
 

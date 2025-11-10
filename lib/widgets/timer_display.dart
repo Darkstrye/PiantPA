@@ -1,11 +1,16 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class TimerDisplay extends StatelessWidget {
   final Duration duration;
+  final String title;
+  final Color? accentColor;
 
   const TimerDisplay({
     super.key,
     required this.duration,
+    this.title = 'Elapsed Time',
+    this.accentColor,
   });
 
   String _formatDuration(Duration duration) {
@@ -17,20 +22,26 @@ class TimerDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color titleColor = accentColor ?? Colors.blue.shade900;
+    final Color backgroundColor =
+        accentColor != null ? accentColor!.withOpacity(0.1) : Colors.blue.shade50;
+    final Color borderColor =
+        accentColor != null ? accentColor!.withOpacity(0.3) : Colors.blue.shade200;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue.shade200, width: 2),
+        border: Border.all(color: borderColor, width: 2),
       ),
       child: Column(
         children: [
-          const Text(
-            'Elapsed Time',
+          Text(
+            title,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.grey,
+              color: Colors.grey.shade700,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -40,7 +51,7 @@ class TimerDisplay extends StatelessWidget {
             style: TextStyle(
               fontSize: 36,
               fontWeight: FontWeight.bold,
-              color: Colors.blue.shade900,
+              color: titleColor,
               fontFeatures: [const FontFeature.tabularFigures()],
             ),
           ),

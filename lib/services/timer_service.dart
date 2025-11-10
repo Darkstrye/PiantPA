@@ -6,22 +6,28 @@ import '../repositories/repository_interface.dart';
 class TimerService {
   final RepositoryInterface repository;
   Timer? _timer;
+  Timer? _downtimeTimer;
   HourRegistration? _activeRegistration;
   DateTime? _startTime;
   double _accumulatedElapsedTime = 0.0; // Total elapsed time including pauses
+  double _accumulatedDowntime = 0.0; // Total downtime recorded during pauses
   DateTime? _pauseStartTime; // When the timer was paused
   final StreamController<Duration> _elapsedTimeController = StreamController<Duration>.broadcast();
+  final StreamController<Duration> _downtimeController = StreamController<Duration>.broadcast();
   Duration? _lastCalculatedDuration; // Store last calculated duration to avoid recalculation issues
+  Duration? _lastDowntimeDuration;
 
   TimerService(this.repository);
 
   Stream<Duration> get elapsedTimeStream => _elapsedTimeController.stream;
+  Stream<Duration> get downtimeStream => _downtimeController.stream;
 
   bool get isTimerRunning => _activeRegistration != null && _activeRegistration!.isActive && !_activeRegistration!.isPaused;
 
   bool get isTimerPaused => _activeRegistration != null && _activeRegistration!.isActive && _activeRegistration!.isPaused;
 
   HourRegistration? get activeRegistration => _activeRegistration;
+  Duration? get currentDowntime => _lastDowntimeDuration;
 
   Future<bool> startTimer(String orderId, String userId) async {
     try {
@@ -55,6 +61,7 @@ class TimerService {
       if (existingActive != null && existingActive.isPaused && existingActive.orderId == orderId) {
         _activeRegistration = existingActive;
         _accumulatedElapsedTime = existingActive.pausedElapsedTime ?? 0.0;
+        _accumulatedDowntime = existingActive.downtimeElapsedTime ?? 0.0;
         // Don't set _startTime here - we'll set it right before sending initial value
       } else if (existingActive == null || existingActive.orderId != orderId) {
         // Check if there's already an active registration for this order (shouldn't happen, but check anyway)
@@ -64,6 +71,7 @@ class TimerService {
           _activeRegistration = activeForThisOrder.first;
           if (_activeRegistration!.isPaused) {
             _accumulatedElapsedTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
+            _accumulatedDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
             // Don't set _startTime here - we'll set it right before sending initial value
           } else {
             // Timer already running
@@ -78,11 +86,14 @@ class TimerService {
             startTime: now,
             isActive: true,
             isPaused: false,
+            pausedElapsedTime: 0.0,
+            downtimeElapsedTime: 0.0,
             createdOn: now,
             modifiedOn: now,
           );
           _activeRegistration = await repository.createHourRegistration(_activeRegistration!);
           _accumulatedElapsedTime = 0.0;
+          _accumulatedDowntime = 0.0;
           // Don't set _startTime here - we'll set it right before sending initial value
         }
       } else {
@@ -91,11 +102,23 @@ class TimerService {
       }
 
       // Update to unpaused state (keep pausedElapsedTime as accumulated base)
-      _activeRegistration = _activeRegistration!.copyWith(
+      double totalDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
+      if (_activeRegistration!.downtimeStartTime != null) {
+        final resumedDowntime = now.difference(_activeRegistration!.downtimeStartTime!).inSeconds / 3600.0;
+        totalDowntime += resumedDowntime;
+      }
+      _accumulatedDowntime = totalDowntime;
+      _pauseStartTime = null;
+
+      final updatedRegistration = _activeRegistration!.copyWith(
         isPaused: false,
         modifiedOn: now,
+        downtimeElapsedTime: totalDowntime,
+        downtimeStartTime: null,
       );
-      await repository.updateHourRegistration(_activeRegistration!);
+      _activeRegistration = await repository.updateHourRegistration(updatedRegistration);
+      _emitDowntime(Duration(seconds: (_accumulatedDowntime * 3600).toInt()));
+      _stopDowntimeTimer();
 
       // Get base time before starting timer
       final baseTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
@@ -169,13 +192,18 @@ class TimerService {
       _accumulatedElapsedTime = totalElapsed;
 
       final now = DateTime.now();
-      _activeRegistration = _activeRegistration!.copyWith(
+      final baseDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
+      _accumulatedDowntime = baseDowntime;
+
+      final updatedRegistration = _activeRegistration!.copyWith(
         isPaused: true,
         pausedElapsedTime: _accumulatedElapsedTime,
+        downtimeElapsedTime: baseDowntime,
+        downtimeStartTime: now,
         modifiedOn: now,
       );
 
-      await repository.updateHourRegistration(_activeRegistration!);
+      _activeRegistration = await repository.updateHourRegistration(updatedRegistration);
       
       // Send final elapsed time
       final duration = Duration(seconds: (_accumulatedElapsedTime * 3600).toInt());
@@ -183,6 +211,7 @@ class TimerService {
       _elapsedTimeController.add(duration);
 
       _pauseStartTime = now;
+      _startDowntimeTimer();
 
       return true;
     } catch (e) {
@@ -240,11 +269,22 @@ class TimerService {
       
       print('FinishTimer: Final elapsed time: ${finalElapsed.toStringAsFixed(4)} hours (${(finalElapsed * 3600).toStringAsFixed(0)} seconds)');
 
+      double finalDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
+      if (_activeRegistration!.downtimeStartTime != null) {
+        final downtimeSincePause = endTime.difference(_activeRegistration!.downtimeStartTime!).inSeconds / 3600.0;
+        finalDowntime += downtimeSincePause;
+      }
+      _emitDowntime(Duration(seconds: (finalDowntime * 3600).toInt()));
+      _stopDowntimeTimer();
+
       _activeRegistration = _activeRegistration!.copyWith(
         endTime: endTime,
         elapsedTime: finalElapsed,
         isActive: false,
         isPaused: false,
+        pausedElapsedTime: finalElapsed,
+        downtimeElapsedTime: finalDowntime,
+        downtimeStartTime: null,
         modifiedOn: endTime,
       );
 
@@ -256,8 +296,10 @@ class TimerService {
       _activeRegistration = null;
       _startTime = null;
       _accumulatedElapsedTime = 0.0;
+      _accumulatedDowntime = 0.0;
       _pauseStartTime = null;
       _lastCalculatedDuration = null; // Clear stored duration
+      _lastDowntimeDuration = null;
 
       return true;
     } catch (e) {
@@ -277,6 +319,12 @@ class TimerService {
           _startTime = null;
           final duration = Duration(seconds: (_accumulatedElapsedTime * 3600).toInt());
           _elapsedTimeController.add(duration);
+          _accumulatedDowntime = active.downtimeElapsedTime ?? 0.0;
+          final downtimeDuration = Duration(seconds: (_accumulatedDowntime * 3600).toInt());
+          _emitDowntime(downtimeDuration);
+          if (active.downtimeStartTime != null) {
+            _startDowntimeTimer();
+          }
         } else {
           // Timer is running - calculate from original start time
           // If there's paused elapsed time, use it as base, otherwise calculate from start
@@ -284,10 +332,18 @@ class TimerService {
             // Timer was paused and resumed - use paused time as base
             _accumulatedElapsedTime = active.pausedElapsedTime!;
             _startTime = DateTime.now(); // Reset for current session
+            _accumulatedDowntime = active.downtimeElapsedTime ?? 0.0;
+            final downtimeDuration = Duration(seconds: (_accumulatedDowntime * 3600).toInt());
+            _emitDowntime(downtimeDuration);
           } else {
             // Timer was never paused - calculate from original start
             _accumulatedElapsedTime = DateTime.now().difference(active.startTime).inSeconds / 3600.0;
             _startTime = active.startTime;
+            _accumulatedDowntime = active.downtimeElapsedTime ?? 0.0;
+            if (_accumulatedDowntime > 0) {
+              final downtimeDuration = Duration(seconds: (_accumulatedDowntime * 3600).toInt());
+              _emitDowntime(downtimeDuration);
+            }
           }
           
           // Start timer updates
@@ -316,7 +372,9 @@ class TimerService {
 
   void dispose() {
     _timer?.cancel();
+    _downtimeTimer?.cancel();
     _elapsedTimeController.close();
+    _downtimeController.close();
   }
 
   String formatDuration(Duration duration) {
@@ -365,6 +423,59 @@ class TimerService {
     } catch (e) {
       return Duration.zero;
     }
+  }
+  Future<Duration> getTotalDowntimeForOrder(String orderId) async {
+    try {
+      final registrations = await repository.getHourRegistrationsByOrderId(orderId);
+      double totalDowntime = 0.0;
+
+      for (var reg in registrations) {
+        if (reg.isActive && reg.isPaused) {
+          final base = reg.downtimeElapsedTime ?? 0.0;
+          double current = 0.0;
+          if (reg.downtimeStartTime != null) {
+            current = DateTime.now().difference(reg.downtimeStartTime!).inSeconds / 3600.0;
+          }
+          totalDowntime += base + current;
+        } else if (!reg.isActive) {
+          totalDowntime += reg.downtimeElapsedTime ?? 0.0;
+        } else {
+          totalDowntime += reg.downtimeElapsedTime ?? 0.0;
+        }
+      }
+
+      return Duration(seconds: (totalDowntime * 3600).toInt());
+    } catch (e) {
+      return Duration.zero;
+    }
+  }
+
+  void _emitDowntime(Duration duration) {
+    _lastDowntimeDuration = duration;
+    _downtimeController.add(duration);
+  }
+
+  void _startDowntimeTimer() {
+    _downtimeTimer?.cancel();
+    _emitDowntime(Duration(seconds: ((_activeRegistration?.downtimeElapsedTime ?? 0.0) * 3600).toInt()));
+
+    _downtimeTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_activeRegistration == null ||
+          !_activeRegistration!.isPaused ||
+          _activeRegistration!.downtimeStartTime == null) {
+        return;
+      }
+
+      final base = _activeRegistration!.downtimeElapsedTime ?? 0.0;
+      final current = DateTime.now().difference(_activeRegistration!.downtimeStartTime!).inSeconds / 3600.0;
+      final total = base + current;
+      _emitDowntime(Duration(seconds: (total * 3600).toInt()));
+    });
+  }
+
+  void _stopDowntimeTimer() {
+    _downtimeTimer?.cancel();
+    _downtimeTimer = null;
   }
 }
 

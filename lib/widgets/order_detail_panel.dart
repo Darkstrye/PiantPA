@@ -9,6 +9,7 @@ class OrderDetailPanel extends StatelessWidget {
   final bool hasActiveTimer;
   final bool isTimerForSelectedOrder;
   final Duration? elapsedTime;
+  final Duration? downtime;
   final VoidCallback? onStartTimer;
   final VoidCallback? onPauseTimer;
   final VoidCallback? onFinishOrder;
@@ -21,6 +22,7 @@ class OrderDetailPanel extends StatelessWidget {
     this.hasActiveTimer = false,
     this.isTimerForSelectedOrder = false,
     this.elapsedTime,
+    this.downtime,
     this.onStartTimer,
     this.onPauseTimer,
     this.onFinishOrder,
@@ -88,8 +90,16 @@ class OrderDetailPanel extends StatelessWidget {
           const SizedBox(height: 32),
           if (order!.status != OrderStatus.completed) ...[
             // Show timer if it's running or paused (for this order or any order)
-            if (hasActiveTimer && elapsedTime != null && elapsedTime!.inSeconds > 0) ...[
+            if (hasActiveTimer && elapsedTime != null) ...[
               TimerDisplay(duration: elapsedTime!),
+              if (isTimerForSelectedOrder && downtime != null) ...[
+                const SizedBox(height: 12),
+                TimerDisplay(
+                  duration: downtime!,
+                  title: 'Downtime',
+                  accentColor: Colors.orange.shade700,
+                ),
+              ],
               if (!isTimerForSelectedOrder) ...[
                 const SizedBox(height: 8),
                 Container(
@@ -200,6 +210,23 @@ class OrderDetailPanel extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TimerDisplay(duration: elapsedTime!),
+              if (downtime != null) ...[
+                const SizedBox(height: 16),
+                const Text(
+                  'Total Downtime:',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TimerDisplay(
+                  duration: downtime!,
+                  title: 'Downtime',
+                  accentColor: Colors.orange.shade700,
+                ),
+              ],
             ] else ...[
               const Center(
                 child: Text(

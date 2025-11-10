@@ -29,6 +29,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
   Order? _selectedOrder;
   bool _isLoading = true;
   Duration? _elapsedTime;
+  Duration? _downtime;
 
   @override
   void initState() {
@@ -90,22 +91,25 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
       _selectedOrder = order;
     });
     
-    // Load elapsed time for this completed order
-    await _loadElapsedTimeForOrder(order.orderId);
+    // Load time metrics for this completed order
+    await _loadDurationsForOrder(order.orderId);
   }
 
-  Future<void> _loadElapsedTimeForOrder(String orderId) async {
+  Future<void> _loadDurationsForOrder(String orderId) async {
     try {
       final totalElapsed = await _timerService.getTotalElapsedTimeForOrder(orderId);
+      final totalDowntime = await _timerService.getTotalDowntimeForOrder(orderId);
       if (mounted) {
         setState(() {
           _elapsedTime = totalElapsed;
+          _downtime = totalDowntime;
         });
       }
     } catch (e) {
       if (mounted) {
         setState(() {
           _elapsedTime = null;
+          _downtime = null;
         });
       }
     }
@@ -372,6 +376,23 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 TimerDisplay(duration: _elapsedTime!),
+                                if (_downtime != null) ...[
+                                  const SizedBox(height: 16),
+                                  const Text(
+                                    'Total Downtime:',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  TimerDisplay(
+                                    duration: _downtime!,
+                                    title: 'Downtime',
+                                    accentColor: Colors.orange.shade700,
+                                  ),
+                                ],
                               ] else ...[
                                 const Center(
                                   child: Text(

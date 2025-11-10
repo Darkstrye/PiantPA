@@ -30,7 +30,9 @@ class _MainScreenState extends State<MainScreen> {
   Order? _selectedOrder;
   bool _isLoading = true;
   Duration? _elapsedTime;
+  Duration? _downtime;
   StreamSubscription<Duration>? _timerSubscription;
+  StreamSubscription<Duration>? _downtimeSubscription;
 
   @override
   void initState() {
@@ -93,29 +95,42 @@ class _MainScreenState extends State<MainScreen> {
     if (userId != null) {
       await _timerService.loadActiveTimer(userId);
       
-      // Subscribe to timer updates
-      _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
-        if (mounted) {
-          setState(() {
-            _elapsedTime = duration;
-          });
-        }
-      });
+      _subscribeToTimerStreams();
 
       // Check if timer is running for current selected order
       final activeReg = _timerService.activeRegistration;
       if (activeReg != null && _selectedOrder?.orderId == activeReg.orderId) {
         // Subscribe to timer updates instead of calculating directly
         // This ensures we get the correct value from the timer service
-        _timerSubscription?.cancel();
-        _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
-          if (mounted) {
-            setState(() {
-              _elapsedTime = duration;
-            });
-          }
+        _subscribeToTimerStreams();
+      }
+    }
+  }
+
+  void _subscribeToTimerStreams() {
+    _timerSubscription?.cancel();
+    _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
+      if (mounted) {
+        setState(() {
+          _elapsedTime = duration;
         });
       }
+    });
+
+    _downtimeSubscription?.cancel();
+    _downtimeSubscription = _timerService.downtimeStream.listen((duration) {
+      if (mounted) {
+        setState(() {
+          _downtime = duration;
+        });
+      }
+    });
+
+    final downtimeSnapshot = _timerService.currentDowntime;
+    if (mounted && downtimeSnapshot != null) {
+      setState(() {
+        _downtime = downtimeSnapshot;
+      });
     }
   }
 
@@ -130,14 +145,7 @@ class _MainScreenState extends State<MainScreen> {
     if (success) {
       // Subscribe to timer updates FIRST, before any other operations
       // This ensures we get the correct initial value from the timer service
-      _timerSubscription?.cancel();
-      _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
-        if (mounted) {
-          setState(() {
-            _elapsedTime = duration;
-          });
-        }
-      });
+      _subscribeToTimerStreams();
 
       // Update order status to In Progress
       final updatedOrder = _selectedOrder!.copyWith(
@@ -188,6 +196,7 @@ class _MainScreenState extends State<MainScreen> {
         final duration = Duration(seconds: (activeReg.pausedElapsedTime! * 3600).toInt());
         setState(() {
           _elapsedTime = duration;
+          _downtime = Duration(seconds: ((activeReg.downtimeElapsedTime ?? 0.0) * 3600).toInt());
         });
       }
       
@@ -198,7 +207,7 @@ class _MainScreenState extends State<MainScreen> {
       
       // Reload elapsed time for the selected order
       if (_selectedOrder != null) {
-        await _loadElapsedTimeForOrder(_selectedOrder!.orderId);
+        await _loadDurationsForOrder(_selectedOrder!.orderId);
       }
       
       if (mounted) {
@@ -228,6 +237,8 @@ class _MainScreenState extends State<MainScreen> {
     if (success) {
       _timerSubscription?.cancel();
       _timerSubscription = null;
+      _downtimeSubscription?.cancel();
+      _downtimeSubscription = null;
       
       // Mark order as completed
       final updatedOrder = _selectedOrder!.copyWith(
@@ -243,7 +254,7 @@ class _MainScreenState extends State<MainScreen> {
       
       // Reload elapsed time for the selected order
       if (_selectedOrder != null) {
-        await _loadElapsedTimeForOrder(_selectedOrder!.orderId);
+        await _loadDurationsForOrder(_selectedOrder!.orderId);
       }
       
       if (mounted) {
@@ -269,34 +280,32 @@ class _MainScreenState extends State<MainScreen> {
     final activeReg = _timerService.activeRegistration;
     if (activeReg != null && activeReg.isActive && activeReg.orderId == order.orderId) {
       // Active timer for this order - subscribe to live updates
-      _timerSubscription?.cancel();
-      _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
-        if (mounted) {
-          setState(() {
-            _elapsedTime = duration;
-          });
-        }
-      });
+      _subscribeToTimerStreams();
     } else {
       // No active timer for this order - load total elapsed time from all registrations
-      await _loadElapsedTimeForOrder(order.orderId);
+      await _loadDurationsForOrder(order.orderId);
       _timerSubscription?.cancel();
       _timerSubscription = null;
+      _downtimeSubscription?.cancel();
+      _downtimeSubscription = null;
     }
   }
 
-  Future<void> _loadElapsedTimeForOrder(String orderId) async {
+  Future<void> _loadDurationsForOrder(String orderId) async {
     try {
       final totalElapsed = await _timerService.getTotalElapsedTimeForOrder(orderId);
+      final totalDowntime = await _timerService.getTotalDowntimeForOrder(orderId);
       if (mounted) {
         setState(() {
           _elapsedTime = totalElapsed;
+          _downtime = totalDowntime;
         });
       }
     } catch (e) {
       if (mounted) {
         setState(() {
           _elapsedTime = null;
+          _downtime = null;
         });
       }
     }
@@ -305,6 +314,7 @@ class _MainScreenState extends State<MainScreen> {
   void _handleLogout() {
     _timerService.dispose();
     _timerSubscription?.cancel();
+    _downtimeSubscription?.cancel();
     widget.authService.logout();
     Navigator.of(context).pushReplacementNamed('/login');
   }
@@ -312,6 +322,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void dispose() {
     _timerSubscription?.cancel();
+    _downtimeSubscription?.cancel();
     _timerService.dispose();
     super.dispose();
   }
@@ -524,6 +535,7 @@ class _MainScreenState extends State<MainScreen> {
                     hasActiveTimer: hasActiveTimer,
                     isTimerForSelectedOrder: isTimerForSelectedOrder,
                     elapsedTime: _elapsedTime,
+                    downtime: _downtime,
                     onStartTimer: _startTimer,
                     onPauseTimer: _pauseTimer,
                     onFinishOrder: _finishOrder,
