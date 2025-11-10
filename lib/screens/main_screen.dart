@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/order.dart';
+import '../models/hour_registration_order.dart';
 import '../repositories/repository_interface.dart';
 import '../repositories/excel_repository.dart';
 import '../services/auth_service.dart';
@@ -31,6 +32,8 @@ class _MainScreenState extends State<MainScreen> {
   bool _isLoading = true;
   Duration? _elapsedTime;
   Duration? _downtime;
+  List<HourRegistrationOrder> _activeOrderLinks = [];
+  final Set<String> _selectedOrdersForSession = {};
   StreamSubscription<Duration>? _timerSubscription;
   StreamSubscription<Duration>? _downtimeSubscription;
 
@@ -76,6 +79,9 @@ class _MainScreenState extends State<MainScreen> {
           );
           _selectedOrder = updated;
         }
+        _selectedOrdersForSession.retainWhere(
+          (id) => finalOrders.any((order) => order.orderId == id),
+        );
         _isLoading = false;
       });
     } catch (e) {
@@ -94,12 +100,19 @@ class _MainScreenState extends State<MainScreen> {
     final userId = widget.authService.getCurrentUserId();
     if (userId != null) {
       await _timerService.loadActiveTimer(userId);
-      
+
+      setState(() {
+        _activeOrderLinks = List.of(_timerService.activeOrderLinks);
+      });
+
       _subscribeToTimerStreams();
 
       // Check if timer is running for current selected order
       final activeReg = _timerService.activeRegistration;
-      if (activeReg != null && _selectedOrder?.orderId == activeReg.orderId) {
+      final activeOrderIds = _timerService.activeOrderIds;
+      if (activeReg != null &&
+          _selectedOrder != null &&
+          activeOrderIds.contains(_selectedOrder!.orderId)) {
         // Subscribe to timer updates instead of calculating directly
         // This ensures we get the correct value from the timer service
         _subscribeToTimerStreams();
@@ -107,81 +120,147 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  void _handleElapsedUpdate(Duration duration) {
+    setState(() {
+      final previous = _elapsedTime;
+      final isPaused = _timerService.isTimerPaused;
+      if (!isPaused && previous != null && duration < previous) {
+        print(
+            '[MainScreen] elapsedTimeStream -> ignored regressive update ${duration.inSeconds}s (previous ${previous.inSeconds}s)');
+        return;
+      }
+      _elapsedTime = duration;
+      _activeOrderLinks = List.of(_timerService.activeOrderLinks);
+    });
+  }
+
+  void _handleDowntimeUpdate(Duration duration) {
+    setState(() {
+      final previous = _downtime;
+      final isPaused = _timerService.isTimerPaused;
+      if (!isPaused && previous != null && duration < previous) {
+        print(
+            '[MainScreen] downtimeStream -> ignored regressive update ${duration.inSeconds}s (previous ${previous.inSeconds}s)');
+        return;
+      }
+      _downtime = duration;
+      _activeOrderLinks = List.of(_timerService.activeOrderLinks);
+    });
+  }
+
   void _subscribeToTimerStreams() {
     _timerSubscription?.cancel();
     _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
       if (mounted) {
-        setState(() {
-          _elapsedTime = duration;
-        });
+        print('[MainScreen] elapsedTimeStream -> received ${duration.inSeconds}s');
+        _handleElapsedUpdate(duration);
       }
     });
 
     _downtimeSubscription?.cancel();
     _downtimeSubscription = _timerService.downtimeStream.listen((duration) {
       if (mounted) {
-        setState(() {
-          _downtime = duration;
-        });
+        print('[MainScreen] downtimeStream -> received ${duration.inSeconds}s');
+        _handleDowntimeUpdate(duration);
       }
     });
 
     final downtimeSnapshot = _timerService.currentDowntime;
     if (mounted && downtimeSnapshot != null) {
-      setState(() {
-        _downtime = downtimeSnapshot;
-      });
+      _handleDowntimeUpdate(downtimeSnapshot);
     }
   }
 
   Future<void> _startTimer() async {
-    if (_selectedOrder == null) return;
-
     final userId = widget.authService.getCurrentUserId();
     if (userId == null) return;
 
-    final success = await _timerService.startTimer(_selectedOrder!.orderId, userId);
-    
-    if (success) {
-      // Subscribe to timer updates FIRST, before any other operations
-      // This ensures we get the correct initial value from the timer service
-      _subscribeToTimerStreams();
+    final activeReg = _timerService.activeRegistration;
+    if (activeReg != null &&
+        activeReg.isActive &&
+        _timerService.isTimerPaused) {
+      final resumed = await _timerService.resumeTimer();
+      if (resumed) {
+        _subscribeToTimerStreams();
+        setState(() {
+          print('[MainScreen] resumeTimer -> keeping existing timers');
+          _activeOrderLinks = List.of(_timerService.activeOrderLinks);
+        });
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Timer resumed')),
+          );
+        }
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Kon de timer niet hervatten. Probeer opnieuw.'),
+          ),
+        );
+      }
+      return;
+    }
 
-      // Update order status to In Progress
-      final updatedOrder = _selectedOrder!.copyWith(
-        status: OrderStatus.inProgress,
-      );
-      await _repository.updateOrder(updatedOrder);
-      
-      setState(() {
-        _selectedOrder = updatedOrder;
-      });
-      
-      await _loadData(); // Refresh list
-      
-      // Don't reload elapsed time here - the stream will provide the correct value
-      // Loading from database could overwrite the correct stream value
-      
+    Set<String> selectedOrderIds;
+    if (_selectedOrdersForSession.isNotEmpty) {
+      selectedOrderIds = _selectedOrdersForSession.toSet();
+    } else if (_selectedOrder != null) {
+      selectedOrderIds = {_selectedOrder!.orderId};
+    } else {
+      selectedOrderIds = {};
+    }
+
+    if (selectedOrderIds.isEmpty) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Timer started')),
+          const SnackBar(
+            content: Text('Select at least één order om de timer te starten.'),
+          ),
+        );
+      }
+      return;
+    }
+
+    final success = await _timerService.startTimerForOrders(
+      selectedOrderIds.toList(),
+      userId,
+    );
+
+    if (success) {
+      _subscribeToTimerStreams();
+
+      for (final order in _orders) {
+        if (selectedOrderIds.contains(order.orderId)) {
+          final updatedOrder = order.copyWith(status: OrderStatus.inProgress);
+          await _repository.updateOrder(updatedOrder);
+        }
+      }
+
+      setState(() {
+        if (_selectedOrder != null &&
+            selectedOrderIds.contains(_selectedOrder!.orderId)) {
+          _selectedOrder = _selectedOrder!.copyWith(
+            status: OrderStatus.inProgress,
+          );
+        }
+        _selectedOrdersForSession.clear();
+        _activeOrderLinks = List.of(_timerService.activeOrderLinks);
+      });
+
+      await _loadData();
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Timer gestart voor geselecteerde orders.')),
         );
       }
     } else {
       if (mounted) {
-        // Check why it failed
-        final allRegistrations = await _repository.getHourRegistrationsByOrderId(_selectedOrder!.orderId);
-        final hasCompleted = allRegistrations.any((reg) => !reg.isActive && reg.elapsedTime != null && reg.elapsedTime! > 0);
-        
-        if (hasCompleted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('This order has already been completed. You can only start an order once.')),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Cannot start timer. You may already have an active timer.')),
-          );
-        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Timer kon niet worden gestart. Controleer of er al een sessie actief is.'),
+          ),
+        );
       }
     }
   }
@@ -197,6 +276,7 @@ class _MainScreenState extends State<MainScreen> {
         setState(() {
           _elapsedTime = duration;
           _downtime = Duration(seconds: ((activeReg.downtimeElapsedTime ?? 0.0) * 3600).toInt());
+          _activeOrderLinks = List.of(_timerService.activeOrderLinks);
         });
       }
       
@@ -223,7 +303,9 @@ class _MainScreenState extends State<MainScreen> {
 
     // Check if there's an active timer for this order
     final activeReg = _timerService.activeRegistration;
-    if (activeReg == null || activeReg.orderId != _selectedOrder!.orderId) {
+    final activeOrderIds = _timerService.activeOrderIds;
+    if (activeReg == null ||
+        !activeOrderIds.contains(_selectedOrder!.orderId)) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('No active timer found for this order.')),
@@ -232,6 +314,7 @@ class _MainScreenState extends State<MainScreen> {
       return;
     }
 
+    final currentActiveOrderIds = Set<String>.from(activeOrderIds);
     final success = await _timerService.finishTimer();
     
     if (success) {
@@ -239,16 +322,21 @@ class _MainScreenState extends State<MainScreen> {
       _timerSubscription = null;
       _downtimeSubscription?.cancel();
       _downtimeSubscription = null;
-      
-      // Mark order as completed
-      final updatedOrder = _selectedOrder!.copyWith(
-        status: OrderStatus.completed,
-      );
-      await _repository.updateOrder(updatedOrder);
-      
       setState(() {
-        _selectedOrder = updatedOrder;
+        _activeOrderLinks = [];
       });
+      for (final order in _orders) {
+        if (currentActiveOrderIds.contains(order.orderId)) {
+          final updatedOrder = order.copyWith(status: OrderStatus.completed);
+          await _repository.updateOrder(updatedOrder);
+          if (_selectedOrder != null &&
+              _selectedOrder!.orderId == updatedOrder.orderId) {
+            setState(() {
+              _selectedOrder = updatedOrder;
+            });
+          }
+        }
+      }
       
       await _loadData();
       
@@ -271,6 +359,59 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  Future<void> _finishSingleOrder(String orderId) async {
+    final success = await _timerService.finishOrder(orderId);
+
+    if (!success) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Kon deze order niet afronden. Probeer opnieuw.'),
+          ),
+        );
+      }
+      return;
+    }
+
+    Order? orderToUpdate;
+    try {
+      orderToUpdate = _orders.firstWhere((order) => order.orderId == orderId);
+    } catch (_) {
+      orderToUpdate = null;
+    }
+
+    if (orderToUpdate != null) {
+      final updatedOrder = orderToUpdate.copyWith(
+        status: OrderStatus.completed,
+      );
+      await _repository.updateOrder(updatedOrder);
+      if (_selectedOrder != null && _selectedOrder!.orderId == orderId) {
+        setState(() {
+          _selectedOrder = updatedOrder;
+        });
+      }
+    }
+
+    setState(() {
+      _activeOrderLinks = List.of(_timerService.activeOrderLinks);
+    });
+
+    await _loadData();
+
+    if (_timerService.activeRegistration == null) {
+      _timerSubscription?.cancel();
+      _timerSubscription = null;
+      _downtimeSubscription?.cancel();
+      _downtimeSubscription = null;
+    }
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Order afgerond.')),
+      );
+    }
+  }
+
   void _selectOrder(Order order) async {
     setState(() {
       _selectedOrder = order;
@@ -278,9 +419,15 @@ class _MainScreenState extends State<MainScreen> {
 
     // Check if there's an active timer for this order
     final activeReg = _timerService.activeRegistration;
-    if (activeReg != null && activeReg.isActive && activeReg.orderId == order.orderId) {
+    final activeOrderIds = _timerService.activeOrderIds;
+    if (activeReg != null &&
+        activeReg.isActive &&
+        activeOrderIds.contains(order.orderId)) {
       // Active timer for this order - subscribe to live updates
       _subscribeToTimerStreams();
+      setState(() {
+        _activeOrderLinks = List.of(_timerService.activeOrderLinks);
+      });
     } else {
       // No active timer for this order - load total elapsed time from all registrations
       await _loadDurationsForOrder(order.orderId);
@@ -292,6 +439,14 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<void> _loadDurationsForOrder(String orderId) async {
+    final activeReg = _timerService.activeRegistration;
+    final activeOrderIds = _timerService.activeOrderIds;
+    if (activeReg != null &&
+        activeReg.isActive &&
+        activeOrderIds.contains(orderId)) {
+      print('[MainScreen] _loadDurationsForOrder -> skipped for active order $orderId');
+      return;
+    }
     try {
       final totalElapsed = await _timerService.getTotalElapsedTimeForOrder(orderId);
       final totalDowntime = await _timerService.getTotalDowntimeForOrder(orderId);
@@ -330,12 +485,16 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final activeReg = _timerService.activeRegistration;
+    final activeOrderIds = _timerService.activeOrderIds;
     final isTimerRunning = _timerService.isTimerRunning;
     final isTimerPaused = _timerService.isTimerPaused;
     final hasActiveTimer = activeReg != null && activeReg.isActive;
-    final isTimerForSelectedOrder = activeReg != null && 
-        _selectedOrder != null &&
-        activeReg.orderId == _selectedOrder!.orderId;
+    final isTimerForSelectedOrder = _selectedOrder != null &&
+        activeOrderIds.contains(_selectedOrder!.orderId);
+    final selectionLocked = hasActiveTimer;
+    final ordersById = {
+      for (final order in _orders) order.orderId: order,
+    };
 
     return Scaffold(
       appBar: AppBar(
@@ -516,6 +675,19 @@ class _MainScreenState extends State<MainScreen> {
                                     return OrderListItem(
                                       order: order,
                                       isSelected: _selectedOrder?.orderId == order.orderId,
+                                      isSessionSelected: _selectedOrdersForSession.contains(order.orderId),
+                                      enableSessionSelection: !selectionLocked,
+                                      onSessionSelectionChanged: selectionLocked
+                                          ? null
+                                          : (value) {
+                                              setState(() {
+                                                if (value ?? false) {
+                                                  _selectedOrdersForSession.add(order.orderId);
+                                                } else {
+                                                  _selectedOrdersForSession.remove(order.orderId);
+                                                }
+                                              });
+                                            },
                                       onTap: () => _selectOrder(order),
                                     );
                                   },
@@ -536,9 +708,28 @@ class _MainScreenState extends State<MainScreen> {
                     isTimerForSelectedOrder: isTimerForSelectedOrder,
                     elapsedTime: _elapsedTime,
                     downtime: _downtime,
+                    ordersById: ordersById,
+                    activeOrderLinks: _activeOrderLinks,
+                    pendingOrderIds: _selectedOrdersForSession,
+                    selectionLocked: selectionLocked,
+                    isSelectedForSession: _selectedOrder != null &&
+                        _selectedOrdersForSession.contains(_selectedOrder!.orderId),
+                    onToggleSessionSelection: (include) {
+                      if (_selectedOrder == null || selectionLocked) {
+                        return;
+                      }
+                      setState(() {
+                        if (include) {
+                          _selectedOrdersForSession.add(_selectedOrder!.orderId);
+                        } else {
+                          _selectedOrdersForSession.remove(_selectedOrder!.orderId);
+                        }
+                      });
+                    },
                     onStartTimer: _startTimer,
                     onPauseTimer: _pauseTimer,
                     onFinishOrder: _finishOrder,
+                    onFinishIndividualOrder: _finishSingleOrder,
                   ),
                 ),
               ],

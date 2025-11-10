@@ -2,6 +2,7 @@ import 'repository_interface.dart';
 import '../models/login_details.dart';
 import '../models/order.dart';
 import '../models/hour_registration.dart';
+import '../models/hour_registration_order.dart';
 
 /// SQL Repository implementation for production
 /// This is a placeholder that will be implemented when switching to SQL backend
@@ -105,6 +106,15 @@ class SqlRepository implements RepositoryInterface {
 
   @override
   Future<bool> deleteHourRegistration(String id) async {
+    throw UnimplementedError('SQL repository not yet implemented');
+  }
+
+  @override
+  Future<({HourRegistration registration, List<HourRegistrationOrder> orderLinks})>
+      createHourRegistrationWithOrders(
+    HourRegistration registration,
+    List<String> orderIds,
+  ) async {
     throw UnimplementedError('SQL repository not yet implemented');
   }
 }

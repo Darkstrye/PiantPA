@@ -1,6 +1,7 @@
 import '../models/login_details.dart';
 import '../models/order.dart';
 import '../models/hour_registration.dart';
+import '../models/hour_registration_order.dart';
 
 abstract class RepositoryInterface {
   // LoginDetails operations
@@ -28,5 +29,26 @@ abstract class RepositoryInterface {
   Future<HourRegistration> createHourRegistration(HourRegistration registration);
   Future<HourRegistration> updateHourRegistration(HourRegistration registration);
   Future<bool> deleteHourRegistration(String id);
+  Future<({HourRegistration registration, List<HourRegistrationOrder> orderLinks})>
+      createHourRegistrationWithOrders(
+    HourRegistration registration,
+    List<String> orderIds,
+  );
+
+  // HourRegistrationOrder operations
+  Future<List<HourRegistrationOrder>> getAllHourRegistrationOrders();
+  Future<List<HourRegistrationOrder>> getHourRegistrationOrdersByRegistrationId(
+      String hourRegistrationId);
+  Future<List<HourRegistrationOrder>> getHourRegistrationOrdersByOrderId(
+      String orderId);
+  Future<HourRegistrationOrder?> getActiveHourRegistrationOrderForUser(
+      String orderId, String userId);
+  Future<HourRegistrationOrder> createHourRegistrationOrder(
+      HourRegistrationOrder registrationOrder);
+  Future<HourRegistrationOrder> updateHourRegistrationOrder(
+      HourRegistrationOrder registrationOrder);
+  Future<bool> deleteHourRegistrationOrder(String id);
+  Future<void> deleteHourRegistrationOrdersByRegistrationId(
+      String hourRegistrationId);
 }
 

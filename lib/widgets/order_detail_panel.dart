@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/order.dart';
+import '../models/hour_registration_order.dart';
 import 'timer_display.dart';
 
 class OrderDetailPanel extends StatelessWidget {
@@ -10,9 +11,16 @@ class OrderDetailPanel extends StatelessWidget {
   final bool isTimerForSelectedOrder;
   final Duration? elapsedTime;
   final Duration? downtime;
+  final List<HourRegistrationOrder> activeOrderLinks;
+  final Set<String> pendingOrderIds;
+  final Map<String, Order>? ordersById;
+  final bool selectionLocked;
+  final bool isSelectedForSession;
   final VoidCallback? onStartTimer;
   final VoidCallback? onPauseTimer;
   final VoidCallback? onFinishOrder;
+  final ValueChanged<bool>? onToggleSessionSelection;
+  final ValueChanged<String>? onFinishIndividualOrder;
 
   const OrderDetailPanel({
     super.key,
@@ -23,9 +31,16 @@ class OrderDetailPanel extends StatelessWidget {
     this.isTimerForSelectedOrder = false,
     this.elapsedTime,
     this.downtime,
+    this.activeOrderLinks = const [],
+    this.pendingOrderIds = const {},
+    this.ordersById,
+    this.selectionLocked = false,
+    this.isSelectedForSession = false,
     this.onStartTimer,
     this.onPauseTimer,
     this.onFinishOrder,
+    this.onToggleSessionSelection,
+    this.onFinishIndividualOrder,
   });
 
   @override
@@ -50,9 +65,10 @@ class OrderDetailPanel extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
           Text(
             'Order Details',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -89,6 +105,33 @@ class OrderDetailPanel extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           if (order!.status != OrderStatus.completed) ...[
+            if (!hasActiveTimer) ...[
+              const SizedBox(height: 12),
+              CheckboxListTile(
+                value: isSelectedForSession,
+                onChanged: selectionLocked || onToggleSessionSelection == null
+                    ? null
+                    : (value) =>
+                        onToggleSessionSelection?.call(value ?? false),
+                title: const Text('Opnemen in volgende sessie'),
+                controlAffinity: ListTileControlAffinity.leading,
+                contentPadding: EdgeInsets.zero,
+              ),
+              if (pendingOrderIds.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  children: pendingOrderIds.map((id) {
+                    final label = ordersById?[id]?.orderNumber ?? id;
+                    return Chip(
+                      label: Text(label),
+                      avatar: const Icon(Icons.assignment_outlined, size: 16),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ],
             // Show timer if it's running or paused (for this order or any order)
             if (hasActiveTimer && elapsedTime != null) ...[
               TimerDisplay(duration: elapsedTime!),
@@ -98,6 +141,52 @@ class OrderDetailPanel extends StatelessWidget {
                   duration: downtime!,
                   title: 'Downtime',
                   accentColor: Colors.orange.shade700,
+                ),
+              ],
+              if (activeOrderLinks.isNotEmpty) ...[
+                const SizedBox(height: 16),
+                const Text(
+                  'Actieve orders in deze sessie:',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Column(
+                  children: activeOrderLinks.map((link) {
+                    final label =
+                        ordersById?[link.orderId]?.orderNumber ?? link.orderId;
+                    final isActiveLink = link.isActive;
+                    return Card(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      child: ListTile(
+                        leading: Icon(
+                          isActiveLink
+                              ? Icons.play_circle_fill
+                              : Icons.check_circle,
+                          color: isActiveLink ? Colors.green : Colors.grey,
+                        ),
+                        title: Text(label),
+                        subtitle: isActiveLink
+                            ? null
+                            : const Text('Afgerond in deze sessie'),
+                        trailing: isActiveLink &&
+                                onFinishIndividualOrder != null &&
+                                hasActiveTimer
+                            ? ElevatedButton(
+                                onPressed: () =>
+                                    onFinishIndividualOrder!(link.orderId),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red.shade600,
+                                  foregroundColor: Colors.white,
+                                ),
+                                child: const Text('Finish'),
+                              )
+                            : null,
+                      ),
+                    );
+                  }).toList(),
                 ),
               ],
               if (!isTimerForSelectedOrder) ...[
@@ -238,7 +327,8 @@ class OrderDetailPanel extends StatelessWidget {
           ],
         ],
       ),
-    );
+    ),
+  );
   }
 
   Widget _buildDetailRow(String label, String value) {

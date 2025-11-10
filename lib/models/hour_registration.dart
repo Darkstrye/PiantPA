@@ -1,6 +1,5 @@
 class HourRegistration {
   final String hourRegistrationId;
-  final String orderId;
   final String userId;
   final DateTime startTime;
   final DateTime? endTime;
@@ -12,10 +11,10 @@ class HourRegistration {
   final DateTime? downtimeStartTime; // When downtime tracking started
   final DateTime createdOn;
   final DateTime modifiedOn;
+  final String? legacyOrderId; // Backward compatibility
 
   HourRegistration({
     required this.hourRegistrationId,
-    required this.orderId,
     required this.userId,
     required this.startTime,
     this.endTime,
@@ -27,12 +26,12 @@ class HourRegistration {
     this.downtimeStartTime,
     required this.createdOn,
     required this.modifiedOn,
+    this.legacyOrderId,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'HourRegistrationId': hourRegistrationId,
-      'OrderId': orderId,
       'UserId': userId,
       'StartTime': startTime.toIso8601String(),
       'EndTime': endTime?.toIso8601String() ?? '',
@@ -61,7 +60,6 @@ class HourRegistration {
 
     return HourRegistration(
       hourRegistrationId: json['HourRegistrationId']?.toString() ?? '',
-      orderId: json['OrderId']?.toString() ?? '',
       userId: json['UserId']?.toString() ?? '',
       startTime: json['StartTime'] != null
           ? DateTime.parse(json['StartTime'].toString())
@@ -96,12 +94,12 @@ class HourRegistration {
       modifiedOn: json['ModifiedOn'] != null
           ? DateTime.parse(json['ModifiedOn'].toString())
           : DateTime.now(),
+      legacyOrderId: json['OrderId']?.toString(),
     );
   }
 
   HourRegistration copyWith({
     String? hourRegistrationId,
-    String? orderId,
     String? userId,
     DateTime? startTime,
     DateTime? endTime,
@@ -113,10 +111,10 @@ class HourRegistration {
     DateTime? downtimeStartTime,
     DateTime? createdOn,
     DateTime? modifiedOn,
+    String? legacyOrderId,
   }) {
     return HourRegistration(
       hourRegistrationId: hourRegistrationId ?? this.hourRegistrationId,
-      orderId: orderId ?? this.orderId,
       userId: userId ?? this.userId,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
@@ -128,6 +126,7 @@ class HourRegistration {
       downtimeStartTime: downtimeStartTime ?? this.downtimeStartTime,
       createdOn: createdOn ?? this.createdOn,
       modifiedOn: modifiedOn ?? this.modifiedOn,
+      legacyOrderId: legacyOrderId ?? this.legacyOrderId,
     );
   }
 
@@ -141,7 +140,8 @@ class HourRegistration {
     }
     // If we have accumulated paused time, add current running time
     final baseTime = pausedElapsedTime ?? 0.0;
-    final currentRunning = DateTime.now().difference(startTime).inSeconds / 3600.0;
+    final currentRunning =
+        DateTime.now().difference(startTime).inSeconds / 3600.0;
     return baseTime + currentRunning;
   }
 

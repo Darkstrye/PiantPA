@@ -1,5 +1,6 @@
 import 'dart:async';
 import '../models/hour_registration.dart';
+import '../models/hour_registration_order.dart';
 import '../models/order.dart';
 import '../repositories/repository_interface.dart';
 
@@ -8,6 +9,7 @@ class TimerService {
   Timer? _timer;
   Timer? _downtimeTimer;
   HourRegistration? _activeRegistration;
+  List<HourRegistrationOrder> _activeOrderLinks = [];
   DateTime? _startTime;
   double _accumulatedElapsedTime = 0.0; // Total elapsed time including pauses
   double _accumulatedDowntime = 0.0; // Total downtime recorded during pauses
@@ -22,148 +24,350 @@ class TimerService {
   Stream<Duration> get elapsedTimeStream => _elapsedTimeController.stream;
   Stream<Duration> get downtimeStream => _downtimeController.stream;
 
-  bool get isTimerRunning => _activeRegistration != null && _activeRegistration!.isActive && !_activeRegistration!.isPaused;
+  bool get isTimerRunning =>
+      _activeRegistration != null &&
+      _activeRegistration!.isActive &&
+      !_activeRegistration!.isPaused;
 
-  bool get isTimerPaused => _activeRegistration != null && _activeRegistration!.isActive && _activeRegistration!.isPaused;
+  bool get isTimerPaused =>
+      _activeRegistration != null &&
+      _activeRegistration!.isActive &&
+      _activeRegistration!.isPaused;
 
   HourRegistration? get activeRegistration => _activeRegistration;
   Duration? get currentDowntime => _lastDowntimeDuration;
+  List<HourRegistrationOrder> get activeOrderLinks =>
+      List.unmodifiable(_activeOrderLinks);
+  Set<String> get activeOrderIds => _activeOrderLinks
+      .where((link) => link.isActive)
+      .map((link) => link.orderId)
+      .toSet();
 
-  Future<bool> startTimer(String orderId, String userId) async {
+  Future<bool> startTimer(String orderId, String userId) {
+    return startTimerForOrders([orderId], userId);
+  }
+
+  Future<bool> startTimerForOrders(List<String> orderIds, String userId) async {
+    final totalStopwatch = Stopwatch()..start();
+    Future<T> measureAsync<T>(String label, Future<T> Function() action) async {
+      final sw = Stopwatch()..start();
+      try {
+        return await action();
+      } finally {
+        print(
+            '[TimerService][Perf] startTimerForOrders::$label took ${sw.elapsedMilliseconds}ms');
+      }
+    }
+
     try {
-      // Check if there's already a completed hour registration for this order
-      // BUT also check the order status - if order is inProgress, allow starting
-      final allRegistrations = await repository.getHourRegistrationsByOrderId(orderId);
-      final order = await repository.getOrderById(orderId);
-      
-      // Only block if order is completed AND there's a completed registration
-      // If order is inProgress (even after reset), allow starting
-      if (order != null && order.status == OrderStatus.completed) {
-        final hasCompletedRegistration = allRegistrations.any((reg) => !reg.isActive && reg.elapsedTime != null && reg.elapsedTime! > 0);
-        if (hasCompletedRegistration) {
-          return false; // Order is completed and has completed timer, can't start
-        }
-      }
-      // If order is inProgress, allow starting even if there are old registrations
-      // (they should have been deleted by reset, but if not, we'll create a new one)
+      final normalizedOrderIds = orderIds
+          .map((id) => id.trim())
+          .where((id) => id.isNotEmpty)
+          .toSet()
+          .toList();
 
-      // Check if there's already an active timer for this user
-      final existingActive = await repository.getActiveHourRegistrationByUserId(userId);
-      
-      // If there's an active timer for a different order, don't allow starting a new one
-      if (existingActive != null && !existingActive.isPaused && existingActive.orderId != orderId) {
-        return false; // User already has an active timer for a different order
-      }
-
-      final now = DateTime.now();
-      
-      // If resuming from pause for the same order, use existing registration
-      if (existingActive != null && existingActive.isPaused && existingActive.orderId == orderId) {
-        _activeRegistration = existingActive;
-        _accumulatedElapsedTime = existingActive.pausedElapsedTime ?? 0.0;
-        _accumulatedDowntime = existingActive.downtimeElapsedTime ?? 0.0;
-        // Don't set _startTime here - we'll set it right before sending initial value
-      } else if (existingActive == null || existingActive.orderId != orderId) {
-        // Check if there's already an active registration for this order (shouldn't happen, but check anyway)
-        final activeForThisOrder = allRegistrations.where((reg) => reg.isActive).toList();
-        if (activeForThisOrder.isNotEmpty) {
-          // There's already an active timer for this order
-          _activeRegistration = activeForThisOrder.first;
-          if (_activeRegistration!.isPaused) {
-            _accumulatedElapsedTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
-            _accumulatedDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
-            // Don't set _startTime here - we'll set it right before sending initial value
-          } else {
-            // Timer already running
-            return false;
-          }
-        } else {
-          // Create new hour registration
-          _activeRegistration = HourRegistration(
-            hourRegistrationId: '',
-            orderId: orderId,
-            userId: userId,
-            startTime: now,
-            isActive: true,
-            isPaused: false,
-            pausedElapsedTime: 0.0,
-            downtimeElapsedTime: 0.0,
-            createdOn: now,
-            modifiedOn: now,
-          );
-          _activeRegistration = await repository.createHourRegistration(_activeRegistration!);
-          _accumulatedElapsedTime = 0.0;
-          _accumulatedDowntime = 0.0;
-          // Don't set _startTime here - we'll set it right before sending initial value
-        }
-      } else {
-        // Timer already running for this order
+      if (normalizedOrderIds.isEmpty) {
         return false;
       }
 
-      // Update to unpaused state (keep pausedElapsedTime as accumulated base)
-      double totalDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
-      if (_activeRegistration!.downtimeStartTime != null) {
-        final resumedDowntime = now.difference(_activeRegistration!.downtimeStartTime!).inSeconds / 3600.0;
-        totalDowntime += resumedDowntime;
+      final now = DateTime.now();
+      HourRegistration? existingRegistration;
+      if (_activeRegistration != null &&
+          _activeRegistration!.isActive &&
+          _activeRegistration!.userId == userId) {
+        existingRegistration = _activeRegistration;
+      } else {
+        existingRegistration = await measureAsync(
+          'getActiveHourRegistrationByUserId',
+          () => repository.getActiveHourRegistrationByUserId(userId),
+        );
       }
-      _accumulatedDowntime = totalDowntime;
-      _pauseStartTime = null;
 
-      final updatedRegistration = _activeRegistration!.copyWith(
-        isPaused: false,
-        modifiedOn: now,
-        downtimeElapsedTime: totalDowntime,
-        downtimeStartTime: null,
-      );
-      _activeRegistration = await repository.updateHourRegistration(updatedRegistration);
-      _emitDowntime(Duration(seconds: (_accumulatedDowntime * 3600).toInt()));
-      _stopDowntimeTimer();
-
-      // Get base time before starting timer
-      final baseTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
-      
-      // CRITICAL: Set _startTime to NOW, synchronized exactly with when we send initial value
-      // This ensures the first timer update calculates correctly
-      final resumeTime = DateTime.now();
-      _startTime = resumeTime;
-      
-      // Send initial elapsed time immediately (exactly baseTime, no session time yet)
-      // This must happen immediately after setting _startTime to prevent any jump
-      final initialDuration = Duration(seconds: (baseTime * 3600).toInt());
-      _elapsedTimeController.add(initialDuration);
-
-      // Start periodic updates - use a small delay for first update to ensure smooth transition
-      // First update after 100ms to catch any timing issues, then every 1 second
-      _timer = Timer(const Duration(milliseconds: 100), () {
-        // First update after 100ms to ensure smooth transition
-        if (_activeRegistration != null && _startTime != null && !_activeRegistration!.isPaused) {
-          final baseTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
-          final currentSessionTime = DateTime.now().difference(_startTime!);
-          final totalElapsed = baseTime + currentSessionTime.inSeconds / 3600.0;
-          final duration = Duration(seconds: (totalElapsed * 3600).toInt());
-          _lastCalculatedDuration = duration; // Store for use in finishTimer
-          _elapsedTimeController.add(duration);
+      if (existingRegistration == null) {
+        print(
+            '[TimerService] startTimerForOrders -> creating new session for orders: $normalizedOrderIds');
+        final conflictedOrder = await measureAsync(
+          'findConflictingOrder',
+          () => _findConflictingOrder(normalizedOrderIds, userId),
+        );
+        if (conflictedOrder != null) {
+          return false;
         }
-        
-        // Then continue with regular 1-second updates
-        _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          if (_activeRegistration != null && _startTime != null && !_activeRegistration!.isPaused) {
-            // Calculate from the synchronized _startTime
-            final baseTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
-            final currentSessionTime = DateTime.now().difference(_startTime!);
-            final totalElapsed = baseTime + currentSessionTime.inSeconds / 3600.0;
-            final duration = Duration(seconds: (totalElapsed * 3600).toInt());
-            _lastCalculatedDuration = duration; // Store for use in finishTimer
-            _elapsedTimeController.add(duration);
-          }
-        });
-      });
 
+        final registration = HourRegistration(
+          hourRegistrationId: '',
+          userId: userId,
+          startTime: now,
+          isActive: true,
+          isPaused: false,
+          pausedElapsedTime: 0.0,
+          downtimeElapsedTime: 0.0,
+          createdOn: now,
+          modifiedOn: now,
+        );
+        final sessionResult = await measureAsync(
+          'createHourRegistrationWithOrders',
+          () => repository.createHourRegistrationWithOrders(
+            registration,
+            normalizedOrderIds,
+          ),
+        );
+        final savedRegistration = sessionResult.registration;
+        final savedLinks = sessionResult.orderLinks;
+        _activeRegistration = savedRegistration;
+        _accumulatedElapsedTime = 0.0;
+        _accumulatedDowntime = 0.0;
+        _activeOrderLinks = List.of(savedLinks);
+      } else {
+        final nonNullRegistration = existingRegistration!;
+        final links = await measureAsync(
+          'getHourRegistrationOrdersByRegistrationId',
+          () => repository.getHourRegistrationOrdersByRegistrationId(
+              nonNullRegistration.hourRegistrationId),
+        );
+        final sessionActiveIds = links
+            .where((link) => link.isActive)
+            .map((link) => link.orderId)
+            .toSet();
+
+        if (sessionActiveIds.isEmpty) {
+          return false;
+        }
+
+        final requestedIds = normalizedOrderIds.toSet();
+        if (requestedIds.isNotEmpty && requestedIds != sessionActiveIds) {
+          return false;
+        }
+
+        _activeRegistration = nonNullRegistration;
+        _activeOrderLinks = List.of(links);
+        _accumulatedElapsedTime = nonNullRegistration.pausedElapsedTime ??
+            nonNullRegistration.elapsedTime ??
+            0.0;
+        _accumulatedDowntime =
+            nonNullRegistration.downtimeElapsedTime ?? 0.0;
+        print(
+            '[TimerService] resume existing registration ${nonNullRegistration.hourRegistrationId} -> pausedElapsed=${nonNullRegistration.pausedElapsedTime}, elapsed=${nonNullRegistration.elapsedTime}, accumulatedElapsed=$_accumulatedElapsedTime, accumulatedDowntime=$_accumulatedDowntime');
+      }
+
+      await _resumeActiveRegistration(now);
+      print(
+          '[TimerService] startTimerForOrders -> after resume: accumulatedElapsed=$_accumulatedElapsedTime accumulatedDowntime=$_accumulatedDowntime isPaused=${_activeRegistration?.isPaused}');
+      return true;
+    } catch (e) {
+      print('[TimerService][Perf] startTimerForOrders -> error: $e');
+      return false;
+    } finally {
+      totalStopwatch.stop();
+      print(
+          '[TimerService][Perf] startTimerForOrders::total took ${totalStopwatch.elapsedMilliseconds}ms');
+    }
+  }
+
+  Future<bool> resumeTimer() async {
+    try {
+      if (_activeRegistration == null ||
+          !_activeRegistration!.isActive ||
+          !_activeRegistration!.isPaused) {
+        return false;
+      }
+
+      final now = DateTime.now();
+      await _resumeActiveRegistration(now);
+      print(
+          '[TimerService] resumeTimer -> after resume: accumulatedElapsed=$_accumulatedElapsedTime accumulatedDowntime=$_accumulatedDowntime isPaused=${_activeRegistration?.isPaused}');
       return true;
     } catch (e) {
       return false;
     }
+  }
+
+  Future<String?> _findConflictingOrder(
+      List<String> orderIds, String userId) async {
+    for (final orderId in orderIds) {
+      final mappings =
+          await repository.getHourRegistrationOrdersByOrderId(orderId);
+      for (final mapping in mappings.where((m) => m.isActive)) {
+        final registration =
+            await repository.getHourRegistrationById(mapping.hourRegistrationId);
+        if (registration != null &&
+            registration.isActive &&
+            registration.userId != userId) {
+          return orderId;
+        }
+      }
+    }
+    return null;
+  }
+
+  Future<void> _resumeActiveRegistration(DateTime resumeTime) async {
+    if (_activeRegistration == null) {
+      return;
+    }
+
+    double totalDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
+    if (_activeRegistration!.downtimeStartTime != null) {
+      final resumedDowntime = resumeTime
+              .difference(_activeRegistration!.downtimeStartTime!)
+              .inSeconds /
+          3600.0;
+      totalDowntime += resumedDowntime;
+    }
+
+    _accumulatedDowntime = totalDowntime;
+    _pauseStartTime = null;
+
+    final updatedRegistration = _activeRegistration!.copyWith(
+      isPaused: false,
+      pausedElapsedTime: _accumulatedElapsedTime,
+      modifiedOn: resumeTime,
+      downtimeElapsedTime: totalDowntime,
+      downtimeStartTime: null,
+    );
+    _activeRegistration = await repository.updateHourRegistration(
+      updatedRegistration,
+    );
+    print(
+        '[TimerService] _resumeActiveRegistration -> stored pausedElapsed=${_activeRegistration?.pausedElapsedTime}, elapsed=${_activeRegistration?.elapsedTime}');
+
+    await _refreshOrderOffsets();
+
+    _emitDowntime(Duration(seconds: (_accumulatedDowntime * 3600).toInt()));
+    _stopDowntimeTimer();
+
+    _startTime = resumeTime;
+
+    final baseTime = _accumulatedElapsedTime;
+    print(
+        '[TimerService] resume -> baseElapsed=$baseTime, accumulatedDowntime=$_accumulatedDowntime');
+    final initialDuration = Duration(seconds: (baseTime * 3600).toInt());
+    _elapsedTimeController.add(initialDuration);
+
+    _scheduleElapsedUpdates();
+  }
+
+  Future<void> _refreshOrderOffsets() async {
+    if (_activeRegistration == null) {
+      return;
+    }
+
+    final baseElapsed = _activeRegistration!.pausedElapsedTime ?? 0.0;
+    final baseDowntime = _accumulatedDowntime;
+    final now = DateTime.now();
+
+    final List<HourRegistrationOrder> updatedLinks = [];
+    for (final link in _activeOrderLinks) {
+      if (!link.isActive) {
+        updatedLinks.add(link);
+        continue;
+      }
+
+      final updated = link.copyWith(
+        elapsedOffset: baseElapsed,
+        downtimeOffset: baseDowntime,
+        modifiedOn: now,
+      );
+      updatedLinks.add(updated);
+      await repository.updateHourRegistrationOrder(updated);
+    }
+    _activeOrderLinks = updatedLinks;
+  }
+
+  void _scheduleElapsedUpdates() {
+    _timer?.cancel();
+    final base = _accumulatedElapsedTime;
+    print('[TimerService] _scheduleElapsedUpdates -> scheduling with baseElapsed=$base');
+    _timer = Timer(const Duration(milliseconds: 100), () {
+      _emitElapsedTick();
+      _timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (_) => _emitElapsedTick(),
+      );
+    });
+  }
+
+  void _emitElapsedTick() {
+    if (_activeRegistration == null ||
+        _startTime == null ||
+        _activeRegistration!.isPaused) {
+      return;
+    }
+    final totalElapsed = _currentElapsedHours();
+    print('[TimerService] _emitElapsedTick -> totalElapsed=$totalElapsed, startTime=$_startTime');
+    final duration = Duration(seconds: (totalElapsed * 3600).toInt());
+    _lastCalculatedDuration = duration;
+    _elapsedTimeController.add(duration);
+  }
+
+  double _currentElapsedHours() {
+    if (_activeRegistration == null) {
+      return 0.0;
+    }
+    final base = _activeRegistration!.pausedElapsedTime ?? 0.0;
+    if (_activeRegistration!.isPaused || _startTime == null) {
+      return base;
+    }
+    final session =
+        DateTime.now().difference(_startTime!).inSeconds / 3600.0;
+    return base + session;
+  }
+
+  double _currentDowntimeHours() {
+    if (_activeRegistration == null) {
+      return 0.0;
+    }
+    final base = _accumulatedDowntime;
+    if (_activeRegistration!.isPaused && _pauseStartTime != null) {
+      final paused =
+          DateTime.now().difference(_pauseStartTime!).inSeconds / 3600.0;
+      return base + paused;
+    }
+    return base;
+  }
+
+  Future<void> _captureOrderProgress({Iterable<String>? orderIds}) async {
+    if (_activeRegistration == null) {
+      return;
+    }
+
+    final targetIds = orderIds?.toSet();
+    final elapsed = _currentElapsedHours();
+    final downtime = _currentDowntimeHours();
+    final now = DateTime.now();
+    final List<HourRegistrationOrder> updatedLinks = [];
+
+    for (final link in _activeOrderLinks) {
+      if (!link.isActive ||
+          (targetIds != null && !targetIds.contains(link.orderId))) {
+        updatedLinks.add(link);
+        continue;
+      }
+
+      final baseElapsed = link.elapsedTime ?? 0.0;
+      final offsetElapsed = link.elapsedOffset ?? elapsed;
+      final incrementElapsed = elapsed - offsetElapsed;
+      final nextElapsed =
+          incrementElapsed > 0 ? baseElapsed + incrementElapsed : baseElapsed;
+
+      final baseDowntime = link.downtimeElapsedTime ?? 0.0;
+      final offsetDowntime = link.downtimeOffset ?? downtime;
+      final incrementDowntime = downtime - offsetDowntime;
+      final nextDowntime = incrementDowntime > 0
+          ? baseDowntime + incrementDowntime
+          : baseDowntime;
+
+      final updated = link.copyWith(
+        elapsedTime: nextElapsed,
+        elapsedOffset: elapsed,
+        downtimeElapsedTime: nextDowntime,
+        downtimeOffset: downtime,
+        modifiedOn: now,
+      );
+      updatedLinks.add(updated);
+      await repository.updateHourRegistrationOrder(updated);
+    }
+
+    _activeOrderLinks = updatedLinks;
   }
 
   Future<bool> pauseTimer() async {
@@ -175,44 +379,34 @@ class TimerService {
       _timer?.cancel();
       _timer = null;
 
-      // Calculate and store accumulated elapsed time
-      // Base time from previous pauses (if any)
-      final baseTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
-      double totalElapsed = baseTime;
-      
-      if (_startTime != null) {
-        final currentSessionTime = DateTime.now().difference(_startTime!);
-        final sessionHours = currentSessionTime.inSeconds / 3600.0;
-        totalElapsed += sessionHours;
-        print('PauseTimer: baseTime: ${baseTime.toStringAsFixed(4)}h, sessionTime: ${sessionHours.toStringAsFixed(4)}h, total: ${totalElapsed.toStringAsFixed(4)}h');
-      } else {
-        print('PauseTimer: _startTime is null, using only baseTime: ${totalElapsed.toStringAsFixed(4)}h');
-      }
-      
+      final totalElapsed = _currentElapsedHours();
       _accumulatedElapsedTime = totalElapsed;
+    print(
+        '[TimerService] pause -> totalElapsed=$totalElapsed, accumulatedDowntime=$_accumulatedDowntime');
 
       final now = DateTime.now();
-      final baseDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
-      _accumulatedDowntime = baseDowntime;
-
       final updatedRegistration = _activeRegistration!.copyWith(
         isPaused: true,
-        pausedElapsedTime: _accumulatedElapsedTime,
-        downtimeElapsedTime: baseDowntime,
+        pausedElapsedTime: totalElapsed,
+        downtimeElapsedTime: _accumulatedDowntime,
         downtimeStartTime: now,
         modifiedOn: now,
       );
 
-      _activeRegistration = await repository.updateHourRegistration(updatedRegistration);
-      
-      // Send final elapsed time
-      final duration = Duration(seconds: (_accumulatedElapsedTime * 3600).toInt());
-      _lastCalculatedDuration = duration; // Store for consistency
+      _activeRegistration =
+          await repository.updateHourRegistration(updatedRegistration);
+      _accumulatedDowntime =
+          _activeRegistration!.downtimeElapsedTime ?? _accumulatedDowntime;
+
+      await _captureOrderProgress();
+
+      final duration =
+          Duration(seconds: (_accumulatedElapsedTime * 3600).toInt());
+      _lastCalculatedDuration = duration;
       _elapsedTimeController.add(duration);
 
       _pauseStartTime = now;
       _startDowntimeTimer();
-
       return true;
     } catch (e) {
       return false;
@@ -229,51 +423,35 @@ class TimerService {
       _timer = null;
 
       final endTime = DateTime.now();
-      
-      // Calculate final elapsed time - this correctly accounts for pause time
-      double finalElapsed;
-      
-      if (_activeRegistration!.isPaused) {
-        // Timer is paused, use stored paused time (already accumulated correctly)
-        finalElapsed = _activeRegistration!.pausedElapsedTime ?? 0.0;
-        print('FinishTimer: Timer was paused, using pausedElapsedTime: ${finalElapsed.toStringAsFixed(4)} hours');
-      } else {
-        // Timer is running - calculate fresh at finish time
-        // Use pausedElapsedTime as base + time since last resume
-        final baseTime = _activeRegistration!.pausedElapsedTime ?? 0.0;
-        if (_startTime != null) {
-          // Calculate at the exact moment finishTimer is called
-          final currentSessionTime = endTime.difference(_startTime!);
-          final sessionHours = currentSessionTime.inSeconds / 3600.0;
-          finalElapsed = baseTime + sessionHours;
-          print('FinishTimer: Timer running, baseTime: ${baseTime.toStringAsFixed(4)}h, sessionTime: ${sessionHours.toStringAsFixed(4)}h (${currentSessionTime.inSeconds}s), total: ${finalElapsed.toStringAsFixed(4)}h');
-        } else {
-          // Fallback: if _startTime is null, use pausedElapsedTime
-          if (_activeRegistration!.pausedElapsedTime != null && _activeRegistration!.pausedElapsedTime! > 0) {
-            finalElapsed = _activeRegistration!.pausedElapsedTime!;
-            print('FinishTimer: _startTime is null but pausedElapsedTime exists: ${finalElapsed.toStringAsFixed(4)}h');
-          } else {
-            // No pause time recorded, calculate from original start
-            finalElapsed = endTime.difference(_activeRegistration!.startTime).inSeconds / 3600.0;
-            print('FinishTimer: No pause time, calculating from startTime: ${finalElapsed.toStringAsFixed(4)}h');
-          }
-        }
-      }
-      
-      // Validate: only check if elapsed time is reasonable (not negative)
-      // Don't compare with directCalculation because that includes pause time
-      if (finalElapsed < 0) {
-        print('Warning: Elapsed time is negative, setting to 0.');
-        finalElapsed = 0.0;
-      }
-      
-      print('FinishTimer: Final elapsed time: ${finalElapsed.toStringAsFixed(4)} hours (${(finalElapsed * 3600).toStringAsFixed(0)} seconds)');
+      final finalElapsed = _currentElapsedHours();
+      final finalDowntime = _currentDowntimeHours();
+      print(
+          '[TimerService] finish -> finalElapsed=$finalElapsed, finalDowntime=$finalDowntime');
 
-      double finalDowntime = _activeRegistration!.downtimeElapsedTime ?? 0.0;
-      if (_activeRegistration!.downtimeStartTime != null) {
-        final downtimeSincePause = endTime.difference(_activeRegistration!.downtimeStartTime!).inSeconds / 3600.0;
-        finalDowntime += downtimeSincePause;
+      await _captureOrderProgress();
+
+      final List<HourRegistrationOrder> updatedLinks = [];
+      for (final link in _activeOrderLinks) {
+        if (!link.isActive) {
+          updatedLinks.add(link);
+          continue;
+        }
+
+        final updated = link.copyWith(
+          isActive: false,
+          elapsedTime: link.elapsedTime ?? finalElapsed,
+          elapsedOffset: finalElapsed,
+          downtimeElapsedTime:
+              link.downtimeElapsedTime ?? finalDowntime,
+          downtimeOffset: finalDowntime,
+          completedOn: endTime,
+          modifiedOn: endTime,
+        );
+        updatedLinks.add(updated);
+        await repository.updateHourRegistrationOrder(updated);
       }
+      _activeOrderLinks = updatedLinks;
+
       _emitDowntime(Duration(seconds: (finalDowntime * 3600).toInt()));
       _stopDowntimeTimer();
 
@@ -289,11 +467,12 @@ class TimerService {
       );
 
       await repository.updateHourRegistration(_activeRegistration!);
-      
+
       final duration = Duration(seconds: (finalElapsed * 3600).toInt());
       _elapsedTimeController.add(duration);
 
       _activeRegistration = null;
+      _activeOrderLinks = [];
       _startTime = null;
       _accumulatedElapsedTime = 0.0;
       _accumulatedDowntime = 0.0;
@@ -307,66 +486,104 @@ class TimerService {
     }
   }
 
+  Future<bool> finishOrder(String orderId) async {
+    try {
+      if (_activeRegistration == null) {
+        return false;
+      }
+
+      final activeLinkIndex = _activeOrderLinks.indexWhere(
+        (link) => link.orderId == orderId && link.isActive,
+      );
+
+      if (activeLinkIndex == -1) {
+        return false;
+      }
+
+      await _captureOrderProgress(orderIds: {orderId});
+
+      final finalElapsed =
+          _activeRegistration!.isPaused ? _accumulatedElapsedTime : _currentElapsedHours();
+      final finalDowntime = _currentDowntimeHours();
+      final now = DateTime.now();
+
+      final link = _activeOrderLinks[activeLinkIndex];
+      final updated = link.copyWith(
+        isActive: false,
+        elapsedTime: link.elapsedTime ?? finalElapsed,
+        elapsedOffset: finalElapsed,
+        downtimeElapsedTime: link.downtimeElapsedTime ?? finalDowntime,
+        downtimeOffset: finalDowntime,
+        completedOn: now,
+        modifiedOn: now,
+      );
+      _activeOrderLinks[activeLinkIndex] = updated;
+      await repository.updateHourRegistrationOrder(updated);
+
+      if (_activeOrderLinks.every((item) => !item.isActive)) {
+        return await finishTimer();
+      }
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<void> loadActiveTimer(String userId) async {
     try {
       final active = await repository.getActiveHourRegistrationByUserId(userId);
-      if (active != null && active.isActive) {
-        _activeRegistration = active;
-        
-        if (active.isPaused) {
-          // Timer is paused, use accumulated time
-          _accumulatedElapsedTime = active.pausedElapsedTime ?? 0.0;
-          _startTime = null;
-          final duration = Duration(seconds: (_accumulatedElapsedTime * 3600).toInt());
-          _elapsedTimeController.add(duration);
-          _accumulatedDowntime = active.downtimeElapsedTime ?? 0.0;
-          final downtimeDuration = Duration(seconds: (_accumulatedDowntime * 3600).toInt());
-          _emitDowntime(downtimeDuration);
-          if (active.downtimeStartTime != null) {
-            _startDowntimeTimer();
-          }
-        } else {
-          // Timer is running - calculate from original start time
-          // If there's paused elapsed time, use it as base, otherwise calculate from start
-          if (active.pausedElapsedTime != null && active.pausedElapsedTime! > 0) {
-            // Timer was paused and resumed - use paused time as base
-            _accumulatedElapsedTime = active.pausedElapsedTime!;
-            _startTime = DateTime.now(); // Reset for current session
-            _accumulatedDowntime = active.downtimeElapsedTime ?? 0.0;
-            final downtimeDuration = Duration(seconds: (_accumulatedDowntime * 3600).toInt());
-            _emitDowntime(downtimeDuration);
-          } else {
-            // Timer was never paused - calculate from original start
-            _accumulatedElapsedTime = DateTime.now().difference(active.startTime).inSeconds / 3600.0;
-            _startTime = active.startTime;
-            _accumulatedDowntime = active.downtimeElapsedTime ?? 0.0;
-            if (_accumulatedDowntime > 0) {
-              final downtimeDuration = Duration(seconds: (_accumulatedDowntime * 3600).toInt());
-              _emitDowntime(downtimeDuration);
-            }
-          }
-          
-          // Start timer updates
-          _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-            if (_activeRegistration != null && !_activeRegistration!.isPaused) {
-              Duration duration;
-              if (_startTime != null && _activeRegistration!.pausedElapsedTime != null && _activeRegistration!.pausedElapsedTime! > 0) {
-                // Was paused before - use accumulated + current session
-                final currentSessionTime = DateTime.now().difference(_startTime!);
-                final totalElapsed = _accumulatedElapsedTime + currentSessionTime.inSeconds / 3600.0;
-                duration = Duration(seconds: (totalElapsed * 3600).toInt());
-              } else {
-                // Never paused - calculate from original start
-                final totalElapsed = DateTime.now().difference(_activeRegistration!.startTime).inSeconds / 3600.0;
-                duration = Duration(seconds: (totalElapsed * 3600).toInt());
-              }
-              _elapsedTimeController.add(duration);
-            }
-          });
-        }
+      if (active == null || !active.isActive) {
+        return;
       }
+
+      _activeRegistration = active;
+      _activeOrderLinks = await repository
+          .getHourRegistrationOrdersByRegistrationId(
+              active.hourRegistrationId);
+
+      _accumulatedElapsedTime = active.pausedElapsedTime ?? 0.0;
+      _accumulatedDowntime = active.downtimeElapsedTime ?? 0.0;
+
+      if (active.isPaused) {
+        _startTime = null;
+        final elapsedDuration =
+            Duration(seconds: (_accumulatedElapsedTime * 3600).toInt());
+        _elapsedTimeController.add(elapsedDuration);
+
+        final downtimeDuration =
+            Duration(seconds: (_accumulatedDowntime * 3600).toInt());
+        _emitDowntime(downtimeDuration);
+
+        _pauseStartTime = active.downtimeStartTime;
+        if (_pauseStartTime != null) {
+          _startDowntimeTimer();
+        }
+      } else {
+        _pauseStartTime = null;
+        _startTime = active.modifiedOn;
+        if (_startTime == null) {
+          _startTime = DateTime.now();
+        }
+
+        final downtimeDuration =
+            Duration(seconds: (_accumulatedDowntime * 3600).toInt());
+        _emitDowntime(downtimeDuration);
+        _scheduleElapsedUpdates();
+      }
+
+      _activeOrderLinks = _activeOrderLinks
+          .map(
+            (link) => link.isActive
+                ? link.copyWith(
+                    elapsedOffset: _accumulatedElapsedTime,
+                    downtimeOffset: _accumulatedDowntime,
+                  )
+                : link,
+          )
+          .toList();
     } catch (e) {
-      // No active timer
+      // ignore
     }
   }
 
@@ -387,67 +604,124 @@ class TimerService {
   /// Calculate total elapsed time for an order from all hour registrations
   Future<Duration> getTotalElapsedTimeForOrder(String orderId) async {
     try {
-      final registrations = await repository.getHourRegistrationsByOrderId(orderId);
+      final mappings =
+          await repository.getHourRegistrationOrdersByOrderId(orderId);
       double totalHours = 0.0;
 
-      for (var reg in registrations) {
-        print('getTotalElapsedTimeForOrder: reg=${reg.hourRegistrationId}, status active=${reg.isActive}, paused=${reg.isPaused}, elapsed=${reg.elapsedTime}, pausedElapsed=${reg.pausedElapsedTime}');
-        if (reg.isActive && !reg.isPaused) {
-          // Active running timer - calculate current elapsed time
-          final baseTime = reg.pausedElapsedTime ?? 0.0;
-          final currentRunning = DateTime.now().difference(reg.startTime).inSeconds / 3600.0;
-          totalHours += baseTime + currentRunning;
-          print('  -> active running: base=$baseTime, current=$currentRunning, subtotal=${totalHours}');
-        } else if (reg.isActive && reg.isPaused) {
-          // Active paused timer - use paused elapsed time
-          totalHours += reg.pausedElapsedTime ?? 0.0;
-          print('  -> active paused: add=${reg.pausedElapsedTime ?? 0.0}, subtotal=$totalHours');
-        } else if (!reg.isActive) {
-          // Completed timer - use stored elapsedTime which correctly accounts for pause time
-          // This was calculated correctly in finishTimer() using pausedElapsedTime
-          if (reg.elapsedTime != null && reg.elapsedTime! >= 0) {
-            totalHours += reg.elapsedTime!;
-            print('  -> completed (elapsedTime): add=${reg.elapsedTime}, subtotal=$totalHours');
-          } else if (reg.endTime != null) {
-            // Fallback: only if elapsedTime is missing, calculate from start/end
-            // Note: This will include pause time, but it's better than nothing
-            final elapsed = reg.endTime!.difference(reg.startTime).inSeconds / 3600.0;
-            totalHours += elapsed;
-            print('  -> completed (calc fallback): add=$elapsed, subtotal=$totalHours');
+      for (final mapping in mappings) {
+        final registration =
+            await repository.getHourRegistrationById(mapping.hourRegistrationId);
+        if (registration == null) {
+          continue;
+        }
+
+        if (registration.isActive && mapping.isActive) {
+          final registrationElapsed =
+              _calculateRegistrationElapsed(registration);
+          final base = mapping.elapsedTime ?? 0.0;
+          final offset = mapping.elapsedOffset ?? registrationElapsed;
+          final increment = registrationElapsed - offset;
+          totalHours += base + (increment > 0 ? increment : 0.0);
+        } else {
+          if (mapping.elapsedTime != null) {
+            totalHours += mapping.elapsedTime!;
+          } else if (registration.elapsedTime != null) {
+            totalHours += registration.elapsedTime!;
+          } else {
+            totalHours += _calculateRegistrationElapsed(registration);
           }
         }
       }
 
-      print('getTotalElapsedTimeForOrder: totalHours=$totalHours -> ${Duration(seconds: (totalHours * 3600).toInt())}');
       return Duration(seconds: (totalHours * 3600).toInt());
     } catch (e) {
       return Duration.zero;
     }
   }
+
   Future<Duration> getTotalDowntimeForOrder(String orderId) async {
     try {
-      final registrations = await repository.getHourRegistrationsByOrderId(orderId);
-      double totalDowntime = 0.0;
+      final mappings =
+          await repository.getHourRegistrationOrdersByOrderId(orderId);
+      double totalHours = 0.0;
 
-      for (var reg in registrations) {
-        if (reg.isActive && reg.isPaused) {
-          final base = reg.downtimeElapsedTime ?? 0.0;
-          double current = 0.0;
-          if (reg.downtimeStartTime != null) {
-            current = DateTime.now().difference(reg.downtimeStartTime!).inSeconds / 3600.0;
-          }
-          totalDowntime += base + current;
-        } else if (!reg.isActive) {
-          totalDowntime += reg.downtimeElapsedTime ?? 0.0;
+      for (final mapping in mappings) {
+        final registration =
+            await repository.getHourRegistrationById(mapping.hourRegistrationId);
+        if (registration == null) {
+          continue;
+        }
+
+        if (registration.isActive && mapping.isActive) {
+          final registrationDowntime =
+              _calculateRegistrationDowntime(registration);
+          final base = mapping.downtimeElapsedTime ?? 0.0;
+          final offset = mapping.downtimeOffset ?? registrationDowntime;
+          final increment = registrationDowntime - offset;
+          totalHours += base + (increment > 0 ? increment : 0.0);
         } else {
-          totalDowntime += reg.downtimeElapsedTime ?? 0.0;
+          if (mapping.downtimeElapsedTime != null) {
+            totalHours += mapping.downtimeElapsedTime!;
+          } else if (registration.downtimeElapsedTime != null) {
+            totalHours += registration.downtimeElapsedTime!;
+          }
         }
       }
 
-      return Duration(seconds: (totalDowntime * 3600).toInt());
+      return Duration(seconds: (totalHours * 3600).toInt());
     } catch (e) {
       return Duration.zero;
     }
+  }
+
+  double _calculateRegistrationElapsed(HourRegistration registration) {
+    if (!registration.isActive) {
+      return registration.elapsedTime ??
+          registration.pausedElapsedTime ??
+          registration.calculateElapsedTime();
+    }
+
+    if (_activeRegistration != null &&
+        registration.hourRegistrationId == _activeRegistration!.hourRegistrationId) {
+      return _currentElapsedHours();
+    }
+
+    final base = registration.pausedElapsedTime ?? 0.0;
+    if (registration.isPaused) {
+      return base;
+    }
+
+    final resumeReference = registration.modifiedOn;
+    if (resumeReference != null) {
+      final sessionHours =
+          DateTime.now().difference(resumeReference).inSeconds / 3600.0;
+      return base + sessionHours;
+    }
+
+    final sessionHours =
+        DateTime.now().difference(registration.startTime).inSeconds / 3600.0;
+    return base + sessionHours;
+  }
+
+  double _calculateRegistrationDowntime(HourRegistration registration) {
+    final base = registration.downtimeElapsedTime ?? 0.0;
+    if (!registration.isActive) {
+      return base;
+    }
+
+    if (_activeRegistration != null &&
+        registration.hourRegistrationId == _activeRegistration!.hourRegistrationId) {
+      return _currentDowntimeHours();
+    }
+
+    if (registration.isPaused && registration.downtimeStartTime != null) {
+      final pausedHours =
+          DateTime.now().difference(registration.downtimeStartTime!).inSeconds /
+              3600.0;
+      return base + pausedHours;
+    }
+
+    return base;
   }
 
   void _emitDowntime(Duration duration) {

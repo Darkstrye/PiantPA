@@ -30,6 +30,8 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
   bool _isLoading = true;
   Duration? _elapsedTime;
   Duration? _downtime;
+  final Map<String, Duration> _orderElapsedTotals = {};
+  final Map<String, Duration> _orderDowntimeTotals = {};
 
   @override
   void initState() {
@@ -74,6 +76,8 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
         }
         _isLoading = false;
       });
+
+      await _loadTotalsForOrders(finalOrders);
     } catch (e) {
       setState(() {
         _isLoading = false;
@@ -84,6 +88,36 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
         );
       }
     }
+  }
+
+  Future<void> _loadTotalsForOrders(List<Order> orders) async {
+    final elapsedMap = <String, Duration>{};
+    final downtimeMap = <String, Duration>{};
+
+    for (final order in orders) {
+      final elapsed = await _timerService.getTotalElapsedTimeForOrder(order.orderId);
+      final downtime = await _timerService.getTotalDowntimeForOrder(order.orderId);
+      elapsedMap[order.orderId] = elapsed;
+      downtimeMap[order.orderId] = downtime;
+    }
+
+    if (mounted) {
+      setState(() {
+        _orderElapsedTotals
+          ..clear()
+          ..addAll(elapsedMap);
+        _orderDowntimeTotals
+          ..clear()
+          ..addAll(downtimeMap);
+      });
+    }
+  }
+
+  String _formatDuration(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes.remainder(60);
+    final seconds = duration.inSeconds.remainder(60);
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
   void _selectOrder(Order order) async {
@@ -303,10 +337,55 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                   itemCount: _orders.length,
                                   itemBuilder: (context, index) {
                                     final order = _orders[index];
-                                    return OrderListItem(
-                                      order: order,
-                                      isSelected: _selectedOrder?.orderId == order.orderId,
-                                      onTap: () => _selectOrder(order),
+                                    final elapsed = _orderElapsedTotals[order.orderId];
+                                    final downtime = _orderDowntimeTotals[order.orderId];
+
+                                    return Card(
+                                      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                                      color: _selectedOrder?.orderId == order.orderId
+                                          ? Colors.green.shade50
+                                          : Colors.white,
+                                      elevation: _selectedOrder?.orderId == order.orderId ? 4.0 : 1.0,
+                                      child: ListTile(
+                                        onTap: () => _selectOrder(order),
+                                        title: Text(
+                                          order.orderNumber,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        subtitle: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            if (order.machine.isNotEmpty)
+                                              Text(
+                                                'Machine: ${order.machine}',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey.shade700,
+                                                ),
+                                              ),
+                                            if (elapsed != null)
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 4.0),
+                                                child: Text(
+                                                  'Elapsed: ${_formatDuration(elapsed)}',
+                                                  style: const TextStyle(fontSize: 13),
+                                                ),
+                                              ),
+                                            if (downtime != null && downtime > Duration.zero)
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 2.0),
+                                                child: Text(
+                                                  'Downtime: ${_formatDuration(downtime)}',
+                                                  style: const TextStyle(fontSize: 13, color: Colors.deepOrange),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                        trailing: const Icon(Icons.chevron_right),
+                                      ),
                                     );
                                   },
                                 ),

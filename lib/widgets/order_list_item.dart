@@ -4,13 +4,19 @@ import '../models/order.dart';
 class OrderListItem extends StatelessWidget {
   final Order order;
   final bool isSelected;
+  final bool isSessionSelected;
+  final bool enableSessionSelection;
   final VoidCallback onTap;
+  final ValueChanged<bool?>? onSessionSelectionChanged;
 
   const OrderListItem({
     super.key,
     required this.order,
     required this.isSelected,
     required this.onTap,
+    this.isSessionSelected = false,
+    this.enableSessionSelection = true,
+    this.onSessionSelectionChanged,
   });
 
   @override
@@ -38,17 +44,30 @@ class OrderListItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Text(
-                      order.orderNumber,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 36,
+                        child: Checkbox(
+                          value: isSessionSelected,
+                          onChanged: enableSessionSelection
+                              ? onSessionSelectionChanged
+                              : null,
+                        ),
                       ),
-                    ),
+                      const SizedBox(width: 8),
+                      Text(
+                        order.orderNumber,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: getStatusColor().withOpacity(0.2),
                       borderRadius: BorderRadius.circular(12),
