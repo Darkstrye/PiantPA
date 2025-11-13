@@ -27,6 +27,7 @@ class Order {
   final String orderId;
   final String orderNumber;
   final String machine;
+  final double? vocaInUur;
   final OrderStatus status;
   final DateTime createdOn;
   final DateTime modifiedOn;
@@ -37,6 +38,7 @@ class Order {
     required this.orderId,
     required this.orderNumber,
     required this.machine,
+    this.vocaInUur,
     required this.status,
     required this.createdOn,
     required this.modifiedOn,
@@ -49,6 +51,7 @@ class Order {
       'OrderId': orderId,
       'OrderNumber': orderNumber,
       'Machine': machine,
+      'VocaInUur': vocaInUur,
       'Status': status.displayName,
       'CreatedOn': createdOn.toIso8601String(),
       'ModifiedOn': modifiedOn.toIso8601String(),
@@ -62,6 +65,11 @@ class Order {
       orderId: json['OrderId'] ?? '',
       orderNumber: json['OrderNumber'] ?? '',
       machine: json['Machine'] ?? '',
+      vocaInUur: json['VocaInUur'] != null
+          ? (json['VocaInUur'] is String
+              ? double.tryParse((json['VocaInUur'] as String).replaceAll(',', '.'))
+              : (json['VocaInUur'] as num).toDouble())
+          : null,
       status: OrderStatus.fromString(json['Status'] ?? 'In Progress'),
       createdOn: json['CreatedOn'] != null
           ? DateTime.parse(json['CreatedOn'])
@@ -78,6 +86,7 @@ class Order {
     String? orderId,
     String? orderNumber,
     String? machine,
+    double? vocaInUur,
     OrderStatus? status,
     DateTime? createdOn,
     DateTime? modifiedOn,
@@ -88,6 +97,7 @@ class Order {
       orderId: orderId ?? this.orderId,
       orderNumber: orderNumber ?? this.orderNumber,
       machine: machine ?? this.machine,
+      vocaInUur: vocaInUur ?? this.vocaInUur,
       status: status ?? this.status,
       createdOn: createdOn ?? this.createdOn,
       modifiedOn: modifiedOn ?? this.modifiedOn,

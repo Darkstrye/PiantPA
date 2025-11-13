@@ -94,12 +94,26 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
     final elapsedMap = <String, Duration>{};
     final downtimeMap = <String, Duration>{};
 
-    for (final order in orders) {
-      final elapsed = await _timerService.getTotalElapsedTimeForOrder(order.orderId);
-      final downtime = await _timerService.getTotalDowntimeForOrder(order.orderId);
-      elapsedMap[order.orderId] = elapsed;
-      downtimeMap[order.orderId] = downtime;
-    }
+    // Compute totals in parallel for responsiveness
+    await Future.wait(orders.map((order) async {
+      try {
+        final elapsed = await _timerService.getTotalElapsedTimeForOrder(
+          order.orderId,
+          includeOrphanedMappings: true,
+        );
+        final downtime = await _timerService.getTotalDowntimeForOrder(
+          order.orderId,
+          includeOrphanedMappings: true,
+        );
+        elapsedMap[order.orderId] = elapsed;
+        downtimeMap[order.orderId] = downtime;
+      } catch (e) {
+        // ignore: avoid_print
+        print('[CompletedOrdersScreen] Error loading totals for order ${order.orderId}: $e');
+        elapsedMap[order.orderId] = Duration.zero;
+        downtimeMap[order.orderId] = Duration.zero;
+      }
+    }));
 
     if (mounted) {
       setState(() {
@@ -123,27 +137,41 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
   void _selectOrder(Order order) async {
     setState(() {
       _selectedOrder = order;
+      // Use pre-loaded totals as initial values if available
+      _elapsedTime = _orderElapsedTotals[order.orderId];
+      _downtime = _orderDowntimeTotals[order.orderId];
     });
     
-    // Load time metrics for this completed order
+    // Load time metrics for this completed order (will update if different)
     await _loadDurationsForOrder(order.orderId);
   }
 
   Future<void> _loadDurationsForOrder(String orderId) async {
     try {
-      final totalElapsed = await _timerService.getTotalElapsedTimeForOrder(orderId);
-      final totalDowntime = await _timerService.getTotalDowntimeForOrder(orderId);
+      print('[CompletedOrdersScreen] Loading durations for order: $orderId');
+      final totalElapsed = await _timerService.getTotalElapsedTimeForOrder(
+        orderId,
+        includeOrphanedMappings: true,
+      );
+      final totalDowntime = await _timerService.getTotalDowntimeForOrder(
+        orderId,
+        includeOrphanedMappings: true,
+      );
+      print('[CompletedOrdersScreen] Loaded durations - Elapsed: ${totalElapsed.inSeconds}s, Downtime: ${totalDowntime.inSeconds}s');
       if (mounted) {
         setState(() {
+          // Always set values, even if zero - this ensures display works correctly
           _elapsedTime = totalElapsed;
           _downtime = totalDowntime;
         });
       }
     } catch (e) {
+      print('[CompletedOrdersScreen] Error loading durations for order $orderId: $e');
       if (mounted) {
         setState(() {
-          _elapsedTime = null;
-          _downtime = null;
+          // On error, set to zero instead of null so display still works
+          _elapsedTime = Duration.zero;
+          _downtime = Duration.zero;
         });
       }
     }
@@ -256,6 +284,8 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                         ),
                       );
                       _loadData();
+                      // Return true to indicate reset happened, so main screen can refresh
+                      Navigator.of(context).pop(true);
                     }
                   } catch (e) {
                     if (mounted) {
@@ -278,7 +308,12 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
             message: 'Refresh Completed Orders',
             child: IconButton(
               icon: const Icon(Icons.refresh),
-              onPressed: _loadData,
+              onPressed: () {
+                if (_repository is ExcelRepository) {
+                  (_repository as ExcelRepository).clearCache();
+                }
+                _loadData();
+              },
               tooltip: 'Refresh',
               color: Colors.green.shade700,
             ),
@@ -419,6 +454,13 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                               _buildDetailRow('Order Number', _selectedOrder!.orderNumber),
                               const SizedBox(height: 16),
                               _buildDetailRow('Machine', _selectedOrder!.machine.isNotEmpty ? _selectedOrder!.machine : 'N/A'),
+                              if (_selectedOrder!.vocaInUur != null) ...[
+                                const SizedBox(height: 16),
+                                _buildDetailRow(
+                                  'Voca in uur',
+                                  _selectedOrder!.vocaInUur!.toStringAsFixed(2).replaceAll('.', ','),
+                                ),
+                              ],
                               const SizedBox(height: 16),
                               Row(
                                 children: [
@@ -455,7 +497,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 TimerDisplay(duration: _elapsedTime!),
-                                if (_downtime != null) ...[
+                                if (_downtime != null && _downtime! > Duration.zero) ...[
                                   const SizedBox(height: 16),
                                   const Text(
                                     'Total Downtime:',
@@ -475,7 +517,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                               ] else ...[
                                 const Center(
                                   child: Text(
-                                    'No time recorded for this order',
+                                    'Loading time data...',
                                     style: TextStyle(fontSize: 16, color: Colors.grey),
                                   ),
                                 ),

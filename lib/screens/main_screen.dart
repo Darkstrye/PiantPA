@@ -26,7 +26,14 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final RepositoryInterface _repository = ExcelRepository();
   late final TimerService _timerService;
+  static const bool _verboseLogs = false;
+  void _log(String message) {
+    // ignore: avoid_print
+    if (_verboseLogs) print(message);
+  }
   
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
   List<Order> _orders = [];
   Order? _selectedOrder;
   bool _isLoading = true;
@@ -41,6 +48,14 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _timerService = TimerService(_repository);
+    _searchController.addListener(() {
+      final next = _searchController.text.trim();
+      if (next != _searchQuery) {
+        setState(() {
+          _searchQuery = next;
+        });
+      }
+    });
     _loadData();
     _loadActiveTimer();
   }
@@ -113,9 +128,7 @@ class _MainScreenState extends State<MainScreen> {
       if (activeReg != null &&
           _selectedOrder != null &&
           activeOrderIds.contains(_selectedOrder!.orderId)) {
-        // Subscribe to timer updates instead of calculating directly
-        // This ensures we get the correct value from the timer service
-        _subscribeToTimerStreams();
+        // Already subscribed above; no-op here
       }
     }
   }
@@ -125,8 +138,7 @@ class _MainScreenState extends State<MainScreen> {
       final previous = _elapsedTime;
       final isPaused = _timerService.isTimerPaused;
       if (!isPaused && previous != null && duration < previous) {
-        print(
-            '[MainScreen] elapsedTimeStream -> ignored regressive update ${duration.inSeconds}s (previous ${previous.inSeconds}s)');
+        _log('[MainScreen] elapsedTimeStream -> ignored regressive update ${duration.inSeconds}s (previous ${previous.inSeconds}s)');
         return;
       }
       _elapsedTime = duration;
@@ -139,8 +151,7 @@ class _MainScreenState extends State<MainScreen> {
       final previous = _downtime;
       final isPaused = _timerService.isTimerPaused;
       if (!isPaused && previous != null && duration < previous) {
-        print(
-            '[MainScreen] downtimeStream -> ignored regressive update ${duration.inSeconds}s (previous ${previous.inSeconds}s)');
+        _log('[MainScreen] downtimeStream -> ignored regressive update ${duration.inSeconds}s (previous ${previous.inSeconds}s)');
         return;
       }
       _downtime = duration;
@@ -152,7 +163,7 @@ class _MainScreenState extends State<MainScreen> {
     _timerSubscription?.cancel();
     _timerSubscription = _timerService.elapsedTimeStream.listen((duration) {
       if (mounted) {
-        print('[MainScreen] elapsedTimeStream -> received ${duration.inSeconds}s');
+        _log('[MainScreen] elapsedTimeStream -> received ${duration.inSeconds}s');
         _handleElapsedUpdate(duration);
       }
     });
@@ -160,7 +171,7 @@ class _MainScreenState extends State<MainScreen> {
     _downtimeSubscription?.cancel();
     _downtimeSubscription = _timerService.downtimeStream.listen((duration) {
       if (mounted) {
-        print('[MainScreen] downtimeStream -> received ${duration.inSeconds}s');
+        _log('[MainScreen] downtimeStream -> received ${duration.inSeconds}s');
         _handleDowntimeUpdate(duration);
       }
     });
@@ -183,7 +194,7 @@ class _MainScreenState extends State<MainScreen> {
       if (resumed) {
         _subscribeToTimerStreams();
         setState(() {
-          print('[MainScreen] resumeTimer -> keeping existing timers');
+          _log('[MainScreen] resumeTimer -> keeping existing timers');
           _activeOrderLinks = List.of(_timerService.activeOrderLinks);
         });
         if (mounted) {
@@ -247,6 +258,9 @@ class _MainScreenState extends State<MainScreen> {
         _activeOrderLinks = List.of(_timerService.activeOrderLinks);
       });
 
+      if (_repository is ExcelRepository) {
+        (_repository as ExcelRepository).clearCache();
+      }
       await _loadData();
 
       if (mounted) {
@@ -444,7 +458,7 @@ class _MainScreenState extends State<MainScreen> {
     if (activeReg != null &&
         activeReg.isActive &&
         activeOrderIds.contains(orderId)) {
-      print('[MainScreen] _loadDurationsForOrder -> skipped for active order $orderId');
+      _log('[MainScreen] _loadDurationsForOrder -> skipped for active order $orderId');
       return;
     }
     try {
@@ -479,6 +493,7 @@ class _MainScreenState extends State<MainScreen> {
     _timerSubscription?.cancel();
     _downtimeSubscription?.cancel();
     _timerService.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -496,6 +511,16 @@ class _MainScreenState extends State<MainScreen> {
       for (final order in _orders) order.orderId: order,
     };
 
+    // Filter visible orders by search
+    final lower = _searchQuery.toLowerCase();
+    final visibleOrders = lower.isEmpty
+        ? _orders
+        : _orders.where((o) {
+            final on = o.orderNumber.toLowerCase();
+            final m = o.machine.toLowerCase();
+            return on.contains(lower) || m.contains(lower);
+          }).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Order Processing'),
@@ -511,9 +536,22 @@ class _MainScreenState extends State<MainScreen> {
                       authService: widget.authService,
                     ),
                   ),
-                ).then((_) {
+                ).then((result) {
                   // Refresh data when returning from completed orders
-                  _loadData();
+                  // result will be true if orders were reset
+                  _log('[MainScreen] Returning from completed orders screen, result: $result');
+                  if (result == true || result == null) {
+                    // Always refresh when returning, especially if reset happened
+                    _log('[MainScreen] Refreshing data after returning from completed orders');
+                    if (_repository is ExcelRepository) {
+                      (_repository as ExcelRepository).clearCache();
+                    }
+                    _loadData();
+                    // Also reload durations for selected order if it exists
+                    if (_selectedOrder != null) {
+                      _loadDurationsForOrder(_selectedOrder!.orderId);
+                    }
+                  }
                 });
               },
               icon: const Icon(Icons.assignment_turned_in, size: 20),
@@ -569,109 +607,134 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(Icons.list_alt, color: Colors.blue.shade700, size: 28),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    'Active Orders (${_orders.length})',
-                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                          fontWeight: FontWeight.bold,
+                                  Row(
+                                    children: [
+                                      Icon(Icons.list_alt, color: Colors.blue.shade700, size: 28),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        'Active Orders (${visibleOrders.length})',
+                                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      // Small reset button
+                                      Tooltip(
+                                        message: 'Reset All Completed Orders',
+                                        child: IconButton(
+                                          icon: const Icon(Icons.restart_alt, size: 18),
+                                          onPressed: () async {
+                                            final confirmed = await showDialog<bool>(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: const Text('Reset Completed Orders'),
+                                                content: const Text(
+                                                  'This will reset all completed orders to In Progress and delete all their time registrations. This action cannot be undone.\n\nAre you sure?',
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () => Navigator.of(context).pop(false),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () => Navigator.of(context).pop(true),
+                                                    style: TextButton.styleFrom(
+                                                      foregroundColor: Colors.red,
+                                                    ),
+                                                    child: const Text('Reset All'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+
+                                            if (confirmed == true) {
+                                              try {
+                                                await ResetCompletedOrders.resetAll();
+                                                if (mounted) {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text('All completed orders have been reset'),
+                                                      backgroundColor: Colors.green,
+                                                    ),
+                                                  );
+                                                  if (_repository is ExcelRepository) {
+                                                    (_repository as ExcelRepository).clearCache();
+                                                  }
+                                                  _loadData(); // Refresh the list
+                                                }
+                                              } catch (e) {
+                                                if (mounted) {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(
+                                                      content: Text('Error resetting orders: $e'),
+                                                      backgroundColor: Colors.red,
+                                                    ),
+                                                  );
+                                                }
+                                              }
+                                            }
+                                          },
+                                          tooltip: 'Reset Completed Orders',
+                                          color: Colors.orange.shade700,
+                                          padding: const EdgeInsets.all(8),
+                                          constraints: const BoxConstraints(
+                                            minWidth: 32,
+                                            minHeight: 32,
+                                          ),
                                         ),
+                                      ),
+                                      // Refresh button
+                                      Tooltip(
+                                        message: 'Refresh Orders',
+                                        child: IconButton(
+                                          icon: const Icon(Icons.refresh),
+                                          onPressed: () {
+                                            if (_repository is ExcelRepository) {
+                                              (_repository as ExcelRepository).clearCache();
+                                            }
+                                            _loadData();
+                                          },
+                                          tooltip: 'Refresh',
+                                          color: Colors.blue.shade700,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  // Small reset button
-                                  Tooltip(
-                                    message: 'Reset All Completed Orders',
-                                    child: IconButton(
-                                      icon: const Icon(Icons.restart_alt, size: 18),
-                                      onPressed: () async {
-                                        final confirmed = await showDialog<bool>(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            title: const Text('Reset Completed Orders'),
-                                            content: const Text(
-                                              'This will reset all completed orders to In Progress and delete all their time registrations. This action cannot be undone.\n\nAre you sure?',
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.of(context).pop(false),
-                                                child: const Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.of(context).pop(true),
-                                                style: TextButton.styleFrom(
-                                                  foregroundColor: Colors.red,
-                                                ),
-                                                child: const Text('Reset All'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-
-                                        if (confirmed == true) {
-                                          try {
-                                            await ResetCompletedOrders.resetAll();
-                                            if (mounted) {
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                const SnackBar(
-                                                  content: Text('All completed orders have been reset'),
-                                                  backgroundColor: Colors.green,
-                                                ),
-                                              );
-                                              _loadData(); // Refresh the list
-                                            }
-                                          } catch (e) {
-                                            if (mounted) {
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(
-                                                  content: Text('Error resetting orders: $e'),
-                                                  backgroundColor: Colors.red,
-                                                ),
-                                              );
-                                            }
-                                          }
-                                        }
-                                      },
-                                      tooltip: 'Reset Completed Orders',
-                                      color: Colors.orange.shade700,
-                                      padding: const EdgeInsets.all(8),
-                                      constraints: const BoxConstraints(
-                                        minWidth: 32,
-                                        minHeight: 32,
-                                      ),
-                                    ),
+                              const SizedBox(height: 12),
+                              TextField(
+                                controller: _searchController,
+                                decoration: InputDecoration(
+                                  prefixIcon: const Icon(Icons.search),
+                                  hintText: 'Search by order or machine',
+                                  isDense: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  // Refresh button
-                                  Tooltip(
-                                    message: 'Refresh Orders',
-                                    child: IconButton(
-                                      icon: const Icon(Icons.refresh),
-                                      onPressed: _loadData,
-                                      tooltip: 'Refresh',
-                                      color: Colors.blue.shade700,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
                         ),
                         Expanded(
-                          child: _orders.isEmpty
+                          child: visibleOrders.isEmpty
                               ? const Center(
                                   child: Text('No orders available'),
                                 )
                               : ListView.builder(
-                                  itemCount: _orders.length,
+                                  itemCount: visibleOrders.length,
                                   itemBuilder: (context, index) {
-                                    final order = _orders[index];
+                                    final order = visibleOrders[index];
                                     return OrderListItem(
                                       order: order,
                                       isSelected: _selectedOrder?.orderId == order.orderId,

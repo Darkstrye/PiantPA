@@ -3,9 +3,17 @@ import '../models/hour_registration.dart';
 import '../models/hour_registration_order.dart';
 import '../models/order.dart';
 import '../repositories/repository_interface.dart';
+import 'package:flutter/foundation.dart';
 
 class TimerService {
   final RepositoryInterface repository;
+  static bool enableVerboseLogging = false;
+  void _log(String message) {
+    if (kDebugMode && enableVerboseLogging) {
+      // ignore: avoid_print
+      print(message);
+    }
+  }
   Timer? _timer;
   Timer? _downtimeTimer;
   HourRegistration? _activeRegistration;
@@ -54,8 +62,7 @@ class TimerService {
       try {
         return await action();
       } finally {
-        print(
-            '[TimerService][Perf] startTimerForOrders::$label took ${sw.elapsedMilliseconds}ms');
+        _log('[TimerService][Perf] startTimerForOrders::$label took ${sw.elapsedMilliseconds}ms');
       }
     }
 
@@ -84,8 +91,7 @@ class TimerService {
       }
 
       if (existingRegistration == null) {
-        print(
-            '[TimerService] startTimerForOrders -> creating new session for orders: $normalizedOrderIds');
+        _log('[TimerService] startTimerForOrders -> creating new session for orders: $normalizedOrderIds');
         final conflictedOrder = await measureAsync(
           'findConflictingOrder',
           () => _findConflictingOrder(normalizedOrderIds, userId),
@@ -144,23 +150,20 @@ class TimerService {
         _accumulatedElapsedTime = nonNullRegistration.pausedElapsedTime ??
             nonNullRegistration.elapsedTime ??
             0.0;
-        _accumulatedDowntime =
-            nonNullRegistration.downtimeElapsedTime ?? 0.0;
-        print(
-            '[TimerService] resume existing registration ${nonNullRegistration.hourRegistrationId} -> pausedElapsed=${nonNullRegistration.pausedElapsedTime}, elapsed=${nonNullRegistration.elapsedTime}, accumulatedElapsed=$_accumulatedElapsedTime, accumulatedDowntime=$_accumulatedDowntime');
+        _accumulatedDowntime = nonNullRegistration.downtimeElapsedTime ?? 0.0;
+        _log('[TimerService] resume existing registration ${nonNullRegistration.hourRegistrationId} -> pausedElapsed=${nonNullRegistration.pausedElapsedTime}, elapsed=${nonNullRegistration.elapsedTime}, accumulatedElapsed=$_accumulatedElapsedTime, accumulatedDowntime=$_accumulatedDowntime');
       }
 
       await _resumeActiveRegistration(now);
-      print(
-          '[TimerService] startTimerForOrders -> after resume: accumulatedElapsed=$_accumulatedElapsedTime accumulatedDowntime=$_accumulatedDowntime isPaused=${_activeRegistration?.isPaused}');
+      _log('[TimerService] startTimerForOrders -> after resume: accumulatedElapsed=$_accumulatedElapsedTime accumulatedDowntime=$_accumulatedDowntime isPaused=${_activeRegistration?.isPaused}');
       return true;
     } catch (e) {
+      // ignore: avoid_print
       print('[TimerService][Perf] startTimerForOrders -> error: $e');
       return false;
     } finally {
       totalStopwatch.stop();
-      print(
-          '[TimerService][Perf] startTimerForOrders::total took ${totalStopwatch.elapsedMilliseconds}ms');
+      _log('[TimerService][Perf] startTimerForOrders::total took ${totalStopwatch.elapsedMilliseconds}ms');
     }
   }
 
@@ -174,8 +177,7 @@ class TimerService {
 
       final now = DateTime.now();
       await _resumeActiveRegistration(now);
-      print(
-          '[TimerService] resumeTimer -> after resume: accumulatedElapsed=$_accumulatedElapsedTime accumulatedDowntime=$_accumulatedDowntime isPaused=${_activeRegistration?.isPaused}');
+      _log('[TimerService] resumeTimer -> after resume: accumulatedElapsed=$_accumulatedElapsedTime accumulatedDowntime=$_accumulatedDowntime isPaused=${_activeRegistration?.isPaused}');
       return true;
     } catch (e) {
       return false;
@@ -227,8 +229,7 @@ class TimerService {
     _activeRegistration = await repository.updateHourRegistration(
       updatedRegistration,
     );
-    print(
-        '[TimerService] _resumeActiveRegistration -> stored pausedElapsed=${_activeRegistration?.pausedElapsedTime}, elapsed=${_activeRegistration?.elapsedTime}');
+    _log('[TimerService] _resumeActiveRegistration -> stored pausedElapsed=${_activeRegistration?.pausedElapsedTime}, elapsed=${_activeRegistration?.elapsedTime}');
 
     await _refreshOrderOffsets();
 
@@ -238,8 +239,7 @@ class TimerService {
     _startTime = resumeTime;
 
     final baseTime = _accumulatedElapsedTime;
-    print(
-        '[TimerService] resume -> baseElapsed=$baseTime, accumulatedDowntime=$_accumulatedDowntime');
+    _log('[TimerService] resume -> baseElapsed=$baseTime, accumulatedDowntime=$_accumulatedDowntime');
     final initialDuration = Duration(seconds: (baseTime * 3600).toInt());
     _elapsedTimeController.add(initialDuration);
 
@@ -276,7 +276,7 @@ class TimerService {
   void _scheduleElapsedUpdates() {
     _timer?.cancel();
     final base = _accumulatedElapsedTime;
-    print('[TimerService] _scheduleElapsedUpdates -> scheduling with baseElapsed=$base');
+    _log('[TimerService] _scheduleElapsedUpdates -> scheduling with baseElapsed=$base');
     _timer = Timer(const Duration(milliseconds: 100), () {
       _emitElapsedTick();
       _timer = Timer.periodic(
@@ -293,7 +293,7 @@ class TimerService {
       return;
     }
     final totalElapsed = _currentElapsedHours();
-    print('[TimerService] _emitElapsedTick -> totalElapsed=$totalElapsed, startTime=$_startTime');
+    _log('[TimerService] _emitElapsedTick -> totalElapsed=$totalElapsed, startTime=$_startTime');
     final duration = Duration(seconds: (totalElapsed * 3600).toInt());
     _lastCalculatedDuration = duration;
     _elapsedTimeController.add(duration);
@@ -381,8 +381,7 @@ class TimerService {
 
       final totalElapsed = _currentElapsedHours();
       _accumulatedElapsedTime = totalElapsed;
-    print(
-        '[TimerService] pause -> totalElapsed=$totalElapsed, accumulatedDowntime=$_accumulatedDowntime');
+    _log('[TimerService] pause -> totalElapsed=$totalElapsed, accumulatedDowntime=$_accumulatedDowntime');
 
       final now = DateTime.now();
       final updatedRegistration = _activeRegistration!.copyWith(
@@ -425,8 +424,7 @@ class TimerService {
       final endTime = DateTime.now();
       final finalElapsed = _currentElapsedHours();
       final finalDowntime = _currentDowntimeHours();
-      print(
-          '[TimerService] finish -> finalElapsed=$finalElapsed, finalDowntime=$finalDowntime');
+      _log('[TimerService] finish -> finalElapsed=$finalElapsed, finalDowntime=$finalDowntime');
 
       await _captureOrderProgress();
 
@@ -437,16 +435,23 @@ class TimerService {
           continue;
         }
 
+        // Use the maximum of stored value and final calculated value to ensure accuracy
+        // This handles cases where _captureOrderProgress may have already updated the value
+        final storedElapsed = link.elapsedTime ?? 0.0;
+        final storedDowntime = link.downtimeElapsedTime ?? 0.0;
+        final finalElapsedValue = finalElapsed > storedElapsed ? finalElapsed : storedElapsed;
+        final finalDowntimeValue = finalDowntime > storedDowntime ? finalDowntime : storedDowntime;
+
         final updated = link.copyWith(
           isActive: false,
-          elapsedTime: link.elapsedTime ?? finalElapsed,
+          elapsedTime: finalElapsedValue,
           elapsedOffset: finalElapsed,
-          downtimeElapsedTime:
-              link.downtimeElapsedTime ?? finalDowntime,
+          downtimeElapsedTime: finalDowntimeValue,
           downtimeOffset: finalDowntime,
           completedOn: endTime,
           modifiedOn: endTime,
         );
+        _log('[TimerService] Saving completed order link: orderId=${link.orderId}, elapsedTime=$finalElapsedValue, downtime=$finalDowntimeValue');
         updatedLinks.add(updated);
         await repository.updateHourRegistrationOrder(updated);
       }
@@ -508,11 +513,17 @@ class TimerService {
       final now = DateTime.now();
 
       final link = _activeOrderLinks[activeLinkIndex];
+      // Use the maximum of stored value and final calculated value to ensure accuracy
+      final storedElapsed = link.elapsedTime ?? 0.0;
+      final storedDowntime = link.downtimeElapsedTime ?? 0.0;
+      final finalElapsedValue = finalElapsed > storedElapsed ? finalElapsed : storedElapsed;
+      final finalDowntimeValue = finalDowntime > storedDowntime ? finalDowntime : storedDowntime;
+
       final updated = link.copyWith(
         isActive: false,
-        elapsedTime: link.elapsedTime ?? finalElapsed,
+        elapsedTime: finalElapsedValue,
         elapsedOffset: finalElapsed,
-        downtimeElapsedTime: link.downtimeElapsedTime ?? finalDowntime,
+        downtimeElapsedTime: finalDowntimeValue,
         downtimeOffset: finalDowntime,
         completedOn: now,
         modifiedOn: now,
@@ -602,57 +613,129 @@ class TimerService {
   }
 
   /// Calculate total elapsed time for an order from all hour registrations
-  Future<Duration> getTotalElapsedTimeForOrder(String orderId) async {
+  /// Set includeOrphanedMappings=true to count stored mapping values when the
+  /// underlying registration record is missing (useful for completed orders).
+  Future<Duration> getTotalElapsedTimeForOrder(
+    String orderId, {
+    bool includeOrphanedMappings = false,
+  }) async {
     try {
       final mappings =
           await repository.getHourRegistrationOrdersByOrderId(orderId);
+      _log('[TimerService] getTotalElapsedTimeForOrder for $orderId: found ${mappings.length} mappings');
       double totalHours = 0.0;
 
+      // Prefetch registrations to avoid per-item awaits (N+1)
+      final registrationIds = mappings
+          .map((m) => m.hourRegistrationId)
+          .toSet()
+          .toList();
+      final registrations = await repository.getHourRegistrationsByIds(registrationIds);
+      final regById = {
+        for (final r in registrations) r.hourRegistrationId: r,
+      };
+
       for (final mapping in mappings) {
-        final registration =
-            await repository.getHourRegistrationById(mapping.hourRegistrationId);
+        _log('[TimerService]   Mapping: isActive=${mapping.isActive}, elapsedTime=${mapping.elapsedTime}, regId=${mapping.hourRegistrationId}');
+        final registration = regById[mapping.hourRegistrationId];
         if (registration == null) {
-          continue;
+          // Registration was deleted - this is orphaned data
+          if (includeOrphanedMappings) {
+            final orphaned = mapping.elapsedTime ?? 0.0;
+            _log('[TimerService]   Registration not found, including orphaned mapping.elapsedTime=$orphaned (includeOrphanedMappings)');
+            totalHours += orphaned;
+            continue;
+          } else {
+            _log('[TimerService]   Registration not found (orphaned mapping), skipping');
+            continue;
+          }
         }
+        _log('[TimerService]   Registration: isActive=${registration.isActive}, elapsedTime=${registration.elapsedTime}, pausedElapsedTime=${registration.pausedElapsedTime}');
 
         if (registration.isActive && mapping.isActive) {
+          // Active registration - calculate current elapsed time
           final registrationElapsed =
               _calculateRegistrationElapsed(registration);
           final base = mapping.elapsedTime ?? 0.0;
           final offset = mapping.elapsedOffset ?? registrationElapsed;
           final increment = registrationElapsed - offset;
-          totalHours += base + (increment > 0 ? increment : 0.0);
+          final added = base + (increment > 0 ? increment : 0.0);
+          _log('[TimerService]   Active: adding $added hours');
+          totalHours += added;
         } else {
+          // Completed/inactive registration - use stored values
+          // Priority: mapping.elapsedTime > registration.elapsedTime > registration.pausedElapsedTime > calculated
           if (mapping.elapsedTime != null) {
+            // Use the stored elapsed time from the mapping (most accurate for completed orders)
+            _log('[TimerService]   Completed: using mapping.elapsedTime=${mapping.elapsedTime}');
             totalHours += mapping.elapsedTime!;
           } else if (registration.elapsedTime != null) {
+            // Fallback to registration's elapsed time
+            _log('[TimerService]   Completed: using registration.elapsedTime=${registration.elapsedTime}');
             totalHours += registration.elapsedTime!;
+          } else if (registration.pausedElapsedTime != null) {
+            // Fallback to paused elapsed time
+            _log('[TimerService]   Completed: using registration.pausedElapsedTime=${registration.pausedElapsedTime}');
+            totalHours += registration.pausedElapsedTime!;
+          } else if (!registration.isActive && registration.endTime != null) {
+            // For completed registrations with endTime, calculate from start to end
+            final calculated = _calculateRegistrationElapsed(registration);
+            _log('[TimerService]   Completed: calculated from endTime=$calculated');
+            totalHours += calculated;
           } else {
-            totalHours += _calculateRegistrationElapsed(registration);
+            // Last resort: calculate from registration
+            final calculated = _calculateRegistrationElapsed(registration);
+            _log('[TimerService]   Completed: calculated fallback=$calculated');
+            totalHours += calculated;
           }
         }
       }
 
+      _log('[TimerService] getTotalElapsedTimeForOrder result: $totalHours hours = ${(totalHours * 3600).toInt()} seconds');
       return Duration(seconds: (totalHours * 3600).toInt());
     } catch (e) {
+      // ignore: avoid_print
+      print('[TimerService] getTotalElapsedTimeForOrder error for order $orderId: $e');
       return Duration.zero;
     }
   }
 
-  Future<Duration> getTotalDowntimeForOrder(String orderId) async {
+  /// Calculate total downtime for an order from all hour registrations
+  /// Set includeOrphanedMappings=true to count stored mapping values when the
+  /// underlying registration record is missing (useful for completed orders).
+  Future<Duration> getTotalDowntimeForOrder(
+    String orderId, {
+    bool includeOrphanedMappings = false,
+  }) async {
     try {
       final mappings =
           await repository.getHourRegistrationOrdersByOrderId(orderId);
       double totalHours = 0.0;
 
+      // Prefetch registrations to avoid per-item awaits (N+1)
+      final registrationIds = mappings
+          .map((m) => m.hourRegistrationId)
+          .toSet()
+          .toList();
+      final registrations = await repository.getHourRegistrationsByIds(registrationIds);
+      final regById = {
+        for (final r in registrations) r.hourRegistrationId: r,
+      };
+
       for (final mapping in mappings) {
-        final registration =
-            await repository.getHourRegistrationById(mapping.hourRegistrationId);
+        final registration = regById[mapping.hourRegistrationId];
         if (registration == null) {
-          continue;
+          // Registration was deleted - this is orphaned data
+          if (includeOrphanedMappings) {
+            totalHours += (mapping.downtimeElapsedTime ?? 0.0);
+            continue;
+          } else {
+            continue;
+          }
         }
 
         if (registration.isActive && mapping.isActive) {
+          // Active registration - calculate current downtime
           final registrationDowntime =
               _calculateRegistrationDowntime(registration);
           final base = mapping.downtimeElapsedTime ?? 0.0;
@@ -660,16 +743,22 @@ class TimerService {
           final increment = registrationDowntime - offset;
           totalHours += base + (increment > 0 ? increment : 0.0);
         } else {
+          // Completed/inactive registration - use stored values
+          // Priority: mapping.downtimeElapsedTime > registration.downtimeElapsedTime
           if (mapping.downtimeElapsedTime != null) {
+            // Use the stored downtime from the mapping (most accurate for completed orders)
             totalHours += mapping.downtimeElapsedTime!;
           } else if (registration.downtimeElapsedTime != null) {
+            // Fallback to registration's downtime
             totalHours += registration.downtimeElapsedTime!;
           }
+          // Note: If both are null, downtime is 0 for this registration
         }
       }
 
       return Duration(seconds: (totalHours * 3600).toInt());
     } catch (e) {
+      print('[TimerService] getTotalDowntimeForOrder error for order $orderId: $e');
       return Duration.zero;
     }
   }

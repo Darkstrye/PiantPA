@@ -51,7 +51,7 @@ class ResetCompletedOrders {
         print('  Reset order: ${order.orderNumber}');
         resetCount++;
         
-        // Delete all hour registrations for this order
+        // Delete all hour registrations AND mappings for this order
         final registrations = await repository.getHourRegistrationsByOrderId(order.orderId);
         int deletedCount = 0;
         for (var reg in registrations) {
@@ -70,6 +70,23 @@ class ResetCompletedOrders {
         }
         if (registrations.isNotEmpty) {
           print('    Deleted $deletedCount of ${registrations.length} hour registrations');
+        }
+        
+        // Also delete all hour registration order mappings for this order
+        final mappings = await repository.getHourRegistrationOrdersByOrderId(order.orderId);
+        int deletedMappings = 0;
+        for (var mapping in mappings) {
+          try {
+            final deleted = await repository.deleteHourRegistrationOrder(mapping.hourRegistrationOrderId);
+            if (deleted) {
+              deletedMappings++;
+            }
+          } catch (e) {
+            print('    Error deleting hour registration order mapping ${mapping.hourRegistrationOrderId}: $e');
+          }
+        }
+        if (deletedMappings > 0) {
+          print('    Deleted $deletedMappings hour registration order mappings');
         }
       }
       

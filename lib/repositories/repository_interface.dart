@@ -26,6 +26,7 @@ abstract class RepositoryInterface {
   Future<List<HourRegistration>> getHourRegistrationsByOrderId(String orderId);
   Future<List<HourRegistration>> getHourRegistrationsByUserId(String userId);
   Future<HourRegistration?> getActiveHourRegistrationByUserId(String userId);
+  Future<List<HourRegistration>> getHourRegistrationsByIds(List<String> ids);
   Future<HourRegistration> createHourRegistration(HourRegistration registration);
   Future<HourRegistration> updateHourRegistration(HourRegistration registration);
   Future<bool> deleteHourRegistration(String id);
@@ -41,6 +42,8 @@ abstract class RepositoryInterface {
       String hourRegistrationId);
   Future<List<HourRegistrationOrder>> getHourRegistrationOrdersByOrderId(
       String orderId);
+  Future<Map<String, List<HourRegistrationOrder>>> getHourRegistrationOrdersByOrderIds(
+      List<String> orderIds);
   Future<HourRegistrationOrder?> getActiveHourRegistrationOrderForUser(
       String orderId, String userId);
   Future<HourRegistrationOrder> createHourRegistrationOrder(

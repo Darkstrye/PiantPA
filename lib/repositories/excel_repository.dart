@@ -11,6 +11,7 @@ import 'repository_interface.dart';
 class ExcelRepository implements RepositoryInterface {
   static const String _loginDetailsFile = 'login_details.xlsx';
   static const String _ordersFile = 'orders.xlsx';
+  static const String _orderregelsCsvFile = 'Orderregels.csv';
   static const String _hourRegistrationFile = 'hour_registration.xlsx';
   static const String _hourRegistrationOrderFile = 'hour_registration_orders.xlsx';
   static const String _sheetName = 'Sheet1';
@@ -59,19 +60,13 @@ class ExcelRepository implements RepositoryInterface {
   }
 
   Future<List<Order>> _loadOrders() async {
-    try {
-      final filePath = await ExcelService.getExcelFilePath(_ordersFile);
-      final excel = await ExcelService.loadExcelFile(filePath);
-
-      if (!excel.sheets.containsKey(_sheetName)) {
-        return [];
-      }
-
-      final data = ExcelService.excelToMapList(excel, _sheetName);
-      return data.map((json) => Order.fromJson(json)).toList();
-    } catch (e) {
-      return [];
+    // Load only from CSV Orderregels source
+    final csvPath = await ExcelService.getExcelFilePath(_orderregelsCsvFile);
+    if (await File(csvPath).exists()) {
+      return await _loadOrdersFromCsv(csvPath);
     }
+    // If CSV is missing, return empty list (no legacy fallback)
+    return [];
   }
 
   Future<List<HourRegistration>> _loadHourRegistrations() async {
@@ -146,7 +141,7 @@ class ExcelRepository implements RepositoryInterface {
 
   Future<void> _persistOrdersCache() async {
     if (_ordersCache == null || !_ordersDirty) return;
-    await _saveOrders(_ordersCache!);
+    await _saveOrdersCsvStatuses(_ordersCache!);
     _ordersDirty = false;
   }
 
@@ -159,6 +154,19 @@ class ExcelRepository implements RepositoryInterface {
   Future<void> _persistHourRegistrationOrdersCache() async {
     if (_hourRegistrationOrdersCache == null || !_hourRegistrationOrdersDirty) return;
     await _saveHourRegistrationOrders(_hourRegistrationOrdersCache!);
+    _hourRegistrationOrdersDirty = false;
+  }
+
+  // Public method to clear all caches and force reload from disk
+  void clearCache() {
+    print('[ExcelRepository] Clearing all caches');
+    _loginDetailsCache = null;
+    _ordersCache = null;
+    _hourRegistrationsCache = null;
+    _hourRegistrationOrdersCache = null;
+    _loginDetailsDirty = false;
+    _ordersDirty = false;
+    _hourRegistrationsDirty = false;
     _hourRegistrationOrdersDirty = false;
   }
 
@@ -364,20 +372,323 @@ class ExcelRepository implements RepositoryInterface {
     return false;
   }
 
-  Future<void> _saveOrders(List<Order> orders) async {
-    final headers = ['OrderId', 'OrderNumber', 'Machine', 'Status', 'CreatedOn', 'ModifiedOn', 'CreatedBy', 'ModifiedBy'];
-    final filePath = await ExcelService.getExcelFilePath(_ordersFile);
-    
-    Excel excel;
-    if (await File(filePath).exists()) {
-      excel = await ExcelService.loadExcelFile(filePath);
+  // -------- CSV (Orderregels) support --------
+  Future<List<Order>> _loadOrdersFromCsv(String filePath) async {
+    try {
+      final raw = await File(filePath).readAsString();
+      final rows = _parseCsv(raw);
+      if (rows.isEmpty) return [];
+      final header = rows.first.map((h) => h.trim()).toList();
+      int idxOrderregel = _findOrderregelHeaderIndex(header);
+      int idxMachine = _findMachineHeaderIndex(header);
+      int idxVoca = _findVocaHeaderIndex(header);
+      int idxStatus = _findExactOrFuzzy(header, ['status']);
+
+      // Aggregate by orderregel: sum voca, pick latest non-empty machine, and status (Completed if any row is Completed)
+      final Map<String, double> vocaByOrder = {};
+      final Map<String, String> machineByOrder = {};
+      final Map<String, OrderStatus> statusByOrder = {};
+
+      DateTime now = DateTime.now();
+      for (int i = 1; i < rows.length; i++) {
+        final row = rows[i];
+        if (row.isEmpty) continue;
+        final orderregel = idxOrderregel >= 0 && idxOrderregel < row.length
+            ? row[idxOrderregel].trim()
+            : '';
+        if (orderregel.isEmpty) continue;
+        final machine = idxMachine >= 0 && idxMachine < row.length ? row[idxMachine].trim() : '';
+        final vocaRaw =
+            idxVoca >= 0 && idxVoca < row.length ? row[idxVoca].trim() : '';
+        final statusRaw =
+            idxStatus >= 0 && idxStatus < row.length ? row[idxStatus].trim() : 'InProgress';
+
+        final double? vocaInUur = _tryParseDutchDouble(vocaRaw);
+        final status = _mapCsvStatus(statusRaw);
+
+        // sum voca
+        final current = vocaByOrder[orderregel] ?? 0.0;
+        if (vocaInUur != null) {
+          vocaByOrder[orderregel] = current + vocaInUur;
+        } else {
+          vocaByOrder[orderregel] = current + 0.0;
+        }
+
+        // latest non-empty machine
+        if (machine.isNotEmpty) {
+          machineByOrder[orderregel] = machine;
+        } else {
+          machineByOrder.putIfAbsent(orderregel, () => '');
+        }
+
+        // status completed if any row completed, else inProgress
+        final prev = statusByOrder[orderregel];
+        if (prev == null) {
+          statusByOrder[orderregel] = status;
+        } else {
+          if (status == OrderStatus.completed) {
+            statusByOrder[orderregel] = OrderStatus.completed;
+          }
+        }
+      }
+
+      final List<Order> orders = [];
+      for (final entry in vocaByOrder.entries) {
+        final orderId = entry.key;
+        final machine = machineByOrder[orderId] ?? '';
+        final status = statusByOrder[orderId] ?? OrderStatus.inProgress;
+        orders.add(Order(
+          orderId: orderId,
+          orderNumber: orderId,
+          machine: machine,
+          vocaInUur: entry.value,
+          status: status,
+          createdOn: now,
+          modifiedOn: now,
+          createdBy: null,
+          modifiedBy: null,
+        ));
+      }
+      return orders;
+    } catch (e) {
+      // ignore: avoid_print
+      print('Error loading Orderregels.csv: $e');
+      return [];
+    }
+  }
+
+  int _indexOfHeader(List<String> header, String name) {
+    final ln = name.toLowerCase();
+    for (int i = 0; i < header.length; i++) {
+      if (header[i].toLowerCase() == ln) return i;
+    }
+    return -1;
+  }
+
+  // Header detection helpers (robust to different labels)
+  String _norm(String s) => s.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
+
+  int _findExactOrFuzzy(List<String> header, List<String> names) {
+    // try exact first
+    for (final n in names) {
+      final idx = _indexOfHeader(header, n);
+      if (idx >= 0) return idx;
+    }
+    // then normalized equality
+    final normTargets = names.map(_norm).toSet();
+    for (int i = 0; i < header.length; i++) {
+      final hn = _norm(header[i]);
+      if (normTargets.contains(hn)) return i;
+    }
+    return -1;
+  }
+
+  int _findOrderregelHeaderIndex(List<String> header) {
+    final idx = _findExactOrFuzzy(header, ['orderregel', 'order regel', 'ordernummer', 'ordernr', 'order']);
+    if (idx >= 0) return idx;
+    // fallback: contains the word order and digits in sample rows will be there; we keep simple
+    for (int i = 0; i < header.length; i++) {
+      final h = _norm(header[i]);
+      if (h.contains('order') || h.contains('orderregel')) return i;
+    }
+    return -1;
+  }
+
+  int _findMachineHeaderIndex(List<String> header) {
+    final idx = _findExactOrFuzzy(header, ['machinenaam', 'machine', 'machinen', 'machinena', 'machinens']);
+    if (idx >= 0) return idx;
+    for (int i = 0; i < header.length; i++) {
+      final h = _norm(header[i]);
+      if (h.contains('machine')) return i;
+    }
+    return -1;
+  }
+
+  int _findVocaHeaderIndex(List<String> header) {
+    // Accept 'voca in uur', 'voca', 'sum of voca in uur', etc.
+    final idx = _findExactOrFuzzy(header, ['voca in uur', 'voca']);
+    if (idx >= 0) return idx;
+    for (int i = 0; i < header.length; i++) {
+      final h = _norm(header[i]);
+      final hasVoca = h.contains('voca');
+      final hasUurOrHours = h.contains('uur') || h.contains('hours');
+      if (hasVoca && (hasUurOrHours || true)) {
+        // If the column contains 'voca' at all, treat as voca
+        return i;
+      }
+      if (h.startsWith('sumofvoca')) return i;
+    }
+    return -1;
+  }
+
+  double? _tryParseDutchDouble(String input) {
+    if (input.isEmpty) return null;
+    final s = input.trim();
+    final hasComma = s.contains(',');
+    final hasDot = s.contains('.');
+    String normalized;
+    if (hasComma && !hasDot) {
+      // e.g., 1,50  -> 1.50
+      normalized = s.replaceAll('.', '').replaceAll(',', '.');
+    } else if (hasDot && !hasComma) {
+      // e.g., 1.50  -> 1.50
+      normalized = s;
+    } else if (hasDot && hasComma) {
+      // Mixed: decide by last separator as decimal; drop the other as thousands
+      final lastComma = s.lastIndexOf(',');
+      final lastDot = s.lastIndexOf('.');
+      if (lastComma > lastDot) {
+        // 1.234,56 -> remove dots, comma as decimal
+        normalized = s.replaceAll('.', '').replaceAll(',', '.');
+      } else {
+        // 1,234.56 -> remove commas, dot as decimal
+        normalized = s.replaceAll(',', '');
+      }
     } else {
-      excel = ExcelService.createExcelWithHeaders(headers, _sheetName);
+      normalized = s;
+    }
+    return double.tryParse(normalized);
+  }
+
+  OrderStatus _mapCsvStatus(String status) {
+    switch (status.trim().toLowerCase()) {
+      case 'inprogress':
+      case 'in progress':
+        return OrderStatus.inProgress;
+      case 'completed':
+        return OrderStatus.completed;
+      default:
+        return OrderStatus.inProgress;
+    }
+  }
+
+  String _statusToCsv(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.inProgress:
+        return 'InProgress';
+      case OrderStatus.completed:
+        return 'Completed';
+    }
+  }
+
+  List<List<String>> _parseCsv(String content) {
+    final List<List<String>> rows = [];
+    List<String> currentRow = [];
+    final StringBuffer current = StringBuffer();
+    bool inQuotes = false;
+
+    for (int i = 0; i < content.length; i++) {
+      final char = content[i];
+      if (inQuotes) {
+        if (char == '"') {
+          // Lookahead for escaped quote
+          if (i + 1 < content.length && content[i + 1] == '"') {
+            current.write('"');
+            i++;
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          current.write(char);
+        }
+      } else {
+        if (char == '"') {
+          inQuotes = true;
+        } else if (char == ',') {
+          currentRow.add(current.toString());
+          current.clear();
+        } else if (char == '\n') {
+          currentRow.add(current.toString());
+          rows.add(currentRow);
+          currentRow = [];
+          current.clear();
+        } else if (char == '\r') {
+          // ignore CR (handle CRLF)
+        } else {
+          current.write(char);
+        }
+      }
+    }
+    // Last cell
+    currentRow.add(current.toString());
+    if (currentRow.isNotEmpty) {
+      rows.add(currentRow);
+    }
+    return rows;
+  }
+
+  String _escapeCsv(String input) {
+    final needsQuotes = input.contains(',') || input.contains('"') || input.contains('\n') || input.contains('\r');
+    var value = input.replaceAll('"', '""');
+    return needsQuotes ? '"$value"' : value;
+  }
+
+  Future<void> _saveOrdersCsvStatuses(List<Order> orders) async {
+    final path = await ExcelService.getExcelFilePath(_orderregelsCsvFile);
+    if (!await File(path).exists()) {
+      // If CSV doesn't exist, create minimal CSV with known columns
+      final header = ['orderregel', 'Machinenaam', 'voca in uur', 'Status'];
+      final lines = <String>[];
+      lines.add(header.join(','));
+      for (final o in orders) {
+        final voca = o.vocaInUur != null
+            ? o.vocaInUur!.toString().replaceAll('.', ',')
+            : '';
+        lines.add([
+          _escapeCsv(o.orderNumber),
+          _escapeCsv(o.machine),
+          _escapeCsv(voca),
+          _escapeCsv(_statusToCsv(o.status)),
+        ].join(','));
+      }
+      await File(path).writeAsString(lines.join('\r\n'));
+      return;
     }
 
-    final data = orders.map((item) => item.toJson()).toList();
-    ExcelService.mapListToExcel(excel, _sheetName, data, headers);
-    await ExcelService.saveExcelFile(excel, filePath);
+    // Read existing CSV and update Status column for known orders
+    final raw = await File(path).readAsString();
+    final rows = _parseCsv(raw);
+    if (rows.isEmpty) return;
+    final header = rows.first.toList();
+    int idxOrderregel = _indexOfHeader(header, 'orderregel');
+    if (idxOrderregel < 0) {
+      header.add('Status');
+      idxOrderregel = 0; // attempt to map by first column if missing
+    }
+    int idxStatus = _indexOfHeader(header, 'status');
+    if (idxStatus < 0) {
+      header.add('Status');
+      idxStatus = header.length - 1;
+    }
+
+    final byOrder = {
+      for (final o in orders) o.orderNumber.toLowerCase(): o,
+    };
+
+    // Update rows
+    for (int i = 1; i < rows.length; i++) {
+      final row = rows[i];
+      if (row.length < header.length) {
+        row.addAll(List.filled(header.length - row.length, ''));
+      }
+      final key = idxOrderregel < row.length ? row[idxOrderregel].toLowerCase() : '';
+      if (byOrder.containsKey(key)) {
+        row[idxStatus] = _statusToCsv(byOrder[key]!.status);
+      }
+    }
+
+    // Write back
+    final out = StringBuffer();
+    out.writeln(header.map(_escapeCsv).join(','));
+    for (int i = 1; i < rows.length; i++) {
+      final row = rows[i];
+      // Ensure row length equals header length
+      if (row.length < header.length) {
+        row.addAll(List.filled(header.length - row.length, ''));
+      }
+      out.writeln(row.map(_escapeCsv).join(','));
+    }
+    await File(path).writeAsString(out.toString());
   }
 
   // HourRegistration operations
@@ -416,6 +727,14 @@ class ExcelRepository implements RepositoryInterface {
   Future<List<HourRegistration>> getHourRegistrationsByUserId(String userId) async {
     final all = await getAllHourRegistrations();
     return all.where((item) => item.userId == userId).toList();
+  }
+
+  @override
+  Future<List<HourRegistration>> getHourRegistrationsByIds(List<String> ids) async {
+    if (ids.isEmpty) return [];
+    final idSet = ids.map((e) => e.toLowerCase()).toSet();
+    final all = await getAllHourRegistrations();
+    return all.where((r) => idSet.contains(r.hourRegistrationId.toLowerCase())).toList();
   }
 
   @override
@@ -589,6 +908,21 @@ class ExcelRepository implements RepositoryInterface {
     return all
         .where((item) => item.orderId.toLowerCase() == orderId.toLowerCase())
         .toList();
+  }
+
+  @override
+  Future<Map<String, List<HourRegistrationOrder>>> getHourRegistrationOrdersByOrderIds(
+      List<String> orderIds) async {
+    final result = <String, List<HourRegistrationOrder>>{};
+    if (orderIds.isEmpty) return result;
+    final set = orderIds.map((e) => e.toLowerCase()).toSet();
+    final all = await getAllHourRegistrationOrders();
+    for (final order in all) {
+      final key = order.orderId.toLowerCase();
+      if (!set.contains(key)) continue;
+      (result[order.orderId] ??= []).add(order);
+    }
+    return result;
   }
 
   @override

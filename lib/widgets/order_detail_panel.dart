@@ -79,6 +79,13 @@ class OrderDetailPanel extends StatelessWidget {
           _buildDetailRow('Order Number', order!.orderNumber),
           const SizedBox(height: 16),
           _buildDetailRow('Machine', order!.machine.isNotEmpty ? order!.machine : 'N/A'),
+          if (order!.vocaInUur != null) ...[
+            const SizedBox(height: 16),
+            _buildDetailRow(
+              'Voca in uur',
+              _formatDutchDouble(order!.vocaInUur!),
+            ),
+          ],
           const SizedBox(height: 16),
           Row(
             children: [
@@ -143,7 +150,37 @@ class OrderDetailPanel extends StatelessWidget {
                   accentColor: Colors.orange.shade700,
                 ),
               ],
-              if (activeOrderLinks.isNotEmpty) ...[
+            ] else if (!hasActiveTimer && elapsedTime != null) ...[
+              // Show elapsed time even if no active timer (for orders with previous registrations)
+              const Text(
+                'Total Time:',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TimerDisplay(duration: elapsedTime!),
+              if (downtime != null && downtime! > Duration.zero) ...[
+                const SizedBox(height: 16),
+                const Text(
+                  'Total Downtime:',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TimerDisplay(
+                  duration: downtime!,
+                  title: 'Downtime',
+                  accentColor: Colors.orange.shade700,
+                ),
+              ],
+            ],
+            if (hasActiveTimer && activeOrderLinks.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 const Text(
                   'Actieve orders in deze sessie:',
@@ -189,7 +226,7 @@ class OrderDetailPanel extends StatelessWidget {
                   }).toList(),
                 ),
               ],
-              if (!isTimerForSelectedOrder) ...[
+              if (hasActiveTimer && !isTimerForSelectedOrder) ...[
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.all(12),
@@ -264,28 +301,28 @@ class OrderDetailPanel extends StatelessWidget {
                   ),
                 ),
               ],
-            ] else ...[
-              // No active timer - show Start Timer button (if order hasn't been completed)
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: onStartTimer,
-                  icon: const Icon(Icons.play_arrow, size: 24),
-                  label: const Text(
-                    'Start Timer',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green.shade700,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              // No active timer - show Start Timer button (if order hasn't been completed and timer is not for this order)
+              if (!hasActiveTimer && !isTimerForSelectedOrder) ...[
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: onStartTimer,
+                    icon: const Icon(Icons.play_arrow, size: 24),
+                    label: const Text(
+                      'Start Timer',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green.shade700,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
           ] else ...[
             // Completed order - show total elapsed time if available
             if (elapsedTime != null) ...[
@@ -353,6 +390,11 @@ class OrderDetailPanel extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _formatDutchDouble(double value) {
+    final text = value.toStringAsFixed(2).replaceAll('.', ',');
+    return text;
   }
 }
 

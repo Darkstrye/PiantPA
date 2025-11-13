@@ -1,0 +1,5069 @@
+Orderregel,MachineNaam,Sum of VOCA in uur,Status
+172525,Laser 3,18.03,InProgress
+172526,Laser 3,17.74,InProgress
+172527,Laser 4,18.03,InProgress
+172755,Flash_Cut 5,0.52,InProgress
+173203,Freesmachine,0.29,InProgress
+173204,Buigmachine,0.07,InProgress
+173205,Assemblage 1,0.33,InProgress
+173211,Freesmachine,0.49,InProgress
+173212,Buigmachine,0.83,InProgress
+173213,Assemblage 1,1.67,InProgress
+173215,Freesmachine,1.6,InProgress
+173216,Buigmachine,1.67,InProgress
+173217,Assemblage 1,3.33,InProgress
+173219,Freesmachine,0.33,InProgress
+173220,Buigmachine,0.5,InProgress
+173221,Assemblage 1,1.08,InProgress
+173222,Freesmachine,0.1,InProgress
+173223,Laser 4,0.18,InProgress
+173389,Atom,5.75,InProgress
+173395,Chiesa,2.75,InProgress
+173401,Chiesa,2.75,InProgress
+173403,Flash_Cut 2,13.91,InProgress
+173408,Flash_Cut 5,1.88,InProgress
+173409,Flash_Cut 3,17.58,InProgress
+173428,Degel 1,4.98,InProgress
+173480,Chiesa,5.17,InProgress
+173482,Chiesa,1.94,InProgress
+173553,Atom,1.15,InProgress
+173554,Atom,0.53,InProgress
+173556,Snijmachine,0.35,InProgress
+173557,Snijmachine,2.33,InProgress
+173558,Snijmachine,2.11,InProgress
+173580,Degel 1,3.4,InProgress
+173697,Freesmachine,2.62,InProgress
+173717,Quad,70.47,InProgress
+173984,Stikken Secrid,7.71,InProgress
+173986,Stikken Secrid,6.17,InProgress
+173987,Stikken Secrid,6.17,InProgress
+173988,Stikken Secrid,3.08,InProgress
+173989,Stikken Secrid,3.08,InProgress
+173990,Stikken Secrid,3.08,InProgress
+173991,Stikken Secrid,3.08,InProgress
+173992,Stikken Secrid,7.71,InProgress
+173993,Stikken Secrid,3.08,InProgress
+173994,Stikken Secrid,7.71,InProgress
+174035,Stikken Secrid,15.42,InProgress
+174036,Stikken Secrid,6.17,InProgress
+174037,Stikken Secrid,6.17,InProgress
+174038,Stikken Secrid,0.62,InProgress
+174041,Assemblage Secrid,2.22,InProgress
+174043,Assemblage Secrid,2.22,InProgress
+174044,Assemblage Secrid,2.22,InProgress
+174045,Assemblage Secrid,2.22,InProgress
+174046,Assemblage Secrid,2.22,InProgress
+172993,Degel 1,3.58,InProgress
+173180,Laser 4,0.94,InProgress
+173181,Laser 4,2.21,InProgress
+173182,Laser 4,0.42,InProgress
+173183,Laser 4,0.31,InProgress
+173184,Laser 4,0.04,InProgress
+173185,Laser 4,0.01,InProgress
+173186,Laser 4,0.49,InProgress
+173187,Laser 4,0.03,InProgress
+173188,Laser 4,0.8,InProgress
+173189,Laser 4,0.55,InProgress
+173190,Laser 4,0.05,InProgress
+173191,Laser 4,0.05,InProgress
+173192,Laser 4,0.05,InProgress
+173193,Laser 4,0.05,InProgress
+173197,Laser 4,0.05,InProgress
+173198,Laser 4,0.02,InProgress
+173199,Laser 4,0.05,InProgress
+173200,Laser 4,0.06,InProgress
+173201,Laser 4,0.03,InProgress
+173202,Verzenden,0.26,InProgress
+173706,Degel 5,5.22,InProgress
+173707,Degel 4,4.72,InProgress
+173708,Degel 4,2.36,InProgress
+173709,Degel 4,2.36,InProgress
+173135,Giant,22.67,InProgress
+173635,Assemblage Secrid,5.34,InProgress
+173636,Assemblage Secrid,2.72,InProgress
+173637,Assemblage Secrid,2.54,InProgress
+173644,Laser 4,1.29,InProgress
+173645,Laser 2,0.63,InProgress
+173646,Laser 4,0.74,InProgress
+173647,Laser 4,0.45,InProgress
+173653,Freesmachine,0.64,InProgress
+173654,Buigmachine,0.5,InProgress
+173655,Assemblage 1,1.06,InProgress
+173669,Flash_Cut 5,2.03,InProgress
+173719,Degel 4,2.86,InProgress
+173720,Degel 4,4.17,InProgress
+173893,Flash_Cut 2,21.93,InProgress
+173910,Flash_Cut 2,8.39,InProgress
+174092,Laser 2,0.61,InProgress
+174121,Stikken Secrid,6.17,InProgress
+174122,Stikken Secrid,52.42,InProgress
+174123,Stikken Secrid,6.17,InProgress
+174124,Stikken Secrid,3.08,InProgress
+174127,,5.17,InProgress
+174128,,19,InProgress
+174130,Stikken Secrid,3.08,InProgress
+174131,Stikken Secrid,6.17,InProgress
+174132,Stikken Secrid,3.08,InProgress
+174133,Stikken Secrid,15.42,InProgress
+174134,Stikken Secrid,9.25,InProgress
+174135,Stikken Secrid,9.25,InProgress
+174137,Stikken Secrid,12.33,InProgress
+174138,Stikken Secrid,18.5,InProgress
+174139,Stikken Secrid,12.33,InProgress
+174140,Stikken Secrid,12.33,InProgress
+174141,Stikken Secrid,6.17,InProgress
+174142,Stikken Secrid,6.17,InProgress
+174143,Stikken Secrid,15.42,InProgress
+174144,Stikken Secrid,12.33,InProgress
+174145,Stikken Secrid,3.08,InProgress
+174146,Stikken Secrid,3.08,InProgress
+174147,Stikken Secrid,6.17,InProgress
+174148,Stikken Secrid,9.25,InProgress
+174149,Stikken Secrid,6.17,InProgress
+174150,Stikken Secrid,9.25,InProgress
+174151,Stikken Secrid,12.33,InProgress
+174152,Stikken Secrid,9.25,InProgress
+174153,Stikken Secrid,6.17,InProgress
+173240,Flash_Cut 1,16.9,InProgress
+173245,Laserstansen,3.16,InProgress
+173327,Degel 1,13.26,InProgress
+173413,Laser 2,0.3,InProgress
+173657,Chiesa,14.6,InProgress
+173741,Flash_Cut 5,0.65,InProgress
+174242,Giant,0.75,InProgress
+171433,Quad,3.03,InProgress
+171435,Quad,7,InProgress
+171436,Quad,2.19,InProgress
+171447,Quad,6.87,InProgress
+171449,Quad,6.68,InProgress
+171450,Quad,2.09,InProgress
+173462,Degel 1,0.69,InProgress
+173567,Laser 2,1.36,InProgress
+173614,Laser 2,4.47,InProgress
+173686,Chiesa,11.13,InProgress
+173687,Assemblage drankverpakkingen,306.67,InProgress
+173745,Atom,2.94,InProgress
+173748,Atom,2.98,InProgress
+173751,Atom,2.16,InProgress
+173754,Atom,5.75,InProgress
+173757,Giant,1.96,InProgress
+173760,Atom,3.67,InProgress
+173763,Atom,2.26,InProgress
+173769,Atom,3.27,InProgress
+173775,Atom,2.49,InProgress
+173782,Atom,2.01,InProgress
+173785,Atom,1.35,InProgress
+174051,Quad,6.71,InProgress
+174052,Quad,4.19,InProgress
+174053,Quad,3.36,InProgress
+174055,Quad,5.03,InProgress
+174396,Quad,5.03,InProgress
+174397,Quad,5.87,InProgress
+174398,Stikken Secrid,2.52,InProgress
+172610,Giant,0.28,InProgress
+172611,Giant,1.02,InProgress
+172614,Giant,0.26,InProgress
+172615,Giant,0.01,InProgress
+172616,Giant,0.23,InProgress
+172620,Laser 4,0.26,InProgress
+172621,Laser 4,0.27,InProgress
+172627,Laser 4,0.26,InProgress
+172628,Laser 4,0.26,InProgress
+172630,Laser 4,0.26,InProgress
+172631,Laser 4,0.26,InProgress
+173045,Laser 4,0.82,InProgress
+173049,Laser 4,1,InProgress
+173342,Laser 4,0.29,InProgress
+173344,Laser 4,0.29,InProgress
+173346,Laser 4,0.31,InProgress
+173348,Laser 4,0.29,InProgress
+173350,Laser 4,0.33,InProgress
+173352,Laser 4,0.33,InProgress
+173354,Laser 4,0.29,InProgress
+173445,Giant,0.55,InProgress
+173447,Laser 2,0.42,InProgress
+173563,Laser 2,0.25,InProgress
+173690,Laser 2,0.67,InProgress
+173723,Laser 2,0.56,InProgress
+173729,Laser 2,0.58,InProgress
+173789,,0.12,InProgress
+173861,Laser 2,5.5,InProgress
+173862,Laser 2,1.61,InProgress
+174095,Laser 4,2.13,InProgress
+174096,Laser 4,4,InProgress
+174097,Laser 4,2.08,InProgress
+174104,Laser 4,0.68,InProgress
+174159,Laser 3,0.75,InProgress
+174235,Laser 4,4.97,InProgress
+174325,Flash_Cut 1,0.25,InProgress
+174340,Laser 3,1.32,InProgress
+174346,Stikken Secrid,0.62,InProgress
+174347,Stikken Secrid,0.43,InProgress
+174399,Quad,5.03,InProgress
+174400,Quad,6.71,InProgress
+173224,Assemblage 1,0.17,InProgress
+173850,Giant,4.63,InProgress
+174088,Laser 2,1.41,InProgress
+174106,Snijmachine,1.14,InProgress
+174114,Degel 1,0.73,InProgress
+174115,Degel 1,0.73,InProgress
+174213,Snijmachine,0.42,InProgress
+174357,Laser 4,0.86,InProgress
+171705,Quad,34.14,InProgress
+171706,Quad,12.63,InProgress
+171707,Quad,12.64,InProgress
+173576,Laser 2,1.16,InProgress
+173832,Verzenden,0.32,InProgress
+173833,Laser 4,0.33,InProgress
+173834,Laser 4,0.48,InProgress
+173835,Laser 4,0.42,InProgress
+173836,Laser 4,0.14,InProgress
+173838,Laser 4,0.27,InProgress
+173839,Buigmachine,0.07,InProgress
+173904,Flash_Cut 2,16.19,InProgress
+173905,Flash_Cut 2,4.28,InProgress
+173915,Quad,9.02,InProgress
+174040,Assemblage Secrid,2.22,InProgress
+174073,Chiesa,2.47,InProgress
+174100,Chiesa,3.98,InProgress
+174160,Laser 2,4.57,InProgress
+174164,Assemblage Secrid,7.78,InProgress
+174165,Assemblage Secrid,5.56,InProgress
+174166,Assemblage Secrid,5.56,InProgress
+174167,Assemblage Secrid,8.89,InProgress
+174168,Assemblage Secrid,2.26,InProgress
+174169,Assemblage Secrid,5.56,InProgress
+174170,Assemblage Secrid,10,InProgress
+174171,Assemblage Secrid,5.56,InProgress
+174172,Assemblage Secrid,16.67,InProgress
+174173,Assemblage Secrid,3.33,InProgress
+174174,Assemblage Secrid,8.89,InProgress
+174175,Assemblage Secrid,1.11,InProgress
+174176,Assemblage Secrid,4.44,InProgress
+174177,Assemblage Secrid,5.56,InProgress
+174178,Assemblage Secrid,1.11,InProgress
+174182,Assemblage Secrid,0.69,InProgress
+174206,Flash_Cut 5,1.22,InProgress
+174418,Stikken Secrid,30.83,InProgress
+174419,Stikken Secrid,104.83,InProgress
+174420,Stikken Secrid,24.67,InProgress
+174421,Stikken Secrid,18.5,InProgress
+174431,,19.11,InProgress
+174432,,6.17,InProgress
+174433,,19,InProgress
+174434,Stikken Secrid,12.33,InProgress
+174435,Stikken Secrid,6.17,InProgress
+174436,Stikken Secrid,24.67,InProgress
+174437,Stikken Secrid,18.5,InProgress
+174438,Stikken Secrid,61.67,InProgress
+174439,Stikken Secrid,30.83,InProgress
+174440,Stikken Secrid,1.97,InProgress
+174441,Stikken Secrid,10.42,InProgress
+174443,Stikken Secrid,6.17,InProgress
+174444,Stikken Secrid,30.83,InProgress
+174445,Stikken Secrid,2.47,InProgress
+174446,Stikken Secrid,12.33,InProgress
+171439,Laser 3,0.86,InProgress
+171443,Laser 4,3.92,InProgress
+171715,Quad,16.99,InProgress
+171716,Quad,4.24,InProgress
+171717,Quad,6.12,InProgress
+171784,Quad,9.39,InProgress
+173117,Laser 4,0.01,InProgress
+173140,Degel 4,12.92,InProgress
+173141,Degel 4,11.25,InProgress
+173142,Degel 4,44.78,InProgress
+173143,Degel 4,27,InProgress
+173263,Degel 1,3.4,InProgress
+173314,Laser 2,0.25,InProgress
+173792,Laser 2,3.67,InProgress
+173921,Quad,17.11,InProgress
+173922,Quad,6.04,InProgress
+174063,Degel 3,4.15,InProgress
+174330,Quad,5.03,InProgress
+174331,Quad,5.87,InProgress
+174332,Quad,3.36,InProgress
+174334,Quad,3.36,InProgress
+174335,Quad,3.36,InProgress
+174336,Flash_Cut 1,4.19,InProgress
+174338,Flash_Cut 2,0.37,InProgress
+172639,Atom,51.5,InProgress
+172640,,0,InProgress
+172927,Atom,26.92,InProgress
+172928,Giant,0,InProgress
+173457,Chiesa,18,InProgress
+173827,Degel 1,18.19,InProgress
+173830,Laser 2,3.91,InProgress
+173831,Laser 2,0.77,InProgress
+174343,Flash_Cut 2,1.74,InProgress
+174460,Flash_Cut 1,0.25,InProgress
+173356,Giant,1.27,InProgress
+174697,Quad,7.55,InProgress
+171691,Quad,68.79,InProgress
+171692,Quad,33.56,InProgress
+171693,Quad,8.39,InProgress
+171722,Quad,17.2,InProgress
+172209,Verzenden,111.19,InProgress
+172721,Degel 1,7.67,InProgress
+172722,Degel 1,7.33,InProgress
+173062,Laser 3,26.64,InProgress
+173600,Degel 1,1.58,InProgress
+173601,Degel 1,2.25,InProgress
+173602,Degel 3,1.28,InProgress
+173603,Degel 3,3.33,InProgress
+173766,Atom,4.17,InProgress
+173772,Atom,4.98,InProgress
+173778,Atom,2.77,InProgress
+173793,Snijmachine,10.25,InProgress
+173807,Chiesa,14.08,InProgress
+173808,Assemblage drankverpakkingen,299.98,InProgress
+173927,Quad,9.52,InProgress
+173928,Quad,1.93,InProgress
+174183,Quad,6.74,InProgress
+174184,Quad,3.19,InProgress
+174237,Degel 1,5.25,InProgress
+174238,Degel 1,4.97,InProgress
+174268,Snijmachine,0.41,InProgress
+174270,Degel 4,2.27,InProgress
+174272,Degel 4,2.08,InProgress
+174273,Degel 4,2.08,InProgress
+174274,Degel 4,4.17,InProgress
+174291,Brugstans,1.17,InProgress
+174292,Brugstans,4.21,InProgress
+174293,Brugstans,0.56,InProgress
+174294,Brugstans,0.56,InProgress
+174316,Laser 4,37.75,InProgress
+174447,Assemblage Secrid,1.51,InProgress
+174448,Assemblage Secrid,11.11,InProgress
+174449,Assemblage Secrid,8.89,InProgress
+174450,Assemblage Secrid,3.33,InProgress
+174451,Assemblage Secrid,11.11,InProgress
+174452,Assemblage Secrid,4.44,InProgress
+174453,Assemblage Secrid,3.26,InProgress
+174454,Assemblage Secrid,4.56,InProgress
+174455,Assemblage Secrid,2.22,InProgress
+174456,Assemblage Secrid,5.56,InProgress
+174463,Degel 1,5.83,InProgress
+174543,Chiesa,2.66,InProgress
+174699,Laserstansen,0.35,InProgress
+174700,Laserstansen,0.07,InProgress
+174792,Sysco,0.53,InProgress
+174821,,5.17,InProgress
+174825,Stikken Secrid,24.67,InProgress
+174826,Stikken Secrid,6.17,InProgress
+174827,Stikken Secrid,12.33,InProgress
+174828,Stikken Secrid,37,InProgress
+174829,Stikken Secrid,30.83,InProgress
+174830,Stikken Secrid,39.17,InProgress
+174831,Stikken Secrid,43.17,InProgress
+174832,Stikken Secrid,30.83,InProgress
+174833,Stikken Secrid,18.5,InProgress
+174834,Stikken Secrid,12.33,InProgress
+174835,Stikken Secrid,18.5,InProgress
+174836,Stikken Secrid,12.33,InProgress
+174837,Stikken Secrid,18.5,InProgress
+174838,Stikken Secrid,30.83,InProgress
+174839,Stikken Secrid,12.33,InProgress
+174840,Stikken Secrid,18.5,InProgress
+174878,Laser 3,2.11,InProgress
+174285,Laser 2,1.64,InProgress
+174286,Laser 2,2.29,InProgress
+174287,Laser 2,2.29,InProgress
+173689,Assemblage drankverpakkingen,55.33,InProgress
+173692,Assemblage drankverpakkingen,81.67,InProgress
+173890,Degel 1,3.33,InProgress
+174427,Laserstansen,1.3,InProgress
+174501,Atom,0.25,InProgress
+174511,Flash_Cut 5,0.25,InProgress
+174513,Laserstansen,0.25,InProgress
+174582,Laser 4,5.25,InProgress
+174584,Laser 3,0.82,InProgress
+174605,Laser 3,0.25,InProgress
+174610,Laser 3,2.05,InProgress
+174665,Quad,10.85,InProgress
+174666,Quad,13.42,InProgress
+174667,Quad,3.36,InProgress
+174668,Flash_Cut 1,2.52,InProgress
+174669,Flash_Cut 2,0.93,InProgress
+174670,Quad,4.19,InProgress
+174671,Stikken Secrid,24.67,InProgress
+174673,Quad,5.87,InProgress
+174682,Laser 3,1.42,InProgress
+174752,Giant,1.25,InProgress
+174754,Giant,3.26,InProgress
+174890,Stikken Secrid,12.33,InProgress
+174892,Quad,3.36,InProgress
+174901,Laser 4,7.5,InProgress
+174278,Flash_Cut 3,0.72,InProgress
+174566,Giant,0.79,InProgress
+174897,Giant,2.11,InProgress
+174958,Quad,2.52,InProgress
+172955,Degel 1,4.33,InProgress
+172956,Degel 1,4.33,InProgress
+174258,Freesmachine,0.33,InProgress
+174259,Buigmachine,0.22,InProgress
+174260,Assemblage 1,0.5,InProgress
+174464,Degel 1,4.92,InProgress
+174465,Degel 1,3.42,InProgress
+174603,Laser 2,0.66,InProgress
+174604,Laser 2,1.02,InProgress
+174615,Laser 2,2.29,InProgress
+174616,Laser 2,0.68,InProgress
+174728,Giant,0.25,InProgress
+175024,Chiesa,2.03,InProgress
+173797,Laser 4,0.02,InProgress
+173798,Laser 4,0.01,InProgress
+173799,Laser 4,0.46,InProgress
+173800,Laser 4,0.69,InProgress
+173801,Laser 4,3.83,InProgress
+173802,Laser 4,0.04,InProgress
+174119,Giant,21.48,InProgress
+174246,Laser 4,0.22,InProgress
+174247,Laser 4,0.04,InProgress
+174248,Laser 4,0.46,InProgress
+174249,Laser 4,4.08,InProgress
+174250,Laser 4,0.21,InProgress
+174251,Laser 4,0.62,InProgress
+174252,Laser 4,0.03,InProgress
+174253,Laser 4,0.42,InProgress
+174254,Laser 4,0.27,InProgress
+174255,Laser 4,0.09,InProgress
+174481,Flash_Cut 1,0.25,InProgress
+174629,Quad,10.11,InProgress
+174643,Quad,4.32,InProgress
+174762,Assemblage Secrid,0.81,InProgress
+174772,,2.22,InProgress
+174808,Assemblage Secrid,2.22,InProgress
+174809,Assemblage Secrid,3.33,InProgress
+174810,Assemblage Secrid,10,InProgress
+174811,Assemblage Secrid,21.11,InProgress
+174814,Assemblage Secrid,3.33,InProgress
+174815,Assemblage Secrid,13.33,InProgress
+174816,Assemblage Secrid,3.33,InProgress
+174817,Assemblage Secrid,6.67,InProgress
+174818,Assemblage Secrid,3.33,InProgress
+174819,Assemblage Secrid,4.44,InProgress
+174820,Assemblage Secrid,3.33,InProgress
+174888,Laser 4,0.43,InProgress
+174977,Quad,5.03,InProgress
+175028,Stikken Secrid,18.5,InProgress
+175029,Stikken Secrid,9.25,InProgress
+175030,Stikken Secrid,6.17,InProgress
+175031,Stikken Secrid,3.08,InProgress
+175032,Stikken Secrid,15.42,InProgress
+175033,Stikken Secrid,9.25,InProgress
+175034,Stikken Secrid,6.17,InProgress
+175035,Stikken Secrid,3.08,InProgress
+175036,Stikken Secrid,3.08,InProgress
+175037,Stikken Secrid,15.42,InProgress
+175038,Stikken Secrid,3.08,InProgress
+175039,Stikken Secrid,6.17,InProgress
+175040,Stikken Secrid,15.42,InProgress
+175041,Stikken Secrid,9.25,InProgress
+175042,Stikken Secrid,27.75,InProgress
+175043,Stikken Secrid,21.58,InProgress
+174541,Chiesa,5.75,InProgress
+174572,Laser 3,1.56,InProgress
+174588,Laser 3,0.21,InProgress
+174620,Degel 1,7.23,InProgress
+174621,Degel 1,3.29,InProgress
+174648,Chiesa,5.21,InProgress
+174705,Laserstansen,0.9,InProgress
+174709,Laserstansen,0.27,InProgress
+174795,Sysco,2.62,InProgress
+174874,Laser 2,10.15,InProgress
+166629,Preegmachine Omac,19.86,InProgress
+173068,Giant,0.94,InProgress
+173299,Degel 4,16.67,InProgress
+173303,Degel 4,17,InProgress
+173304,Degel 4,17.56,InProgress
+173305,Degel 4,17.44,InProgress
+173308,Degel 4,17.18,InProgress
+173309,Degel 4,34.67,InProgress
+173310,Degel 4,4.6,InProgress
+173883,Snijmachine,2.08,InProgress
+174039,Giant,68.6,InProgress
+174262,Laser 2,30.69,InProgress
+174298,Laser 4,58.06,InProgress
+174321,Sysco,1.83,InProgress
+174468,Laser 3,0.25,InProgress
+174508,Laser 4,1.04,InProgress
+174704,Laser 2,0.25,InProgress
+174751,Laser 4,2.21,InProgress
+174753,Laser 4,0.17,InProgress
+174788,Giant,15.91,InProgress
+174789,Giant,5.45,InProgress
+174934,Quad,3.36,InProgress
+174935,Quad,5.03,InProgress
+174937,Quad,5.03,InProgress
+174938,Quad,1.67,InProgress
+174940,Quad,1.68,InProgress
+174942,Quad,5.87,InProgress
+174943,Quad,0.84,InProgress
+174944,Quad,5.03,InProgress
+174982,Degel 1,6.15,InProgress
+175019,Giant,0.28,InProgress
+175071,Flash_Cut 5,0.91,InProgress
+175073,Laserstansen,0.58,InProgress
+173608,Laser 4,8.58,InProgress
+173821,Laser 4,11.15,InProgress
+174304,Degel 1,0.01,InProgress
+174305,Laser 2,2.47,InProgress
+174386,Atom,1.42,InProgress
+174390,Chiesa,1.18,InProgress
+174393,Chiesa,1.26,InProgress
+174488,Chiesa,0.82,InProgress
+174491,Chiesa,0.79,InProgress
+174497,Chiesa,1.69,InProgress
+174500,Atom,4.89,InProgress
+174675,Atom,5.78,InProgress
+174931,Laser 2,5.67,InProgress
+174996,Degel 1,0.01,InProgress
+175076,Giant,0.26,InProgress
+175077,Giant,0.4,InProgress
+175106,Chiesa,0.66,InProgress
+175185,Laser 2,0.26,InProgress
+175256,Quad,5.03,InProgress
+175257,Flash_Cut 2,1.12,InProgress
+174414,Laser 4,0.35,InProgress
+174469,Giant,1.84,InProgress
+174470,Giant,2.45,InProgress
+174471,Giant,1.64,InProgress
+174718,Laser 2,1.79,InProgress
+174722,Sysco,5.36,InProgress
+174723,Sysco,5.92,InProgress
+174724,Sysco,12.82,InProgress
+175140,Laserstansen,0.39,InProgress
+168955,Quad,10.7,InProgress
+173091,Laser 2,96.43,InProgress
+173810,Chiesa,11.01,InProgress
+173811,Assemblage drankverpakkingen,226.89,InProgress
+173846,Freesmachine,0.57,InProgress
+173847,Buigmachine,0.28,InProgress
+173848,Assemblage 1,0.05,InProgress
+173877,Freesmachine,0.64,InProgress
+173878,Buigmachine,0.58,InProgress
+173879,Assemblage 1,0.78,InProgress
+173898,Quad,9.02,InProgress
+173899,Quad,6.16,InProgress
+174033,Chiesa,1.99,InProgress
+174034,Assemblage drankverpakkingen,42.3,InProgress
+174154,Freesmachine,0.1,InProgress
+174155,Buigmachine,0.17,InProgress
+174156,Assemblage 1,0.22,InProgress
+174225,Quad,8.56,InProgress
+174365,Laser 4,0.26,InProgress
+174366,Laser 4,0.01,InProgress
+174367,Laser 4,0.01,InProgress
+174368,Laser 4,0.01,InProgress
+174369,Laser 4,0.01,InProgress
+174371,Laser 4,0.01,InProgress
+174375,Laser 4,0.01,InProgress
+174376,Laser 4,0.01,InProgress
+174377,Laser 4,0,InProgress
+174379,Freesmachine,0.38,InProgress
+174380,Buigmachine,0.17,InProgress
+174381,Assemblage 1,0.17,InProgress
+174627,Assemblage Secrid,44.44,InProgress
+174684,Verzenden,0.25,InProgress
+174686,Laser 4,0.01,InProgress
+174688,Laser 4,0.48,InProgress
+174692,Laser 2,0.01,InProgress
+174967,Assemblage Secrid,1.11,InProgress
+175017,Laser 4,0.67,InProgress
+175022,Laser 4,2.08,InProgress
+175044,Assemblage Secrid,8.89,InProgress
+175045,Assemblage Secrid,17.78,InProgress
+175046,Assemblage Secrid,5.56,InProgress
+175047,Assemblage Secrid,1.11,InProgress
+175048,Assemblage Secrid,5.56,InProgress
+175049,Assemblage Secrid,2.22,InProgress
+175050,Assemblage Secrid,3.33,InProgress
+175051,Assemblage Secrid,3.33,InProgress
+175052,Assemblage Secrid,1.11,InProgress
+175053,Assemblage Secrid,1.11,InProgress
+175054,Assemblage Secrid,1.11,InProgress
+175055,Assemblage Secrid,2.22,InProgress
+175056,Assemblage Secrid,3.33,InProgress
+175107,Verzenden,0.25,InProgress
+175110,Buigmachine,0.28,InProgress
+175111,Assemblage 1,0.05,InProgress
+175146,Degel 1,3.46,InProgress
+175155,Giant,8.58,InProgress
+175178,Laser 4,0.41,InProgress
+175240,Laser 3,0.25,InProgress
+175385,,19,InProgress
+175386,Stikken Secrid,15.42,InProgress
+175387,Stikken Secrid,6.17,InProgress
+175388,Stikken Secrid,6.17,InProgress
+175389,Stikken Secrid,9.25,InProgress
+175391,Stikken Secrid,15.42,InProgress
+175392,Stikken Secrid,23.75,InProgress
+175393,Stikken Secrid,18.5,InProgress
+175394,Stikken Secrid,15.42,InProgress
+175395,Stikken Secrid,15.42,InProgress
+175396,Stikken Secrid,9.25,InProgress
+175397,Stikken Secrid,6.17,InProgress
+175398,Stikken Secrid,6.17,InProgress
+175399,Stikken Secrid,18.5,InProgress
+175400,Stikken Secrid,3.08,InProgress
+175401,Stikken Secrid,12.33,InProgress
+175402,Stikken Secrid,15.42,InProgress
+173815,Chiesa,25.27,InProgress
+174907,Degel 2,3.8,InProgress
+175190,Snijmachine,1.14,InProgress
+175191,Snijmachine,1.14,InProgress
+173713,Laser 2,0.78,InProgress
+173714,Laser 2,1.25,InProgress
+173715,Laser 3,0.59,InProgress
+174350,Laser 3,0.25,InProgress
+174363,Laser 3,0.52,InProgress
+174372,Giant,2.13,InProgress
+174373,Giant,1.88,InProgress
+174383,Laser 3,0.25,InProgress
+174494,Chiesa,1.18,InProgress
+174913,Chiesa,0.85,InProgress
+174914,Chiesa,0.7,InProgress
+174915,Chiesa,0.68,InProgress
+174916,Chiesa,1.36,InProgress
+174926,Giant,0.25,InProgress
+174963,Giant,7.75,InProgress
+174964,Giant,5,InProgress
+175060,Snijmachine,3.5,InProgress
+175064,Snijmachine,1.5,InProgress
+175069,Snijmachine,2.62,InProgress
+175091,Quad,0.4,InProgress
+175092,Quad,0.03,InProgress
+175095,Quad,0.02,InProgress
+175119,Giant,1.62,InProgress
+175220,Quad,5.03,InProgress
+175221,Quad,4.19,InProgress
+175222,Stikken Secrid,18.5,InProgress
+175224,Quad,8.39,InProgress
+175227,Quad,5.03,InProgress
+175231,Stikken Secrid,55.5,InProgress
+175232,Quad,4.19,InProgress
+175233,Quad,5.03,InProgress
+175234,Stikken Secrid,37,InProgress
+175265,Stikken Secrid,30.83,InProgress
+175412,Laser 4,0.17,InProgress
+174522,Giant,4.04,InProgress
+174524,Sysco,3.83,InProgress
+174525,Sysco,3.19,InProgress
+174526,Sysco,2.47,InProgress
+174527,Sysco,2.01,InProgress
+174528,Sysco,3.17,InProgress
+174529,Sysco,2.42,InProgress
+175008,Laser 3,0.25,InProgress
+175098,Atom,2.73,InProgress
+175100,Degel 3,0.03,InProgress
+175169,Flash_Cut 3,1.36,InProgress
+175422,Giant,0.25,InProgress
+174968,Laser 3,2.2,InProgress
+175114,Chiesa,0.54,InProgress
+175115,Degel 1,32.75,InProgress
+175128,Chiesa,0.79,InProgress
+175150,Degel 1,2.97,InProgress
+175160,Giant,1.01,InProgress
+175161,Giant,0.39,InProgress
+171765,Quad,71.67,InProgress
+171766,Quad,25.17,InProgress
+171767,Quad,8.39,InProgress
+172850,Verzenden,0,InProgress
+174230,Quad,6.83,InProgress
+174806,Flash_Cut 1,12.55,InProgress
+174909,Snijmachine,3.33,InProgress
+175217,Laser 4,168.56,InProgress
+175267,Quad,4.29,InProgress
+175302,Quad,6.75,InProgress
+175403,Assemblage Secrid,10,InProgress
+175404,Assemblage Secrid,21.11,InProgress
+175405,Assemblage Secrid,5.56,InProgress
+175406,Assemblage Secrid,6.77,InProgress
+175407,Snijmachine,2.17,InProgress
+175420,Assemblage Secrid,0.8,InProgress
+175433,Laser 4,0.41,InProgress
+175472,Laser 4,0.02,InProgress
+175531,Giant,2.75,InProgress
+175685,,23.75,InProgress
+175686,Stikken Secrid,9.25,InProgress
+175687,Stikken Secrid,15.42,InProgress
+175688,Stikken Secrid,9.25,InProgress
+175689,Stikken Secrid,12.33,InProgress
+175690,Stikken Secrid,23.75,InProgress
+175691,Stikken Secrid,6.17,InProgress
+175692,Stikken Secrid,9.25,InProgress
+175693,Stikken Secrid,6.17,InProgress
+175694,Stikken Secrid,6.17,InProgress
+175695,,3.04,InProgress
+175696,,0.86,InProgress
+175697,Stikken Secrid,18.5,InProgress
+175698,Stikken Secrid,9.25,InProgress
+174924,Atom,5.63,InProgress
+174949,Degel 4,84.29,InProgress
+175305,Laser 3,1.09,InProgress
+175511,Laser 3,0.25,InProgress
+173102,Laser 2,96.43,InProgress
+174047,Giant,124.53,InProgress
+174579,Laser 2,0.31,InProgress
+174734,Chiesa,1.58,InProgress
+174735,Chiesa,2.5,InProgress
+174736,Chiesa,0.83,InProgress
+174742,Chiesa,3.75,InProgress
+174743,Chiesa,7.5,InProgress
+174744,Chiesa,2.5,InProgress
+174971,Giant,2.97,InProgress
+174972,Giant,3.35,InProgress
+175117,Atom,2.81,InProgress
+175118,Flash_Cut 2,1.99,InProgress
+175125,Atom,0.55,InProgress
+175126,Flash_Cut 2,1.02,InProgress
+175127,Flash_Cut 2,3.75,InProgress
+175135,Atom,35.72,InProgress
+175139,Giant,1.5,InProgress
+175141,Giant,1.39,InProgress
+175199,Atom,2.36,InProgress
+175245,Degel 2,4.4,InProgress
+175430,Degel 4,6.06,InProgress
+175435,Degel 1,3.67,InProgress
+175488,Laser 4,15.59,InProgress
+175491,Quad,4.19,InProgress
+175493,Quad,1.68,InProgress
+175496,Quad,10.07,InProgress
+175498,Quad,10.07,InProgress
+175502,Stikken Secrid,33.92,InProgress
+175503,Quad,6.71,InProgress
+175515,Quad,0.33,InProgress
+175516,Quad,0.27,InProgress
+175540,Giant,9.58,InProgress
+175571,Flash_Cut 5,1.22,InProgress
+175620,Giant,3.03,InProgress
+175621,Giant,2.78,InProgress
+175622,Giant,4.17,InProgress
+175623,Giant,5.56,InProgress
+175643,Laser 3,0.47,InProgress
+175644,Laser 3,0.67,InProgress
+175647,Giant,0.9,InProgress
+175761,Laser 3,2,InProgress
+175981,Quad,3.36,InProgress
+174871,Giant,6.08,InProgress
+174872,Chiesa,11.26,InProgress
+174904,Degel 1,9.91,InProgress
+175196,Atom,3.94,InProgress
+175203,Atom,0.93,InProgress
+175206,Atom,8.16,InProgress
+175522,Flash_Cut 5,0.31,InProgress
+175535,Laser 3,0.91,InProgress
+175613,Atom,2.77,InProgress
+175633,Atom,2.35,InProgress
+175636,Giant,1.67,InProgress
+175804,Freesmachine,1.44,InProgress
+175805,Freesmachine,2.19,InProgress
+175983,Stikken Secrid,12.33,InProgress
+169553,Quad,75.5,InProgress
+169554,Quad,4.24,InProgress
+169555,Quad,20.97,InProgress
+175318,Quad,10.78,InProgress
+175319,Quad,0.84,InProgress
+175327,Quad,16.82,InProgress
+175328,Quad,4.32,InProgress
+175332,Quad,12.08,InProgress
+175333,Quad,9.18,InProgress
+174558,Chiesa,0.5,InProgress
+175181,Chiesa,0.83,InProgress
+175415,Sysco,9.1,InProgress
+174194,Quad,8.39,InProgress
+174195,Quad,10.33,InProgress
+174200,Quad,45.11,InProgress
+174201,Quad,8.39,InProgress
+175301,Quad,8.39,InProgress
+175323,Quad,33.64,InProgress
+175590,Assemblage Secrid,1.11,InProgress
+175608,Assemblage Secrid,1.57,InProgress
+175703,Assemblage Secrid,2.22,InProgress
+175704,Assemblage Secrid,11.11,InProgress
+175705,Assemblage Secrid,8.89,InProgress
+175706,Assemblage Secrid,4.44,InProgress
+175707,Assemblage Secrid,8.89,InProgress
+175708,Assemblage Secrid,5.56,InProgress
+175709,Assemblage Secrid,3.33,InProgress
+175710,Assemblage Secrid,7.78,InProgress
+176062,Stikken Secrid,12.33,InProgress
+176063,Stikken Secrid,3.08,InProgress
+176064,Stikken Secrid,14.25,InProgress
+176065,Stikken Secrid,15.42,InProgress
+176066,Stikken Secrid,18.5,InProgress
+176067,Stikken Secrid,18.5,InProgress
+176068,Stikken Secrid,6.17,InProgress
+176069,Stikken Secrid,18.5,InProgress
+176070,Stikken Secrid,12.33,InProgress
+176071,Stikken Secrid,15.42,InProgress
+176072,Stikken Secrid,12.33,InProgress
+176073,Stikken Secrid,15.42,InProgress
+174634,Quad,18.58,InProgress
+174929,Brugstans,25.63,InProgress
+175465,Degel 1,8.47,InProgress
+175468,Atom,5.9,InProgress
+175470,Atom,7.15,InProgress
+175735,Laser 3,5.28,InProgress
+176114,Degel 2,0.42,InProgress
+176141,Giant,0.27,InProgress
+176142,Giant,0.28,InProgress
+176143,Giant,0.01,InProgress
+176144,Giant,0.02,InProgress
+176154,Assemblage 1,3.75,InProgress
+172506,Laser 1,43.98,InProgress
+173870,Giant,56.63,InProgress
+174049,Giant,52.64,InProgress
+174189,Quad,21.94,InProgress
+174800,Degel 1,8.68,InProgress
+174951,Degel 4,43.06,InProgress
+175237,Atom,4.17,InProgress
+175298,Flash_Cut 5,1.2,InProgress
+175337,Quad,5.16,InProgress
+175609,Atom,2.01,InProgress
+175624,Atom,2.35,InProgress
+175628,Atom,4.22,InProgress
+175639,Atom,2.16,InProgress
+175652,Laser 4,0.25,InProgress
+175656,Giant,0.7,InProgress
+175660,Giant,2.01,InProgress
+175661,Giant,0.65,InProgress
+175666,Quad,2.32,InProgress
+175667,Quad,0.37,InProgress
+175668,Quad,0.48,InProgress
+175813,Chiesa,1.67,InProgress
+175814,Chiesa,2.5,InProgress
+175815,Chiesa,5,InProgress
+175895,Quad,10.07,InProgress
+175898,Stikken Secrid,9.25,InProgress
+175899,Quad,5.87,InProgress
+175900,Stikken Secrid,40.08,InProgress
+175901,Quad,0.84,InProgress
+175902,Quad,5.03,InProgress
+175904,Quad,12.58,InProgress
+175905,Quad,4.19,InProgress
+175908,Quad,4.19,InProgress
+174639,Chiesa,0.5,InProgress
+174921,Flash_Cut 3,125.25,InProgress
+174922,Giant,41.67,InProgress
+174923,Giant,41.67,InProgress
+175455,Chiesa,6.37,InProgress
+175598,Laser 4,0.33,InProgress
+175664,Stikken Secrid,5.98,InProgress
+175714,Degel 4,4.07,InProgress
+175740,Freesmachine,0.25,InProgress
+175741,Freesmachine,0.25,InProgress
+175742,Laser 4,0.25,InProgress
+175922,Laser 4,5.25,InProgress
+176008,Giant,0.25,InProgress
+176181,Giant,1.95,InProgress
+176284,Quad,7.55,InProgress
+175984,Chiesa,0.36,InProgress
+175985,Chiesa,0.11,InProgress
+172211,Verzenden,111.11,InProgress
+174220,Quad,48.84,InProgress
+175272,Laser 4,0.27,InProgress
+175273,Laser 4,0.12,InProgress
+175275,Laser 4,0.41,InProgress
+175277,Laser 4,1.69,InProgress
+175278,Laser 4,0.92,InProgress
+175279,Laser 4,1.47,InProgress
+175280,Laser 4,0.46,InProgress
+175281,Laser 4,0.62,InProgress
+175282,Laser 4,1.04,InProgress
+175283,Laser 4,0.84,InProgress
+175284,Laser 4,0.87,InProgress
+175285,Laser 4,0.47,InProgress
+175286,Laser 4,0.69,InProgress
+175287,Laser 4,0.49,InProgress
+175290,Laser 4,0.79,InProgress
+175291,Buigmachine,2.17,InProgress
+175292,Laser 4,0.15,InProgress
+175293,Buigmachine,0.42,InProgress
+175294,Freesmachine,0.31,InProgress
+175295,Buigmachine,0.5,InProgress
+175296,Assemblage 1,1.06,InProgress
+175365,Quad,8.72,InProgress
+175366,Quad,2.56,InProgress
+175367,Quad,0.92,InProgress
+175371,Quad,15.65,InProgress
+175372,Quad,6.96,InProgress
+175438,Verzenden,0.29,InProgress
+175439,Laser 4,1.27,InProgress
+175440,Laser 4,0.14,InProgress
+175441,Laser 4,0.14,InProgress
+175483,Flash_Cut 5,0.26,InProgress
+175484,,2.18,InProgress
+175519,Giant,37.72,InProgress
+175528,Laser 4,0.44,InProgress
+175529,Buigmachine,2.09,InProgress
+175600,Laser 4,2.15,InProgress
+175762,Laser 4,0.47,InProgress
+175765,Laser 4,0.14,InProgress
+175766,Laser 4,0.62,InProgress
+175797,Giant,8.25,InProgress
+175798,,5.76,InProgress
+176010,Quad,19.19,InProgress
+176026,Quad,12.92,InProgress
+176027,Quad,4.21,InProgress
+176044,Laser 4,0.25,InProgress
+176049,Assemblage Secrid,8.89,InProgress
+176050,Assemblage Secrid,16.67,InProgress
+176051,Assemblage Secrid,10,InProgress
+176052,Assemblage Secrid,5.56,InProgress
+176139,Flash_Cut 5,5.08,InProgress
+176140,Flash_Cut 5,0.33,InProgress
+176362,,5.17,InProgress
+176363,Zwenkarm stans,2.51,InProgress
+176364,Stikken Secrid,21.58,InProgress
+176365,Stikken Secrid,15.42,InProgress
+176366,Stikken Secrid,3.08,InProgress
+176367,Stikken Secrid,15.42,InProgress
+176368,Stikken Secrid,15.42,InProgress
+176369,Stikken Secrid,6.17,InProgress
+176370,Stikken Secrid,18.5,InProgress
+176371,Stikken Secrid,18.5,InProgress
+176372,Stikken Secrid,12.33,InProgress
+176373,Stikken Secrid,9.25,InProgress
+176374,Stikken Secrid,3.08,InProgress
+175341,Quad,16.86,InProgress
+175342,Quad,3.36,InProgress
+175343,Quad,6.04,InProgress
+175809,Laser 1,16.29,InProgress
+175816,Giant,1.97,InProgress
+175835,Laser 3,12.75,InProgress
+176015,Quad,25.96,InProgress
+176016,Quad,8.47,InProgress
+176236,Laser 3,0.83,InProgress
+176238,Laser 3,0.58,InProgress
+172855,Degel 2,55.22,InProgress
+176075,Degel 1,8.86,InProgress
+176101,Laser 2,1.65,InProgress
+176220,Quad,5.03,InProgress
+176222,Quad,5.03,InProgress
+176242,Quad,0.84,InProgress
+176243,Quad,9.23,InProgress
+176255,Laser 2,0.91,InProgress
+176274,Giant,1.92,InProgress
+176297,Flash_Cut 5,1.22,InProgress
+176298,Laser 4,0.83,InProgress
+176300,Giant,1.34,InProgress
+176530,Quad,3.36,InProgress
+176531,Quad,4.19,InProgress
+176532,Quad,10.91,InProgress
+176533,Quad,7.55,InProgress
+176043,Giant,0.5,InProgress
+176259,Laser 4,0.25,InProgress
+176263,Laser 4,0.25,InProgress
+176399,Giant,9.92,InProgress
+176477,Degel 2,0,InProgress
+175852,Laser 4,0.47,InProgress
+175853,Buigmachine,1.09,InProgress
+175854,Laser 4,0.37,InProgress
+175855,Laser 4,0.09,InProgress
+175856,Laser 4,0.43,InProgress
+175857,Laser 4,4.58,InProgress
+175858,Laser 4,0.48,InProgress
+175861,Laser 4,2.38,InProgress
+175862,Laser 4,0.48,InProgress
+175863,Laser 4,0.28,InProgress
+175864,Laser 4,1.06,InProgress
+175865,Laser 4,0.36,InProgress
+175866,Laser 4,0.74,InProgress
+175867,Laser 4,1.01,InProgress
+175868,Laser 4,0.09,InProgress
+175869,Laser 4,0.94,InProgress
+175870,Laser 4,0.11,InProgress
+175872,Freesmachine,0.06,InProgress
+175873,Buigmachine,0.1,InProgress
+175874,Assemblage 1,0.1,InProgress
+175876,Freesmachine,0.18,InProgress
+175877,Buigmachine,0.1,InProgress
+175878,Assemblage 1,0.17,InProgress
+175880,Freesmachine,0.06,InProgress
+175881,Buigmachine,0.1,InProgress
+175882,Assemblage 1,0.05,InProgress
+175885,Freesmachine,0.28,InProgress
+175886,Buigmachine,0.5,InProgress
+175887,Assemblage 1,0.56,InProgress
+176247,Sysco,0.25,InProgress
+176377,Degel 4,4.33,InProgress
+173948,Quad,24.03,InProgress
+174551,Chiesa,0.5,InProgress
+174746,Zwenkarm stans,5.31,InProgress
+175592,Giant,22.09,InProgress
+175932,Chiesa,0.25,InProgress
+175936,Chiesa,0.25,InProgress
+175943,Chiesa,0.25,InProgress
+175944,Chiesa,0.25,InProgress
+175955,Chiesa,0.25,InProgress
+175956,Chiesa,0.25,InProgress
+175958,Brugstans,0.58,InProgress
+175959,Brugstans,0.29,InProgress
+175963,Chiesa,0.25,InProgress
+175964,Chiesa,0.25,InProgress
+175967,Chiesa,0.25,InProgress
+176033,Quad,17.99,InProgress
+176288,Degel 1,4.07,InProgress
+176359,Laser 2,20.25,InProgress
+176380,Assemblage Secrid,22.22,InProgress
+176385,Assemblage Secrid,10,InProgress
+176387,Assemblage Secrid,10,InProgress
+176388,Assemblage Secrid,2.22,InProgress
+176390,Assemblage Secrid,4.44,InProgress
+176391,Assemblage Secrid,3.38,InProgress
+176392,Assemblage Secrid,5.56,InProgress
+176393,Assemblage Secrid,3.33,InProgress
+176394,Assemblage Secrid,1.11,InProgress
+176567,Giant,0.8,InProgress
+176585,Stikken Secrid,12.33,InProgress
+176586,Stikken Secrid,18.5,InProgress
+176587,Zwenkarm stans,9.5,InProgress
+176588,Stikken Secrid,6.17,InProgress
+176589,Stikken Secrid,18.5,InProgress
+176590,Stikken Secrid,9.25,InProgress
+176591,Stikken Secrid,6.17,InProgress
+176592,Stikken Secrid,3.08,InProgress
+176593,Stikken Secrid,3.08,InProgress
+176594,Stikken Secrid,3.08,InProgress
+176595,Stikken Secrid,18.5,InProgress
+174952,Degel 4,43.06,InProgress
+175021,Degel 4,25.83,InProgress
+175549,Chiesa,3.55,InProgress
+175800,,0.25,InProgress
+176054,Chiesa,3.17,InProgress
+176293,Giant,0.86,InProgress
+176440,Assemblage 1,3.71,InProgress
+172642,Atom,26,InProgress
+172643,,0,InProgress
+173583,Atom,51.5,InProgress
+173584,,0,InProgress
+174066,Atom,94,InProgress
+174301,Atom,26.92,InProgress
+174302,Giant,0,InProgress
+174544,Chiesa,0.71,InProgress
+174545,Chiesa,0.67,InProgress
+174546,Chiesa,0.51,InProgress
+174550,Chiesa,3.08,InProgress
+174852,Chiesa,14.08,InProgress
+174853,Assemblage drankverpakkingen,290.12,InProgress
+175057,Giant,26.15,InProgress
+175603,Snijmachine,4.87,InProgress
+175777,Degel 3,5.22,InProgress
+176225,Laser 2,0.27,InProgress
+176230,Giant,26.83,InProgress
+176502,Laser 3,29.17,InProgress
+176513,Stikken Secrid,52.42,InProgress
+176516,Quad,4.95,InProgress
+176123,Degel 1,18.19,InProgress
+176880,Stikken Secrid,6.17,InProgress
+171403,Hengsel,25.86,InProgress
+175594,Atom,10.5,InProgress
+176538,Degel 1,0.01,InProgress
+176845,Giant,0.25,InProgress
+174858,Chiesa,13.36,InProgress
+174859,Assemblage drankverpakkingen,264.08,InProgress
+175351,Quad,14.26,InProgress
+175361,Quad,12.58,InProgress
+176105,Quad,17.07,InProgress
+176345,Laser 3,1.15,InProgress
+176488,Snijmachine,3.67,InProgress
+176491,Snijmachine,1.14,InProgress
+176494,Snijmachine,1.86,InProgress
+176597,Assemblage Secrid,2.22,InProgress
+176600,Assemblage Secrid,22.22,InProgress
+176601,Assemblage Secrid,5.56,InProgress
+176602,Assemblage Secrid,6.67,InProgress
+176603,Assemblage Secrid,6.67,InProgress
+176604,Assemblage Secrid,2.22,InProgress
+176605,Assemblage Secrid,1.11,InProgress
+176706,Flash_Cut 5,3.5,InProgress
+176747,Laser 4,0.44,InProgress
+176748,Laser 4,2.26,InProgress
+176749,Laser 4,0.03,InProgress
+176750,Laser 4,0.09,InProgress
+176840,Giant,0.25,InProgress
+176923,,28.5,InProgress
+176925,Stikken Secrid,9.25,InProgress
+176926,Stikken Secrid,18.5,InProgress
+176927,Stikken Secrid,6.17,InProgress
+176928,Stikken Secrid,18.5,InProgress
+176929,Stikken Secrid,26.95,InProgress
+176930,Stikken Secrid,11.01,InProgress
+176931,Stikken Secrid,14.77,InProgress
+176932,Stikken Secrid,4.44,InProgress
+176933,Stikken Secrid,21.58,InProgress
+176934,Stikken Secrid,6.17,InProgress
+176935,Stikken Secrid,4.75,InProgress
+176941,Stikken Secrid,3.08,InProgress
+176942,Stikken Secrid,30.83,InProgress
+176943,Stikken Secrid,26.64,InProgress
+176945,Stikken Secrid,18.5,InProgress
+176946,Stikken Secrid,18.5,InProgress
+174653,Chiesa,17.97,InProgress
+176185,Laser 4,0.46,InProgress
+176186,Laser 4,1.81,InProgress
+176188,Laser 4,0.42,InProgress
+176189,Buigmachine,0.54,InProgress
+176190,Laser 4,6.13,InProgress
+176191,Laser 4,0.92,InProgress
+176192,Laser 4,0.02,InProgress
+176193,Laser 4,1.46,InProgress
+176194,Laser 4,0.49,InProgress
+176195,Laser 4,0.68,InProgress
+176196,Laser 4,0.12,InProgress
+176203,Degel 2,23.83,InProgress
+176402,Degel 1,1.37,InProgress
+176446,Atom,3.02,InProgress
+176450,Atom,3.06,InProgress
+176453,Atom,9.36,InProgress
+176457,Atom,2.45,InProgress
+176480,Snijmachine,0.83,InProgress
+176575,Flash_Cut 2,13.91,InProgress
+176709,Quad,14.85,InProgress
+176800,Laser 4,1.3,InProgress
+176879,Laser 4,0.25,InProgress
+174358,Degel 3,7.22,InProgress
+174359,Degel 3,7.3,InProgress
+174360,Assemblage 1,7.25,InProgress
+175553,Chiesa,7.13,InProgress
+176501,Laser 4,12.22,InProgress
+176534,Laser 2,0.28,InProgress
+176535,Laser 4,0.31,InProgress
+176536,Laser 2,0.35,InProgress
+176549,Giant,4.14,InProgress
+176683,Chiesa 150 ton,29,InProgress
+176786,Laser 3,27.78,InProgress
+176820,Quad,3.3,InProgress
+176884,Giant,0.25,InProgress
+177002,Laser 2,2.18,InProgress
+177025,Giant,0.83,InProgress
+177132,Quad,5.03,InProgress
+176353,Atom,3.57,InProgress
+176542,Atom,4.07,InProgress
+176561,Slitmachine,0.25,InProgress
+176637,Giant,1.05,InProgress
+174855,Chiesa,14.17,InProgress
+174856,Assemblage drankverpakkingen,299.98,InProgress
+176558,Giant,3.21,InProgress
+176643,Degel 1,5.17,InProgress
+176663,Giant,0.19,InProgress
+176664,Giant,0.19,InProgress
+176665,Giant,0.14,InProgress
+176806,Degel 1,3.87,InProgress
+176807,Degel 1,7.29,InProgress
+176916,Laser 1,0.25,InProgress
+177009,Laser 4,2.85,InProgress
+177126,Laser 2,2.06,InProgress
+176160,Laser 4,0.61,InProgress
+176170,Laser 4,0.35,InProgress
+176174,Freesmachine,0.33,InProgress
+176177,Buigmachine,0.33,InProgress
+176178,Assemblage 1,0.67,InProgress
+176596,Laser 4,0.04,InProgress
+176599,Laser 4,0.31,InProgress
+176606,Laser 4,0.21,InProgress
+176607,Laser 4,0.63,InProgress
+176608,Laser 4,0.88,InProgress
+176609,Laser 4,1.2,InProgress
+176615,Laser 4,0.4,InProgress
+176616,Buigmachine,0.67,InProgress
+176617,Freesmachine,0.31,InProgress
+176618,Buigmachine,0.35,InProgress
+176619,Assemblage 1,0.1,InProgress
+176620,Freesmachine,1.85,InProgress
+176621,Buigmachine,1.67,InProgress
+176622,Assemblage 1,1.75,InProgress
+176623,Freesmachine,0.86,InProgress
+176624,Buigmachine,1,InProgress
+176625,Assemblage 1,2.11,InProgress
+176687,Quad,54.78,InProgress
+176688,Quad,16.78,InProgress
+176689,Quad,8.39,InProgress
+176792,Laser 4,3.49,InProgress
+176793,Laser 4,0.92,InProgress
+176794,Laser 4,0.11,InProgress
+176795,Laser 4,1.27,InProgress
+176947,Assemblage Secrid,6.67,InProgress
+176948,Assemblage Secrid,2.26,InProgress
+176949,Assemblage Secrid,15.56,InProgress
+176950,Assemblage Secrid,2.22,InProgress
+176951,Assemblage Secrid,5.69,InProgress
+176952,Assemblage Secrid,7.54,InProgress
+176953,Assemblage Secrid,0.63,InProgress
+176987,Laser 2,0.27,InProgress
+177038,Brugstans,9.12,InProgress
+177058,Quad,3.36,InProgress
+177089,Laser 4,0.36,InProgress
+177090,Laser 4,0.48,InProgress
+177091,Laser 2,0.56,InProgress
+177093,Laser 4,0.27,InProgress
+177094,Laser 4,0.36,InProgress
+177194,Stikken Secrid,9.25,InProgress
+177195,Stikken Secrid,24.67,InProgress
+177197,Stikken Secrid,3.08,InProgress
+177199,Stikken Secrid,9.25,InProgress
+177200,Stikken Secrid,12.33,InProgress
+177201,Stikken Secrid,9.25,InProgress
+177202,Stikken Secrid,3.08,InProgress
+177203,Stikken Secrid,9.25,InProgress
+177204,Stikken Secrid,6.17,InProgress
+177205,Stikken Secrid,6.17,InProgress
+174950,Degel 4,88.26,InProgress
+175546,Degel 2,17.02,InProgress
+175671,Degel 1,3.09,InProgress
+175674,Degel 1,1.92,InProgress
+176233,Giant,1.24,InProgress
+176357,Atom,3.5,InProgress
+176826,Zünd Groot,0.5,InProgress
+177012,Degel 1,7.66,InProgress
+177032,Laser 3,0.25,InProgress
+174429,Laser 2,0.36,InProgress
+174442,Laser 2,0.06,InProgress
+174457,Laser 2,0.06,InProgress
+175173,Chiesa,18,InProgress
+175212,Flash_Cut 5,2.43,InProgress
+175213,Flash_Cut 5,1.6,InProgress
+175911,Laser 3,7.19,InProgress
+176156,Degel 2,6.67,InProgress
+176375,Atom,5.35,InProgress
+176381,Atom,1.41,InProgress
+176396,Atom,2.41,InProgress
+176546,Laser 3,25.89,InProgress
+176666,Giant,0.08,InProgress
+176848,Flash_Cut 2,4.09,InProgress
+176849,Giant,1.69,InProgress
+176851,Giant,1.85,InProgress
+176960,Flash_Cut 2,1.13,InProgress
+176961,Flash_Cut 2,0.58,InProgress
+177016,Flash_Cut 2,1.13,InProgress
+177017,Flash_Cut 2,0.58,InProgress
+177018,Flash_Cut 2,1.59,InProgress
+177020,Flash_Cut 2,1.62,InProgress
+177021,Giant,1.19,InProgress
+177065,Quad,52.51,InProgress
+177082,Laser 3,6.57,InProgress
+177110,Giant,0.25,InProgress
+177114,Quad,10.07,InProgress
+177115,Quad,1.68,InProgress
+177120,Quad,2.52,InProgress
+177122,Stikken Secrid,18.5,InProgress
+177123,Quad,5.03,InProgress
+177124,Quad,10.73,InProgress
+177158,Chiesa 150 ton,9.87,InProgress
+176667,Degel 4,17.17,InProgress
+176671,Degel 4,18.67,InProgress
+176673,Degel 4,17.83,InProgress
+176674,Degel 4,17.17,InProgress
+176720,Chiesa,2.61,InProgress
+177056,Chiesa,4.26,InProgress
+177432,Chiesa,7.89,InProgress
+174861,Chiesa,14.17,InProgress
+174862,Assemblage drankverpakkingen,296.13,InProgress
+175068,Quad,6.54,InProgress
+176641,Chiesa,4.88,InProgress
+177153,Flash_Cut 3,0.58,InProgress
+177221,Laser 4,2.33,InProgress
+172213,Verzenden,111.11,InProgress
+174747,Zwenkarm stans,5.02,InProgress
+175099,Laser 4,8.58,InProgress
+175376,Quad,12.67,InProgress
+175377,Quad,4.19,InProgress
+175428,Verzenden,0.25,InProgress
+175769,Freesmachine,0.27,InProgress
+175770,Laser 4,0.12,InProgress
+175771,Assemblage 1,0.03,InProgress
+175915,Atom,51.5,InProgress
+175917,,0.1,InProgress
+176544,Giant,23.26,InProgress
+176646,Laser 4,0.51,InProgress
+176647,Laser 4,0.88,InProgress
+176648,Laser 4,0.06,InProgress
+176651,Freesmachine,0.27,InProgress
+176652,Buigmachine,0.04,InProgress
+176653,Assemblage 1,0.07,InProgress
+176659,Zünd Groot,0.5,InProgress
+176694,Quad,50.33,InProgress
+176695,Quad,21.06,InProgress
+176865,Quad,4.67,InProgress
+176912,Freesmachine,0.56,InProgress
+176913,Buigmachine,0.4,InProgress
+176914,Assemblage 1,0.89,InProgress
+176955,Degel 1,0.81,InProgress
+176995,Laser 4,0.38,InProgress
+176998,Freesmachine,0.25,InProgress
+176999,Buigmachine,0.42,InProgress
+177063,Zünd Groot,0.25,InProgress
+177134,Zünd Groot,0.25,InProgress
+177144,Laser 4,0.79,InProgress
+177206,Assemblage Secrid,22.22,InProgress
+177207,Assemblage Secrid,3.33,InProgress
+177208,Assemblage Secrid,1.11,InProgress
+177209,Assemblage Secrid,1.11,InProgress
+177210,Assemblage Secrid,1.11,InProgress
+177217,Flash_Cut 5,0.25,InProgress
+177227,Flash_Cut 5,0.25,InProgress
+177377,Zünd Groot,0.25,InProgress
+177390,Zünd Groot,4.18,InProgress
+177391,Zünd Groot,4.91,InProgress
+177392,Zünd Groot,3.93,InProgress
+177510,Stikken Secrid,9.25,InProgress
+177511,Stikken Secrid,28.5,InProgress
+177512,Stikken Secrid,15.42,InProgress
+177513,Stikken Secrid,15.42,InProgress
+177554,Giant,0.25,InProgress
+177556,Giant,0.25,InProgress
+176355,Chiesa,2.08,InProgress
+176827,Zünd Groot,0.5,InProgress
+177086,Chiesa,5.23,InProgress
+177096,Giant,0.45,InProgress
+177097,Flash_Cut 5,0.2,InProgress
+177098,Giant,0.2,InProgress
+177101,Brugstans,5.5,InProgress
+177102,Brugstans,1.13,InProgress
+177157,Degel 1,3.13,InProgress
+177189,Flash_Cut 1,0.59,InProgress
+177290,Snijmachine,1.14,InProgress
+177291,Snijmachine,1.14,InProgress
+173967,Sysco,72.63,InProgress
+175988,Degel 2,1.2,InProgress
+176119,Atom,27.17,InProgress
+176120,Giant,0,InProgress
+176461,Chiesa,11.3,InProgress
+176522,Chiesa 150 ton,2.5,InProgress
+176701,Flash_Cut 1,22.61,InProgress
+176729,Chiesa 150 ton,4.94,InProgress
+176730,,0.5,InProgress
+176741,Quad,5.79,InProgress
+176878,Laserstansen,21.49,InProgress
+177078,Chiesa,1.5,InProgress
+177079,Chiesa,2.5,InProgress
+177080,Chiesa,0.83,InProgress
+177163,Chiesa 150 ton,26.1,InProgress
+177188,Laser 4,0.25,InProgress
+177294,Laser 3,9.72,InProgress
+177295,Quad,2.47,InProgress
+177313,Atom,5.78,InProgress
+177371,Quad,3.36,InProgress
+177373,Quad,5.03,InProgress
+177374,Quad,5.03,InProgress
+177375,Quad,4.19,InProgress
+177376,Quad,11.74,InProgress
+177381,Quad,4.19,InProgress
+177382,Quad,3.36,InProgress
+177383,Stikken Secrid,15.42,InProgress
+177577,Laserstansen,2.68,InProgress
+177579,Quad,2.48,InProgress
+174361,Assemblage 1,9.51,InProgress
+177274,Giant,0.25,InProgress
+177282,Zünd Groot,0.25,InProgress
+177409,Laser 4,0.25,InProgress
+177411,Laser 4,0.25,InProgress
+177412,Laser 4,0.25,InProgress
+177765,Stikken Secrid,9.25,InProgress
+177772,Stikken Secrid,18.5,InProgress
+177773,Quad,4.19,InProgress
+176498,Laser 4,3.86,InProgress
+177143,Giant,0.25,InProgress
+177231,Brugstans,0.7,InProgress
+177232,Brugstans,4.21,InProgress
+177233,Brugstans,0.56,InProgress
+177234,Brugstans,0.56,InProgress
+177551,Degel 1,3.36,InProgress
+173103,Laser 2,96.43,InProgress
+174738,Zwenkarm stans,5.24,InProgress
+175355,Quad,20.13,InProgress
+175356,Quad,25.17,InProgress
+175580,Giant,0.27,InProgress
+175581,Giant,0.19,InProgress
+175582,Laser 3,0.31,InProgress
+175586,Laser 3,0.45,InProgress
+175588,Laser 3,0.34,InProgress
+175939,Chiesa,0.25,InProgress
+175940,Chiesa,0.25,InProgress
+176021,Quad,5.87,InProgress
+176244,Laser 4,0.75,InProgress
+176271,Giant,0.48,InProgress
+176301,Laser 4,0.72,InProgress
+176640,Quad,1.8,InProgress
+176714,Quad,16.86,InProgress
+176724,Quad,9.77,InProgress
+176725,Quad,3.72,InProgress
+176855,Quad,6.51,InProgress
+176860,Quad,4.8,InProgress
+176899,Laser 3,0.65,InProgress
+177088,Laser 3,0.66,InProgress
+177092,Laser 2,0.09,InProgress
+177148,Laser 3,0.18,InProgress
+177178,Laser 3,0.76,InProgress
+177179,Laser 3,0.38,InProgress
+177180,Laser 3,0.4,InProgress
+177213,Laser 4,0.28,InProgress
+177214,Laser 4,0.39,InProgress
+177215,Laser 4,0.22,InProgress
+177246,Laser 4,4.52,InProgress
+177248,Laser 4,0.19,InProgress
+177299,Laser 4,0.62,InProgress
+177301,,0,InProgress
+177302,,0,InProgress
+177444,Quad,3.48,InProgress
+177449,Quad,3.25,InProgress
+177471,Atom Groot,0.33,InProgress
+177514,Assemblage Secrid,6.67,InProgress
+177515,Assemblage Secrid,3.33,InProgress
+177516,Assemblage Secrid,15.56,InProgress
+177517,Assemblage Secrid,6.67,InProgress
+177518,Assemblage Secrid,4.44,InProgress
+177519,Assemblage Secrid,2.22,InProgress
+177526,Quad,30.62,InProgress
+177527,Laser 4,0.57,InProgress
+177528,Laser 4,0.27,InProgress
+177530,Laser 4,0.42,InProgress
+177546,Zünd Groot,3.93,InProgress
+177547,Zünd Groot,2.95,InProgress
+177548,Zünd Groot,3.93,InProgress
+177570,Laser 4,0.84,InProgress
+177573,Laser 4,0.19,InProgress
+177574,Laser 4,0.09,InProgress
+177590,Laser 4,0.27,InProgress
+177596,Zünd Groot,0.25,InProgress
+177635,Laser 4,0.37,InProgress
+177741,Laser 4,0.1,InProgress
+177764,Snijmachine,4.79,InProgress
+177894,,19,InProgress
+177895,,28.5,InProgress
+177897,Stikken Secrid,15.42,InProgress
+177898,Stikken Secrid,3.08,InProgress
+177899,Stikken Secrid,3.08,InProgress
+177900,Stikken Secrid,12.33,InProgress
+177901,Stikken Secrid,3.08,InProgress
+177902,Stikken Secrid,12.33,InProgress
+177907,Stikken Secrid,15.42,InProgress
+177908,Stikken Secrid,3.08,InProgress
+177909,Stikken Secrid,6.17,InProgress
+177910,Stikken Secrid,18.5,InProgress
+177911,Stikken Secrid,15.42,InProgress
+177912,Stikken Secrid,15.42,InProgress
+177913,Stikken Secrid,12.33,InProgress
+176668,Degel 4,17.72,InProgress
+176670,Degel 4,34.72,InProgress
+176672,Degel 4,33.83,InProgress
+176829,Degel 4,25.25,InProgress
+177239,Degel 1,1.53,InProgress
+177663,Snijmachine,7.04,InProgress
+175947,Chiesa,0.25,InProgress
+175948,Chiesa,0.25,InProgress
+175951,Chiesa,0.25,InProgress
+175952,Chiesa,0.25,InProgress
+176003,Chiesa,2.54,InProgress
+176685,Chiesa 150 ton,6.05,InProgress
+176722,Chiesa 150 ton,2.26,InProgress
+177169,Atom,5.74,InProgress
+177224,Giant,7.53,InProgress
+177305,Zünd Groot,0.25,InProgress
+177438,Giant,4.14,InProgress
+177477,Atom Groot,0.33,InProgress
+177507,Flash_Cut 1,0.72,InProgress
+177523,Flash_Cut 1,0.47,InProgress
+177651,Laser 3,20.83,InProgress
+177689,Laser 4,0.55,InProgress
+177691,Giant,2,InProgress
+177710,Quad,5.03,InProgress
+177712,Flash_Cut 2,7.55,InProgress
+177713,Flash_Cut 1,2.52,InProgress
+177714,Stikken Secrid,70.92,InProgress
+177715,Quad,17.33,InProgress
+177718,Quad,5.03,InProgress
+166630,Preegmachine Omac,23.1,InProgress
+175314,Sysco,1.25,InProgress
+175712,Chiesa,14.08,InProgress
+175713,Assemblage drankverpakkingen,299.98,InProgress
+177242,Atom,3.4,InProgress
+177253,Laser 2,3.08,InProgress
+177352,Degel 1,8.51,InProgress
+177776,Laser 4,1.28,InProgress
+177795,Degel 2,4.13,InProgress
+178255,Quad,0.84,InProgress
+178256,Quad,2.52,InProgress
+178257,Quad,3.36,InProgress
+177171,Chiesa 150 ton,11.75,InProgress
+177172,Chiesa 150 ton,27.1,InProgress
+177585,Flash_Cut 3,8.42,InProgress
+172509,Laser 1,68.15,InProgress
+172864,Verzenden,0,InProgress
+174739,Zwenkarm stans,5.02,InProgress
+174748,Zwenkarm stans,5.02,InProgress
+175357,Quad,5.2,InProgress
+176768,Quad,7.96,InProgress
+176870,Quad,4.71,InProgress
+176871,Quad,2.79,InProgress
+176872,Quad,1.86,InProgress
+177167,Chiesa 150 ton,16.25,InProgress
+177284,Laser 4,0.41,InProgress
+177287,Laser 2,0.54,InProgress
+177288,Buigmachine,3.01,InProgress
+177357,Degel 1,19.85,InProgress
+177474,Freesmachine,0.71,InProgress
+177475,Laser 2,0.28,InProgress
+177614,Freesmachine,0.56,InProgress
+177615,Buigmachine,0.65,InProgress
+177616,Assemblage 1,0.44,InProgress
+177632,Laser 4,15.81,InProgress
+177658,Assemblage Secrid,0.49,InProgress
+177760,Laser 4,0.02,InProgress
+177761,Buigmachine,0.04,InProgress
+177793,Atom,4.59,InProgress
+177820,Quad,14.68,InProgress
+177832,Chiesa,2.5,InProgress
+177833,Chiesa,5,InProgress
+177834,Chiesa,1.67,InProgress
+177903,Zünd Groot,1.96,InProgress
+177904,Zünd Groot,1.96,InProgress
+177905,Zünd Groot,1.96,InProgress
+177914,Assemblage Secrid,3.33,InProgress
+177915,Assemblage Secrid,6.67,InProgress
+177916,Assemblage Secrid,6.67,InProgress
+177917,Assemblage Secrid,3.33,InProgress
+177918,Assemblage Secrid,5.64,InProgress
+177919,Assemblage Secrid,2.22,InProgress
+177921,Flash_Cut 1,1.94,InProgress
+178012,Flash_Cut 5,1.24,InProgress
+178047,Quad,4.03,InProgress
+178285,Laser 1,0.3,InProgress
+178286,Laser 1,0.13,InProgress
+178290,Laser 1,0.02,InProgress
+178328,Stikken Secrid,6.17,InProgress
+178329,Stikken Secrid,6.17,InProgress
+178330,Stikken Secrid,9.25,InProgress
+178331,Stikken Secrid,24.67,InProgress
+178332,Stikken Secrid,52.25,InProgress
+178333,Stikken Secrid,21.58,InProgress
+178334,Stikken Secrid,12.33,InProgress
+178335,Stikken Secrid,12.33,InProgress
+178336,Stikken Secrid,6.17,InProgress
+178337,Stikken Secrid,3.08,InProgress
+178338,Stikken Secrid,3.08,InProgress
+178339,Stikken Secrid,6.17,InProgress
+178340,Stikken Secrid,15.42,InProgress
+178341,Stikken Secrid,9.5,InProgress
+178374,Chiesa,15.12,InProgress
+176096,Quad,41.66,InProgress
+176681,Degel 4,17.44,InProgress
+176758,Quad,8.5,InProgress
+177268,Degel 4,8.83,InProgress
+177435,Chiesa,2.56,InProgress
+177493,Giant,0.25,InProgress
+177642,Atom,4.29,InProgress
+177738,Verzenden,0.25,InProgress
+177753,Flash_Cut 1,0.51,InProgress
+177785,Chiesa,5.08,InProgress
+177791,Atom,4.65,InProgress
+174864,Chiesa,6.47,InProgress
+174865,Assemblage drankverpakkingen,267.58,InProgress
+174867,Chiesa,7.75,InProgress
+174870,Assemblage drankverpakkingen,200.69,InProgress
+176778,Laser 3,0.66,InProgress
+176779,Laser 3,1.2,InProgress
+176780,Laser 3,1.91,InProgress
+176781,Laser 3,0.42,InProgress
+177270,Atom Klein,9.94,InProgress
+177271,Atom Klein,9.94,InProgress
+177272,Atom Klein,14.35,InProgress
+177296,Laser 2,12.37,InProgress
+177695,Giant,6.25,InProgress
+177742,Laser 3,0.25,InProgress
+177781,Giant,0.49,InProgress
+177947,Laser 4,0.37,InProgress
+177948,Laser 4,2.71,InProgress
+177950,Laser 4,0.11,InProgress
+177951,Laser 4,4.58,InProgress
+177952,Laser 4,1.2,InProgress
+177953,Laser 4,0.27,InProgress
+177954,Laser 4,0.63,InProgress
+177955,Laser 4,0.38,InProgress
+177957,Laser 4,0.4,InProgress
+177958,Buigmachine,0.42,InProgress
+177978,Giant,1.62,InProgress
+178052,Quad,16.78,InProgress
+178136,Quad,2.75,InProgress
+178154,Quad,9.08,InProgress
+178156,Quad,11.74,InProgress
+178157,Quad,6.71,InProgress
+178158,Quad,10.07,InProgress
+178159,Quad,5.03,InProgress
+178160,Quad,6.71,InProgress
+178162,Quad,8.39,InProgress
+178421,Laser 1,-0.45,InProgress
+177990,Laser 1,4.39,InProgress
+178244,Slitmachine,0.25,InProgress
+178245,Slitmachine,0.25,InProgress
+178246,Slitmachine,0.25,InProgress
+178298,Laser 3,2.09,InProgress
+178448,Laser 4,1.21,InProgress
+178518,Quad,0.19,InProgress
+177671,Chiesa,5.46,InProgress
+177672,Chiesa,6.68,InProgress
+177673,Chiesa,13.9,InProgress
+178026,Snijmachine,4.42,InProgress
+178351,Giant,1377.25,InProgress
+178352,Giant,716.1,InProgress
+175381,Quad,20.89,InProgress
+175718,Chiesa,14.08,InProgress
+175719,Assemblage drankverpakkingen,290.12,InProgress
+176091,Quad,9.69,InProgress
+176736,Quad,11.28,InProgress
+176753,Quad,9.88,InProgress
+177692,Giant,1.39,InProgress
+177693,Giant,0.88,InProgress
+177694,Giant,0.21,InProgress
+177842,Atom,1.41,InProgress
+177846,Atom,1.18,InProgress
+177851,Atom,2.88,InProgress
+177854,Atom,1.34,InProgress
+177857,Atom,0.82,InProgress
+177867,Atom,0.87,InProgress
+177878,Atom,1.27,InProgress
+177881,Atom,1.69,InProgress
+177884,Atom,1.21,InProgress
+177887,Atom,3.21,InProgress
+177890,Atom,1.35,InProgress
+178032,Sysco,3.76,InProgress
+178041,Giant,2.1,InProgress
+178342,Assemblage Secrid,2.22,InProgress
+178343,Assemblage Secrid,11.11,InProgress
+178344,Assemblage Secrid,5.56,InProgress
+178345,Assemblage Secrid,2.22,InProgress
+178346,Assemblage Secrid,1.11,InProgress
+178347,Assemblage Secrid,2.22,InProgress
+178348,Assemblage Secrid,2.22,InProgress
+178349,Assemblage Secrid,5.56,InProgress
+178422,Laser 2,6.56,InProgress
+178535,Stikken Secrid,9.25,InProgress
+178536,Stikken Secrid,9.25,InProgress
+178537,Stikken Secrid,9.25,InProgress
+178538,Stikken Secrid,3.08,InProgress
+178539,Stikken Secrid,15.42,InProgress
+178540,Stikken Secrid,12.33,InProgress
+178541,Stikken Secrid,15.42,InProgress
+178543,Stikken Secrid,24.67,InProgress
+178544,Stikken Secrid,14.25,InProgress
+178545,Stikken Secrid,18.5,InProgress
+178546,Stikken Secrid,3.08,InProgress
+178547,Stikken Secrid,3.08,InProgress
+178548,Stikken Secrid,3.08,InProgress
+178549,Stikken Secrid,3.08,InProgress
+178587,Degel 1,88,InProgress
+178588,Quad,0.17,InProgress
+178589,Stikken Secrid,0.62,InProgress
+178590,Quad,0.17,InProgress
+177535,Hengsel,37.78,InProgress
+177802,Laser 3,5.43,InProgress
+177823,Chiesa,4,InProgress
+177824,Laser 2,13.59,InProgress
+177825,Chiesa,2.5,InProgress
+177970,Chiesa,3.67,InProgress
+177982,Flash_Cut 5,3.31,InProgress
+178030,Degel 1,4.42,InProgress
+178097,Chiesa,1.65,InProgress
+178171,Atom Groot,0.5,InProgress
+178370,Laser 2,0.25,InProgress
+178594,,3.75,InProgress
+176078,Degel 3,0.5,InProgress
+176079,Degel 3,0.5,InProgress
+176132,Degel 3,0.5,InProgress
+176133,Degel 3,0.5,InProgress
+177394,Degel 2,17.65,InProgress
+177458,Giant,9,InProgress
+178069,Laser 3,19.44,InProgress
+178163,Laser 4,0.25,InProgress
+178413,Degel 4,21.61,InProgress
+178480,Atom Groot,0.33,InProgress
+178488,Quad,5.87,InProgress
+178489,Quad,5.87,InProgress
+178491,Quad,1.86,InProgress
+178496,Quad,5.03,InProgress
+178499,Quad,5.03,InProgress
+178500,Stikken Secrid,21.58,InProgress
+178501,Stikken Secrid,6.17,InProgress
+178744,Quad,4.19,InProgress
+176963,Laser 2,2.02,InProgress
+177365,Degel 2,31.8,InProgress
+177533,Verzenden,0,InProgress
+178101,Degel 1,4.37,InProgress
+178102,Degel 1,7.39,InProgress
+178103,Degel 1,7.79,InProgress
+178425,Zünd Groot,0.25,InProgress
+178565,Atom,15.5,InProgress
+178566,Giant,0,InProgress
+176086,Quad,26.63,InProgress
+176763,Quad,6.52,InProgress
+177361,Degel 2,13.92,InProgress
+177504,Laser 4,0.25,InProgress
+177538,Laser 4,0.26,InProgress
+177539,Laser 4,0.28,InProgress
+177540,Laser 4,0.01,InProgress
+177541,Laser 4,0.03,InProgress
+177560,Chiesa 150 ton,27.1,InProgress
+177578,Giant,7.23,InProgress
+177961,Giant,24.01,InProgress
+177962,Flash_Cut 1,5.89,InProgress
+178010,Laser 1,0.25,InProgress
+178017,Laser 4,0.27,InProgress
+178018,Laser 4,0.21,InProgress
+178249,Sysco,2.08,InProgress
+178250,Sysco,2.1,InProgress
+178251,Sysco,1.6,InProgress
+178252,Sysco,1.91,InProgress
+178312,Degel 3,5.7,InProgress
+178357,Sysco,0.51,InProgress
+178550,Assemblage Secrid,13.33,InProgress
+178551,Assemblage Secrid,11.11,InProgress
+178552,Assemblage Secrid,5.56,InProgress
+178553,Assemblage Secrid,4.44,InProgress
+178554,Assemblage Secrid,5.56,InProgress
+178555,Assemblage Secrid,3.33,InProgress
+178556,Assemblage Secrid,2.22,InProgress
+178557,Assemblage Secrid,2.22,InProgress
+178558,Assemblage Secrid,1.11,InProgress
+178559,Assemblage Secrid,1.11,InProgress
+178646,Quad,7.63,InProgress
+178726,Laser 4,0.89,InProgress
+178736,Verzenden,0,InProgress
+178737,Laser 4,0.62,InProgress
+178739,Laser 4,1.98,InProgress
+178740,Buigmachine,7.18,InProgress
+178762,Flash_Cut 5,1.24,InProgress
+178801,Stikken Secrid,9.25,InProgress
+178802,Stikken Secrid,9.25,InProgress
+178803,Stikken Secrid,3.08,InProgress
+178805,,14.25,InProgress
+178806,Stikken Secrid,18.5,InProgress
+178807,Stikken Secrid,12.33,InProgress
+178808,Stikken Secrid,3.08,InProgress
+178810,Stikken Secrid,24.67,InProgress
+178811,Stikken Secrid,9.25,InProgress
+178813,Stikken Secrid,6.17,InProgress
+178814,,5.17,InProgress
+178815,Stikken Secrid,3.08,InProgress
+174740,Zwenkarm stans,5.02,InProgress
+175721,Chiesa,14.08,InProgress
+175722,Assemblage drankverpakkingen,290.12,InProgress
+177999,Laser 4,0.02,InProgress
+178000,Laser 4,0.14,InProgress
+178003,Freesmachine,0.33,InProgress
+178004,Buigmachine,0.38,InProgress
+178005,Assemblage 1,0.33,InProgress
+178022,Degel 1,1.17,InProgress
+178585,Giant,0.76,InProgress
+178690,Laser 4,0.58,InProgress
+178693,Freesmachine,0.53,InProgress
+178694,Buigmachine,0.5,InProgress
+178695,Assemblage 1,1.11,InProgress
+178745,Laser 4,6.92,InProgress
+175246,Degel 3,4.38,InProgress
+175247,Degel 3,1.68,InProgress
+175248,Degel 3,4.31,InProgress
+175253,Degel 3,0.88,InProgress
+175259,Giant,7.01,InProgress
+177463,Atom,27.17,InProgress
+177464,Giant,0,InProgress
+177927,Laser 4,2.09,InProgress
+177931,Laser 4,3.99,InProgress
+178385,Chiesa 150 ton,1.7,InProgress
+178404,Laser 4,5.49,InProgress
+178486,Zünd Groot,0.25,InProgress
+178605,Chiesa 150 ton,5.22,InProgress
+178606,Chiesa 150 ton,7.45,InProgress
+178639,Giant,2.71,InProgress
+178681,Quad,3.36,InProgress
+178682,Quad,4.19,InProgress
+178683,Stikken Secrid,21.58,InProgress
+178699,Flash_Cut 5,10.75,InProgress
+178700,Flash_Cut 5,10.5,InProgress
+178701,Laser 1,5.15,InProgress
+179048,Quad,0.19,InProgress
+176773,Quad,5.58,InProgress
+177830,Verzenden,0.58,InProgress
+178111,Degel 3,3.32,InProgress
+178116,Degel 3,4.86,InProgress
+178446,Flash_Cut 5,0.8,InProgress
+178673,Laser 3,11.11,InProgress
+178714,Laser 3,4.9,InProgress
+178107,Degel 1,18.28,InProgress
+178365,Chiesa,1.89,InProgress
+178366,Chiesa,1.39,InProgress
+178367,Chiesa,1.38,InProgress
+178368,Chiesa,1.31,InProgress
+178410,Atom,5.92,InProgress
+178529,Flash_Cut 3,0.97,InProgress
+178636,Laser 4,1.64,InProgress
+178712,Chiesa 150 ton,16.1,InProgress
+178867,Flash_Cut 5,0.25,InProgress
+179057,Laser 1,0.25,InProgress
+172215,Verzenden,111.11,InProgress
+172851,Verzenden,0,InProgress
+175724,Chiesa,13.9,InProgress
+175725,Assemblage drankverpakkingen,296.13,InProgress
+175782,Laser 1,20.55,InProgress
+175783,Laser 1,22.68,InProgress
+175787,Degel 3,7.58,InProgress
+176842,Giant,40.88,InProgress
+176984,Hengsel,47.16,InProgress
+177333,Degel 3,1.28,InProgress
+177334,Degel 3,2.52,InProgress
+177335,Degel 2,1.77,InProgress
+177336,Degel 2,2.59,InProgress
+177337,Degel 2,4.44,InProgress
+177621,Laser 4,2.39,InProgress
+177622,Laser 4,1.25,InProgress
+177623,Laser 4,0.26,InProgress
+177736,Laser 4,0.25,InProgress
+177973,Degel 4,83.44,InProgress
+177975,Degel 4,16.38,InProgress
+177976,Degel 4,12.27,InProgress
+178070,Quad,8.39,InProgress
+178071,Quad,33.02,InProgress
+178258,Laser 4,0.44,InProgress
+178265,Laser 2,0.4,InProgress
+178302,Laser 4,1.75,InProgress
+178308,Zünd Groot,0.25,InProgress
+178315,Zünd Groot,0.25,InProgress
+178362,Laser 4,0.1,InProgress
+178437,Zünd Groot,0.25,InProgress
+178452,Degel 1,0.64,InProgress
+178455,Laser 4,1.16,InProgress
+178456,Laser 4,0.03,InProgress
+178457,Laser 1,0.18,InProgress
+178459,Laser 4,0.38,InProgress
+178460,Buigmachine,0.6,InProgress
+178462,Atom,5.78,InProgress
+178465,Snijmachine,3.5,InProgress
+178468,Snijmachine,1.14,InProgress
+178471,Snijmachine,1.77,InProgress
+178704,Snijmachine,1.14,InProgress
+178705,Snijmachine,1.14,InProgress
+178746,Laser 2,5,InProgress
+178778,Laser 2,0.25,InProgress
+178790,Assemblage Secrid,6.67,InProgress
+178791,Assemblage Secrid,6.67,InProgress
+178792,Assemblage Secrid,1.11,InProgress
+178793,Assemblage Secrid,2.22,InProgress
+178794,Assemblage Secrid,3.33,InProgress
+178795,Assemblage Secrid,11.11,InProgress
+178796,Assemblage Secrid,6.67,InProgress
+178797,Assemblage Secrid,2.22,InProgress
+178798,Assemblage Secrid,3.33,InProgress
+178799,Assemblage Secrid,2.22,InProgress
+178926,Sysco,5.36,InProgress
+178995,Laser 1,0.25,InProgress
+179004,Laser 1,3.58,InProgress
+179150,Stikken Secrid,3.08,InProgress
+179151,Stikken Secrid,3.08,InProgress
+179154,Stikken Secrid,3.08,InProgress
+179156,Stikken Secrid,3.08,InProgress
+179157,Stikken Secrid,3.08,InProgress
+179158,Stikken Secrid,3.08,InProgress
+179159,Stikken Secrid,9.25,InProgress
+179160,Stikken Secrid,15.42,InProgress
+179161,Stikken Secrid,6.17,InProgress
+179173,Stikken Secrid,24.67,InProgress
+179174,Stikken Secrid,6.17,InProgress
+179175,Stikken Secrid,18.5,InProgress
+179176,Stikken Secrid,15.42,InProgress
+179178,Stikken Secrid,12.33,InProgress
+179179,Stikken Secrid,0.62,InProgress
+179180,Stikken Secrid,3.08,InProgress
+179181,Stikken Secrid,3.08,InProgress
+179182,Stikken Secrid,3.08,InProgress
+179183,Stikken Secrid,3.08,InProgress
+179184,Stikken Secrid,3.08,InProgress
+179185,Stikken Secrid,3.08,InProgress
+175935,Chiesa 150 ton,47.3,InProgress
+178575,Giant,5.17,InProgress
+178578,Giant,2.89,InProgress
+178579,Giant,3.01,InProgress
+178582,Giant,7.75,InProgress
+178656,Atom,4.25,InProgress
+178720,Laser 4,0.84,InProgress
+178887,Laser 2,2.02,InProgress
+178888,Laser 2,0.81,InProgress
+177084,Zwenkarm stans,5.23,InProgress
+177608,Laser 3,0.7,InProgress
+177637,Laser 3,0.23,InProgress
+177638,Laser 3,0.23,InProgress
+178304,Flash_Cut 1,4.63,InProgress
+178320,Flash_Cut 3,0.88,InProgress
+178321,Laserstansen,0.57,InProgress
+178383,Chiesa 150 ton,18.75,InProgress
+178591,Degel 1,3.42,InProgress
+178665,Giant,8.48,InProgress
+178859,Brugstans,4.06,InProgress
+178932,Sysco,19.44,InProgress
+179034,Quad,5.03,InProgress
+179037,Stikken Secrid,27.75,InProgress
+179040,Quad,1.68,InProgress
+179041,Flash_Cut 2,3.89,InProgress
+179042,Quad,2.05,InProgress
+179043,Quad,8.39,InProgress
+179044,Quad,9.23,InProgress
+175859,Sysco,2.52,InProgress
+177439,Verzenden,0.25,InProgress
+178985,Laser 4,0.25,InProgress
+179401,Degel 1,29.2,InProgress
+179446,Quad,0.93,InProgress
+179447,Flash_Cut 2,0.64,InProgress
+179448,Flash_Cut 2,3.62,InProgress
+179449,Flash_Cut 2,1.28,InProgress
+179450,Flash_Cut 2,0.64,InProgress
+179451,Flash_Cut 2,3.89,InProgress
+179455,Stikken Secrid,18.5,InProgress
+179456,Flash_Cut 2,9.23,InProgress
+175727,Chiesa,14.08,InProgress
+175728,Assemblage drankverpakkingen,290.12,InProgress
+177105,Degel 2,17.26,InProgress
+177940,Atom Klein,9.44,InProgress
+177941,Atom Klein,9.44,InProgress
+177942,Atom Klein,18.8,InProgress
+177965,Laser 2,0.86,InProgress
+178779,Laser 2,0.25,InProgress
+179278,Laser 2,1.59,InProgress
+179279,Laser 2,3.75,InProgress
+171178,Preegmachine Omac,40,InProgress
+173104,Laser 2,96.43,InProgress
+175840,Degel 1,6.34,InProgress
+175842,Degel 1,3.51,InProgress
+177835,Zwenkarm stans,5.02,InProgress
+178072,Quad,12.79,InProgress
+178078,Quad,9.57,InProgress
+178079,Quad,3.36,InProgress
+178080,Quad,8.39,InProgress
+178668,Laser 4,0.71,InProgress
+178669,Laser 4,6.13,InProgress
+178671,Laser 4,0.87,InProgress
+178672,Laser 4,1.29,InProgress
+178689,Laser 4,1.35,InProgress
+178748,Chiesa,1.68,InProgress
+178816,Laser 2,6.95,InProgress
+178968,Laser 2,1.13,InProgress
+178969,Laser 2,0.51,InProgress
+178970,Laser 2,0.52,InProgress
+178971,Laser 2,0.16,InProgress
+178988,Giant,2.32,InProgress
+179049,Giant,0.43,InProgress
+179050,Giant,0.11,InProgress
+179051,Giant,0.11,InProgress
+179052,Giant,0.18,InProgress
+179053,Giant,0.09,InProgress
+179054,Giant,0.11,InProgress
+179127,Flash_Cut 5,0.69,InProgress
+179192,Assemblage Secrid,10,InProgress
+179193,Assemblage Secrid,5.56,InProgress
+179194,Assemblage Secrid,4.44,InProgress
+179195,Assemblage Secrid,5.56,InProgress
+179196,Assemblage Secrid,7.78,InProgress
+179197,Assemblage Secrid,2.22,InProgress
+179198,Assemblage Secrid,4.44,InProgress
+179200,Assemblage Secrid,20,InProgress
+179201,Assemblage Secrid,1.11,InProgress
+179202,Assemblage Secrid,4.44,InProgress
+179223,Laser 3,0.25,InProgress
+179234,Zünd Groot,4.32,InProgress
+179533,,4.75,InProgress
+179536,Stikken Secrid,15.42,InProgress
+179538,Stikken Secrid,6.17,InProgress
+179539,Stikken Secrid,3.08,InProgress
+179540,Stikken Secrid,3.08,InProgress
+179541,Stikken Secrid,9.25,InProgress
+179542,Stikken Secrid,30.83,InProgress
+179543,Stikken Secrid,12.33,InProgress
+179553,Laser 4,0.59,InProgress
+179814,Degel 3,4.36,InProgress
+176889,Flash_Cut 2,11.11,InProgress
+178007,Degel 4,45.52,InProgress
+178268,Snijmachine,4.79,InProgress
+178283,Snijmachine,4.79,InProgress
+178560,Laser 2,0.46,InProgress
+178562,Laser 3,0.5,InProgress
+178927,Giant,1.34,InProgress
+178944,Giant,0.25,InProgress
+178965,Laserstansen,5.75,InProgress
+179077,Laser 4,1.69,InProgress
+179106,Atom,4.13,InProgress
+179108,Atom,2.83,InProgress
+179110,Atom,3.27,InProgress
+179199,Zünd Groot,0.25,InProgress
+179204,Atom,2.06,InProgress
+179205,Atom,1.94,InProgress
+179206,Atom,1.57,InProgress
+179210,Zünd Groot,0.25,InProgress
+179280,Atom,2.65,InProgress
+179327,Quad,4.22,InProgress
+179328,Quad,0.81,InProgress
+179440,Laser 2,0.58,InProgress
+179441,Laser 2,0.58,InProgress
+179442,Laser 2,0.58,InProgress
+179471,Giant,0.02,InProgress
+178653,Chiesa,17.16,InProgress
+178660,Degel 1,31.45,InProgress
+179236,Quad,5.03,InProgress
+179251,Quad,6.71,InProgress
+179252,Stikken Secrid,37,InProgress
+179253,Stikken Secrid,12.33,InProgress
+179254,Quad,7.55,InProgress
+179255,Quad,5.03,InProgress
+179257,Quad,5.87,InProgress
+179221,Hengsel,58.09,InProgress
+179718,Laser 2,0.25,InProgress
+179760,Quad,0.84,InProgress
+179761,Flash_Cut 2,2.24,InProgress
+179762,Flash_Cut 2,3.89,InProgress
+171466,Laser 4,8.52,InProgress
+175733,Chiesa,14.08,InProgress
+175734,Assemblage drankverpakkingen,296.13,InProgress
+177318,Degel 3,1.08,InProgress
+177319,Degel 3,0.5,InProgress
+177320,Degel 2,1.04,InProgress
+177321,Degel 3,1.23,InProgress
+177326,Degel 3,6.25,InProgress
+177327,Degel 3,8.32,InProgress
+178756,Degel 1,10.04,InProgress
+178961,Giant,1.5,InProgress
+178962,Giant,3.29,InProgress
+178981,Zünd Groot,19.46,InProgress
+179411,Degel 4,6.59,InProgress
+179415,Degel 4,4.18,InProgress
+179564,Giant,0.25,InProgress
+179665,Chiesa,118.79,InProgress
+176894,Flash_Cut 2,8.58,InProgress
+177612,Verzenden,0.25,InProgress
+177836,Zwenkarm stans,5.02,InProgress
+177995,Freesmachine,0.39,InProgress
+177996,Buigmachine,0.25,InProgress
+177997,Assemblage 1,0.28,InProgress
+178728,Laser 2,1.37,InProgress
+178766,Laser 4,0.29,InProgress
+178767,Buigmachine,0.12,InProgress
+178769,Laser 4,0.54,InProgress
+178770,Buigmachine,1.21,InProgress
+178772,Laser 4,0.4,InProgress
+178773,Buigmachine,0.42,InProgress
+178775,Laser 4,0.29,InProgress
+178782,Buigmachine,0.28,InProgress
+178783,Laser 4,0.26,InProgress
+178786,Laser 4,0.76,InProgress
+178827,Laser 4,11.15,InProgress
+178828,Laser 4,5.97,InProgress
+178830,Snijmachine,3.41,InProgress
+178905,Laser 4,0.39,InProgress
+178906,Laser 4,0.45,InProgress
+178907,Laser 4,0.42,InProgress
+179079,Flash_Cut 1,12.32,InProgress
+179129,Laser 4,8.58,InProgress
+179189,Laser 4,0.03,InProgress
+179190,Buigmachine,0.19,InProgress
+179237,Zünd Groot,2,InProgress
+179238,Zünd Groot,1,InProgress
+179246,Chiesa 150 ton,0.25,InProgress
+179282,Flash_Cut 5,0.25,InProgress
+179516,Zünd Groot,6.25,InProgress
+179517,Zünd Groot,4,InProgress
+179520,Degel 1,4.67,InProgress
+179544,Assemblage Secrid,5.56,InProgress
+179545,Assemblage Secrid,11.11,InProgress
+179546,Assemblage Secrid,5.56,InProgress
+179547,Assemblage Secrid,3.33,InProgress
+179548,Assemblage Secrid,5.56,InProgress
+179549,Assemblage Secrid,2.22,InProgress
+179550,Assemblage Secrid,4.44,InProgress
+179551,Assemblage Secrid,7.78,InProgress
+179552,Assemblage Secrid,5.56,InProgress
+179642,Verzenden,0.25,InProgress
+179688,Quad,1.41,InProgress
+179693,Quad,1.56,InProgress
+179698,Quad,1.98,InProgress
+179859,,38,InProgress
+179869,Stikken Secrid,12.33,InProgress
+179870,Stikken Secrid,3.08,InProgress
+179871,Stikken Secrid,18.5,InProgress
+179872,Stikken Secrid,6.17,InProgress
+179873,Stikken Secrid,9.25,InProgress
+179874,Stikken Secrid,3.08,InProgress
+179875,Stikken Secrid,18.5,InProgress
+179876,Stikken Secrid,15.42,InProgress
+179314,Zünd Groot,0.25,InProgress
+179984,Degel 3,4.36,InProgress
+175730,Chiesa,14.08,InProgress
+175731,Assemblage drankverpakkingen,290.12,InProgress
+179024,Laser 4,0.4,InProgress
+179025,Buigmachine,0.58,InProgress
+179026,Freesmachine,0.49,InProgress
+179027,Buigmachine,0.83,InProgress
+179028,Assemblage 1,1.47,InProgress
+179029,Freesmachine,1.6,InProgress
+179030,Buigmachine,1.83,InProgress
+179031,Assemblage 1,3.42,InProgress
+179298,Laser 4,0.31,InProgress
+179303,Degel 1,4.26,InProgress
+179714,Laser 2,0.25,InProgress
+179720,Quad,10.91,InProgress
+179721,Quad,9.23,InProgress
+179722,Flash_Cut 2,12.68,InProgress
+179723,Flash_Cut 2,2.88,InProgress
+179724,Quad,9.23,InProgress
+179729,Quad,5.87,InProgress
+179730,Stikken Secrid,12.33,InProgress
+179826,Giant,0.91,InProgress
+179867,Zünd Groot,5.55,InProgress
+177972,Degel 4,43.72,InProgress
+178108,Degel 1,18.28,InProgress
+179008,Laser 4,0.47,InProgress
+179009,Laser 4,0.16,InProgress
+179010,Verzenden,0.25,InProgress
+179011,Laser 4,4.4,InProgress
+179012,Laser 4,0.17,InProgress
+179013,Laser 4,0.84,InProgress
+179014,Laser 4,1.21,InProgress
+179015,Laser 4,0.47,InProgress
+179016,Laser 4,1.27,InProgress
+179017,Laser 4,0.04,InProgress
+179018,Laser 4,2.46,InProgress
+179019,Laser 4,0.44,InProgress
+179020,Laser 4,0.98,InProgress
+179922,Quad,0.59,InProgress
+179923,Quad,0.74,InProgress
+179924,Quad,0.46,InProgress
+180107,Quad,2.52,InProgress
+180108,Flash_Cut 2,0.96,InProgress
+180109,Flash_Cut 2,1.94,InProgress
+180111,Quad,5.03,InProgress
+180112,Flash_Cut 2,17.5,InProgress
+178475,Laser 4,0.52,InProgress
+178476,Laser 4,0.38,InProgress
+178958,Giant,13.74,InProgress
+178997,Laser 4,0.46,InProgress
+179484,Brugstans,13.58,InProgress
+179594,Brugstans,5.83,InProgress
+178084,Quad,12.58,InProgress
+178085,Quad,4.19,InProgress
+178086,Quad,6.71,InProgress
+178920,Laser 2,7.32,InProgress
+179084,Chiesa,11.47,InProgress
+179217,Chiesa,0,InProgress
+179304,Degel 1,3.17,InProgress
+179383,Laser 4,1.22,InProgress
+179424,Freesmachine,0.45,InProgress
+179425,Buigmachine,0.5,InProgress
+179426,Assemblage 1,0.56,InProgress
+179558,Quad,11.74,InProgress
+179559,Quad,15.52,InProgress
+179634,Freesmachine,0.27,InProgress
+179635,Buigmachine,0.03,InProgress
+179636,Assemblage 1,0.02,InProgress
+179737,Laser 1,0.36,InProgress
+179747,Snijmachine,18.67,InProgress
+179885,Assemblage Secrid,13.33,InProgress
+179886,Assemblage Secrid,2.22,InProgress
+179887,Assemblage Secrid,2.22,InProgress
+179888,Assemblage Secrid,11.11,InProgress
+179889,Assemblage Secrid,3.33,InProgress
+179890,Assemblage Secrid,1.11,InProgress
+179891,Assemblage Secrid,6.67,InProgress
+179892,Assemblage Secrid,4.44,InProgress
+179893,Assemblage Secrid,6.67,InProgress
+180155,Laser 4,0.01,InProgress
+180156,Buigmachine,0.08,InProgress
+180178,Stikken Secrid,12.33,InProgress
+180179,Stikken Secrid,6.17,InProgress
+180180,Stikken Secrid,9.25,InProgress
+180183,Stikken Secrid,3.08,InProgress
+180184,Stikken Secrid,3.08,InProgress
+180185,Stikken Secrid,3.08,InProgress
+180186,Stikken Secrid,3.08,InProgress
+180187,Stikken Secrid,3.08,InProgress
+180188,Stikken Secrid,3.08,InProgress
+180197,Stikken Secrid,3.08,InProgress
+180198,Stikken Secrid,3.08,InProgress
+180199,Stikken Secrid,3.08,InProgress
+180200,Stikken Secrid,3.08,InProgress
+180201,Stikken Secrid,3.08,InProgress
+180202,Stikken Secrid,3.08,InProgress
+180203,,5.17,InProgress
+180204,Stikken Secrid,9.25,InProgress
+180205,Stikken Secrid,21.58,InProgress
+180206,Stikken Secrid,40.08,InProgress
+171772,Quad,22.52,InProgress
+171773,Quad,12.54,InProgress
+171774,Quad,16.78,InProgress
+173971,Sysco,71.7,InProgress
+178752,Laser 4,2.67,InProgress
+179081,Chiesa 150 ton,8.47,InProgress
+179088,Chiesa,1.77,InProgress
+179163,Chiesa 150 ton,4.07,InProgress
+179214,Atom,15,InProgress
+179215,Giant,0,InProgress
+179418,Laser 4,0.41,InProgress
+179419,Laser 4,2.42,InProgress
+179420,Laser 4,0.06,InProgress
+179421,Laser 4,0.06,InProgress
+179568,Laser 4,0.37,InProgress
+179569,Laser 4,0.28,InProgress
+179570,Laser 4,0.25,InProgress
+179571,Laser 4,0.37,InProgress
+179587,Chiesa,5.71,InProgress
+179627,Laser 4,1.17,InProgress
+179628,Laser 4,0.38,InProgress
+179629,Laser 4,0.05,InProgress
+179830,Flash_Cut 5,0.75,InProgress
+179936,Laser 4,0.25,InProgress
+179996,Laser 4,0.53,InProgress
+179997,Laser 4,0.14,InProgress
+180080,Flash_Cut 5,1.96,InProgress
+180081,Flash_Cut 5,1.71,InProgress
+169476,Quad,26.3,InProgress
+176968,Chiesa,14.08,InProgress
+176969,Assemblage drankverpakkingen,290.12,InProgress
+177562,Chiesa 150 ton,13.75,InProgress
+177563,Chiesa 150 ton,26.6,InProgress
+177971,Degel 4,19.29,InProgress
+177974,Degel 4,44.94,InProgress
+178395,Chiesa 150 ton,10.8,InProgress
+179477,Giant,1.33,InProgress
+179963,Flash_Cut 1,0.25,InProgress
+180008,Degel 3,4.92,InProgress
+180048,Flash_Cut 2,0.96,InProgress
+180049,Flash_Cut 2,9.72,InProgress
+180054,Quad,1.12,InProgress
+180058,Quad,1.12,InProgress
+180059,Quad,8.25,InProgress
+180060,Quad,5.03,InProgress
+180061,Quad,7.55,InProgress
+180063,Laser 2,2.19,InProgress
+180070,Flash_Cut 1,2.59,InProgress
+180074,Flash_Cut 1,2.59,InProgress
+180088,Flash_Cut 5,1.29,InProgress
+180090,Flash_Cut 5,1.04,InProgress
+180133,Giant,0.53,InProgress
+180134,Giant,1.67,InProgress
+180360,Quad,0.93,InProgress
+180361,Stikken Secrid,9.25,InProgress
+180362,Stikken Secrid,37,InProgress
+180363,Stikken Secrid,24.67,InProgress
+180364,Flash_Cut 2,5.03,InProgress
+175789,Degel 3,7.58,InProgress
+179480,Flash_Cut 5,1.22,InProgress
+180066,Giant,0.25,InProgress
+180139,Laser 2,0.25,InProgress
+180189,Snijmachine,2.6,InProgress
+180220,Assemblage Secrid,2.81,InProgress
+179164,Chiesa,4.04,InProgress
+179165,Chiesa,3.07,InProgress
+179793,Giant,1377,InProgress
+179796,Giant,6.44,InProgress
+179895,Giant,0.25,InProgress
+179915,Sysco,4.28,InProgress
+180193,Giant,2.25,InProgress
+180450,Quad,0.9,InProgress
+180488,Quad,1.13,InProgress
+172217,Verzenden,132.48,InProgress
+172511,Laser 1,68.15,InProgress
+179133,Chiesa 150 ton,8.2,InProgress
+179134,Chiesa,4.44,InProgress
+179146,Freesmachine,0.53,InProgress
+179147,Buigmachine,0.75,InProgress
+179148,Assemblage 1,1.14,InProgress
+179294,Freesmachine,0.1,InProgress
+179295,Buigmachine,0.17,InProgress
+179296,Assemblage 1,0.17,InProgress
+179436,Laser 4,0.28,InProgress
+179437,Laser 4,0.03,InProgress
+179438,Laser 4,0.02,InProgress
+179439,Laser 4,0.03,InProgress
+179495,Quad,10.98,InProgress
+179496,Quad,5.26,InProgress
+179497,Quad,5.34,InProgress
+179597,Flash_Cut 5,0.25,InProgress
+179667,Giant,0.48,InProgress
+179668,Giant,0.23,InProgress
+179676,Giant,0.34,InProgress
+179677,Giant,0.09,InProgress
+179685,Giant,2.78,InProgress
+179703,Quad,0.82,InProgress
+179704,Quad,0.45,InProgress
+179705,Quad,0.29,InProgress
+179741,Laser 4,0.39,InProgress
+179917,Degel 1,0.63,InProgress
+180035,Giant,0.42,InProgress
+180036,Giant,0.18,InProgress
+180037,Giant,0.47,InProgress
+180038,Giant,0.59,InProgress
+180042,Giant,1.75,InProgress
+180093,Degel 1,6.89,InProgress
+180117,Quad,43.83,InProgress
+180169,Laser 4,0.06,InProgress
+180207,Assemblage Secrid,11.11,InProgress
+180208,Assemblage Secrid,2.22,InProgress
+180209,Assemblage Secrid,3.33,InProgress
+180210,Assemblage Secrid,2.22,InProgress
+180211,Assemblage Secrid,1.11,InProgress
+180212,Assemblage Secrid,4.44,InProgress
+180213,Assemblage Secrid,7.78,InProgress
+180214,Assemblage Secrid,4.44,InProgress
+180215,Assemblage Secrid,6.67,InProgress
+180216,Assemblage Secrid,4.44,InProgress
+180263,Laser 4,0.14,InProgress
+180314,Chiesa 150 ton,5.37,InProgress
+180429,Stikken Secrid,9.25,InProgress
+180431,Stikken Secrid,21.58,InProgress
+180432,Stikken Secrid,6.17,InProgress
+172868,Hengsel,21.02,InProgress
+176971,Chiesa,14.17,InProgress
+176972,Assemblage drankverpakkingen,290.12,InProgress
+178439,Chiesa 150 ton,16.1,InProgress
+179124,Degel 1,31.94,InProgress
+179300,Laser 4,0.83,InProgress
+179557,Laser 4,-0.59,InProgress
+179743,Laser 4,0.26,InProgress
+180146,Giant,0.8,InProgress
+180344,Quad,4.19,InProgress
+180345,Quad,1.12,InProgress
+180346,Quad,6.6,InProgress
+180347,Quad,1.3,InProgress
+180351,Flash_Cut 2,10.87,InProgress
+180352,Flash_Cut 2,1.92,InProgress
+180354,Flash_Cut 2,1.92,InProgress
+180356,Flash_Cut 2,11.67,InProgress
+180385,Degel 1,0.83,InProgress
+180578,Quad,5.03,InProgress
+178091,Sysco,8.11,InProgress
+178940,Sysco,13,InProgress
+180246,Giant,0.81,InProgress
+180579,Quad,0.22,InProgress
+179836,Degel 2,0.5,InProgress
+180173,Atom Klein,9.44,InProgress
+180174,Atom Klein,9.44,InProgress
+180175,Atom Klein,18.61,InProgress
+180265,Freesmachine,0.61,InProgress
+180266,Buigmachine,1,InProgress
+180267,Assemblage 1,2.11,InProgress
+180276,Flash_Cut 5,0.77,InProgress
+180277,Flash_Cut 5,0.52,InProgress
+180278,Flash_Cut 5,0.37,InProgress
+180280,Flash_Cut 5,0.78,InProgress
+180281,Flash_Cut 5,0.78,InProgress
+180282,Flash_Cut 5,0.55,InProgress
+180329,Flash_Cut 2,0.19,InProgress
+180332,Flash_Cut 2,0.12,InProgress
+180333,Flash_Cut 2,0.12,InProgress
+173105,Laser 2,96.43,InProgress
+177174,Chiesa,4.9,InProgress
+177827,Zwenkarm stans,5.25,InProgress
+177828,Zwenkarm stans,5,InProgress
+178127,Giant,1.28,InProgress
+178128,Giant,0.27,InProgress
+178129,Giant,0.46,InProgress
+178130,Giant,1.42,InProgress
+178281,Zünd Groot,0.78,InProgress
+178570,Snijmachine,2.79,InProgress
+178631,Quad,13.15,InProgress
+178784,Laser 4,0.33,InProgress
+179002,Chiesa,18.89,InProgress
+179111,Atom,8.6,InProgress
+179113,Atom,4.06,InProgress
+179118,Atom,1.42,InProgress
+179350,Quad,8.39,InProgress
+179351,Quad,21.81,InProgress
+179352,Quad,8.2,InProgress
+179370,Quad,25.17,InProgress
+179507,Chiesa 150 ton,1.04,InProgress
+179573,Quad,8.46,InProgress
+179574,Quad,5.03,InProgress
+179779,Giant,21.04,InProgress
+180019,Atom,11.31,InProgress
+180142,Laser 3,0.25,InProgress
+180166,Flash_Cut 3,0.81,InProgress
+180317,Laser 4,0.3,InProgress
+180318,Laser 4,0.09,InProgress
+180319,Laser 4,0.02,InProgress
+180320,Laser 4,0.02,InProgress
+180337,Laser 4,0.42,InProgress
+180410,Laser 4,0.26,InProgress
+180412,Quad,6.71,InProgress
+180417,Quad,4.19,InProgress
+180418,Quad,9.96,InProgress
+180419,Quad,2.18,InProgress
+180433,Assemblage Secrid,3.33,InProgress
+180434,Assemblage Secrid,3.33,InProgress
+180435,Assemblage Secrid,5.56,InProgress
+180436,Assemblage Secrid,2.22,InProgress
+180437,Assemblage Secrid,6.67,InProgress
+180438,Assemblage Secrid,3.33,InProgress
+180439,Assemblage Secrid,2.22,InProgress
+180440,Assemblage Secrid,1.11,InProgress
+180461,Laser 4,0.31,InProgress
+180462,Laser 2,0.64,InProgress
+180486,Assemblage Secrid,1.67,InProgress
+180489,Giant,1.64,InProgress
+180560,Laser 4,0.03,InProgress
+180704,,19,InProgress
+180705,Stikken Secrid,6.17,InProgress
+180706,Stikken Secrid,3.08,InProgress
+180707,Stikken Secrid,9.25,InProgress
+180708,Stikken Secrid,30.83,InProgress
+180709,Stikken Secrid,3.08,InProgress
+180710,Stikken Secrid,6.17,InProgress
+176976,Chiesa,14.17,InProgress
+176977,Assemblage drankverpakkingen,290.12,InProgress
+177704,Laser 4,0.25,InProgress
+177705,Laser 4,0.18,InProgress
+177722,Laser 4,0.44,InProgress
+177727,Laser 1,0.29,InProgress
+177730,Laser 1,0.55,InProgress
+178852,Laser 4,0.39,InProgress
+178855,Laser 4,0.39,InProgress
+179120,Chiesa 150 ton,8.44,InProgress
+179121,Chiesa,3.78,InProgress
+179122,Chiesa,1.42,InProgress
+179409,Atom Klein,0.5,InProgress
+179815,Atom,5.51,InProgress
+180016,Laser 2,0.93,InProgress
+180017,Assemblage 1,1.58,InProgress
+180160,Laser 4,4.22,InProgress
+180341,Laser 2,7.79,InProgress
+180378,Atom,6.01,InProgress
+180541,Laser 4,0.3,InProgress
+180569,Giant,0.25,InProgress
+180796,Laser 2,9.63,InProgress
+180829,Chiesa,7.5,InProgress
+177565,Chiesa 150 ton,13.5,InProgress
+178134,Quad,19.64,InProgress
+178140,Quad,5.9,InProgress
+178141,Quad,1.84,InProgress
+178142,Stikken Secrid,71.69,InProgress
+178145,Stikken Secrid,72.18,InProgress
+178482,Chiesa 150 ton,16.1,InProgress
+178897,Zünd Groot,0.25,InProgress
+179104,Chiesa,4.79,InProgress
+179141,Chiesa,3.68,InProgress
+179153,Chiesa,1.42,InProgress
+179519,Chiesa 150 ton,8.33,InProgress
+179528,Chiesa,2.93,InProgress
+180157,Degel 2,14.81,InProgress
+180159,Assemblage 1,89.77,InProgress
+180323,Chiesa 150 ton,15.6,InProgress
+180325,Chiesa 150 ton,0.55,InProgress
+180441,Laser 2,0.33,InProgress
+180442,Laser 2,0.23,InProgress
+180472,Giant,8.48,InProgress
+180482,Laser 3,1.26,InProgress
+180483,Laser 3,1.26,InProgress
+180524,Laser 3,0.88,InProgress
+180545,Quad,9.23,InProgress
+180546,Stikken Secrid,46.25,InProgress
+180548,Quad,1.86,InProgress
+180549,Stikken Secrid,3.08,InProgress
+180555,Flash_Cut 2,1.92,InProgress
+180557,Flash_Cut 2,9.72,InProgress
+180779,Giant,0.59,InProgress
+180781,Giant,0.34,InProgress
+180961,Quad,4.17,InProgress
+180096,Atom,3.21,InProgress
+180587,Degel 1,1.38,InProgress
+180784,Zünd Groot,0.25,InProgress
+180848,Zünd Groot,0.25,InProgress
+176406,Degel 1,18.29,InProgress
+176407,Degel 1,16.06,InProgress
+176700,Degel 1,10.24,InProgress
+176836,Giant,12.45,InProgress
+178064,Quad,10.07,InProgress
+179271,Preegmachine Omac,60,InProgress
+179371,Quad,11.74,InProgress
+180024,Atom,10.5,InProgress
+180113,Laser 4,1.4,InProgress
+180115,Laser 4,8.33,InProgress
+180118,Laser 4,7.08,InProgress
+180258,Laser 4,0.47,InProgress
+180259,Laser 4,1.04,InProgress
+180260,Laser 4,1.64,InProgress
+180261,Laser 4,0.25,InProgress
+180262,Laser 4,0.98,InProgress
+180298,Quad,25.17,InProgress
+180299,Quad,1.68,InProgress
+180497,Sysco,5.63,InProgress
+180608,Quad,7.13,InProgress
+180613,Quad,7.09,InProgress
+180614,Quad,1.8,InProgress
+180711,Assemblage Secrid,6.67,InProgress
+180712,Assemblage Secrid,4.44,InProgress
+180739,Quad,12.58,InProgress
+180777,Giant,2.57,InProgress
+180864,Laser 4,1.78,InProgress
+180865,Laser 4,1.44,InProgress
+180997,Stikken Secrid,4.75,InProgress
+180998,Stikken Secrid,6.17,InProgress
+181000,Stikken Secrid,12.33,InProgress
+181001,Stikken Secrid,6.17,InProgress
+181002,Stikken Secrid,9.25,InProgress
+181004,Stikken Secrid,6.17,InProgress
+181005,Stikken Secrid,9.25,InProgress
+181010,Stikken Secrid,6.17,InProgress
+181014,Laser 1,0.77,InProgress
+181062,Laser 4,0.02,InProgress
+176979,Chiesa,14.17,InProgress
+176980,Assemblage drankverpakkingen,299.98,InProgress
+178441,Quad,3.9,InProgress
+178757,Degel 2,16.39,InProgress
+179093,Chiesa 150 ton,5.7,InProgress
+179140,Chiesa 150 ton,6.33,InProgress
+179152,Chiesa 150 ton,4.49,InProgress
+179306,Atom,27.17,InProgress
+179307,Giant,0,InProgress
+180593,Laser 3,0.75,InProgress
+180715,Zünd Groot,24.17,InProgress
+180840,Zünd Groot,0.25,InProgress
+180875,Chiesa 150 ton,21.6,InProgress
+180982,Zünd Groot,0.25,InProgress
+181118,Assemblage Secrid,2.22,InProgress
+181119,Assemblage Secrid,2.22,InProgress
+180509,Laser 4,0.28,InProgress
+180894,Giant,0.25,InProgress
+180922,Quad,9.23,InProgress
+180928,Quad,5.03,InProgress
+180929,Quad,3.16,InProgress
+180934,Quad,0.37,InProgress
+180935,Stikken Secrid,12.33,InProgress
+180948,Quad,3.36,InProgress
+181182,Stikken Secrid,12.24,InProgress
+181183,Stikken Secrid,2.44,InProgress
+177345,Degel 3,4.31,InProgress
+177346,Assemblage 1,4.42,InProgress
+177347,Degel 3,4.07,InProgress
+177348,Degel 3,4.17,InProgress
+177349,Assemblage 1,8.54,InProgress
+177350,Assemblage 1,8.75,InProgress
+180878,Flash_Cut 2,2.33,InProgress
+180879,Laserstansen,1.64,InProgress
+180975,Zünd Groot,0.25,InProgress
+181220,Flash_Cut 2,1.94,InProgress
+181221,Flash_Cut 2,9.06,InProgress
+181222,Flash_Cut 2,1.92,InProgress
+181223,Quad,0.84,InProgress
+180786,Giant,0.87,InProgress
+180787,Giant,0.39,InProgress
+180788,Giant,0.69,InProgress
+180790,Giant,1.16,InProgress
+180791,Giant,0.44,InProgress
+180792,Giant,0.44,InProgress
+180858,Laser 3,5.25,InProgress
+181011,Laser 3,1.24,InProgress
+176982,Chiesa,14.17,InProgress
+176983,Assemblage drankverpakkingen,299.98,InProgress
+178062,Quad,2.64,InProgress
+178063,Quad,4.4,InProgress
+179362,Quad,8.39,InProgress
+179363,Quad,2.81,InProgress
+179364,Quad,3.4,InProgress
+179710,Giant,1.11,InProgress
+180114,Laser 4,4.36,InProgress
+180116,Laser 4,5.72,InProgress
+180123,Laser 4,2.18,InProgress
+180124,Laser 4,4.36,InProgress
+180125,Laser 4,8.33,InProgress
+180129,Freesmachine,6.64,InProgress
+180130,Buigmachine,6.67,InProgress
+180131,Assemblage 1,10,InProgress
+180306,Quad,3.35,InProgress
+180424,Snijmachine,1.06,InProgress
+180425,Snijmachine,0.97,InProgress
+180426,Snijmachine,0.97,InProgress
+180626,Quad,8.05,InProgress
+180639,Quad,9.1,InProgress
+180644,Quad,17.37,InProgress
+180645,Quad,7.63,InProgress
+180685,Snijmachine,1.22,InProgress
+180686,Snijmachine,0.97,InProgress
+180687,Snijmachine,0.97,InProgress
+180980,Flash_Cut 5,4.08,InProgress
+181015,Laser 1,3.39,InProgress
+181020,Quad,28.62,InProgress
+181026,Assemblage Secrid,10,InProgress
+181027,Assemblage Secrid,6.67,InProgress
+181028,Assemblage Secrid,5.56,InProgress
+181029,Assemblage Secrid,1.11,InProgress
+181030,Assemblage Secrid,2.22,InProgress
+181034,Laser 3,12.4,InProgress
+181103,Giant,3.46,InProgress
+181261,,8.61,InProgress
+181267,Stikken Secrid,3.08,InProgress
+181269,Stikken Secrid,3.08,InProgress
+181273,Stikken Secrid,24.67,InProgress
+181275,Stikken Secrid,12.33,InProgress
+181277,Stikken Secrid,3.39,InProgress
+181278,Stikken Secrid,6.17,InProgress
+181279,Stikken Secrid,3.08,InProgress
+181280,Stikken Secrid,2.04,InProgress
+181286,Stikken Secrid,18.5,InProgress
+172520,Laser 1,34.65,InProgress
+179344,Flash_Cut 2,8.39,InProgress
+180071,Laser 2,0.99,InProgress
+180072,Laser 2,0.99,InProgress
+180073,Laser 2,0.25,InProgress
+180588,Degel 1,2.64,InProgress
+180884,Atom,3.1,InProgress
+180937,Giant,1.02,InProgress
+181110,Giant,0.25,InProgress
+181257,Laser 2,4.46,InProgress
+181324,Zünd Groot,2.08,InProgress
+181325,Zünd Groot,2.08,InProgress
+177566,Chiesa 150 ton,26.6,InProgress
+179671,Laser 2,1.79,InProgress
+179930,Chiesa,10.33,InProgress
+179931,Chiesa,3.55,InProgress
+180467,Laser 1,23.28,InProgress
+180950,Laser 4,12.17,InProgress
+181035,Laser 3,11.33,InProgress
+181107,Atom Groot,0.5,InProgress
+181113,Atom Groot,0.5,InProgress
+181146,Giant,0.25,InProgress
+181148,Giant,4.17,InProgress
+181149,Giant,4.17,InProgress
+181193,Stikken Secrid,64.75,InProgress
+181197,Quad,1.3,InProgress
+181198,Quad,5.03,InProgress
+181202,Quad,1.65,InProgress
+181206,Stikken Secrid,55.5,InProgress
+181208,Quad,15.1,InProgress
+181268,Quad,2.11,InProgress
+181486,Stikken Secrid,3.08,InProgress
+177491,Atom,51.5,InProgress
+177501,Atom,26,InProgress
+179756,Degel 1,3.75,InProgress
+179757,Degel 1,4.58,InProgress
+179945,Flash_Cut 5,0.57,InProgress
+179946,Chiesa,0.41,InProgress
+179947,Assemblage 1,13.33,InProgress
+179954,Flash_Cut 5,0.29,InProgress
+179955,Chiesa,0.2,InProgress
+180031,Freesmachine,3.31,InProgress
+180032,Buigmachine,5,InProgress
+180033,Assemblage 1,10.56,InProgress
+180465,Degel 1,4.21,InProgress
+180817,Freesmachine,15.75,InProgress
+181510,Laser 2,0.25,InProgress
+179272,Preegmachine Omac,70,InProgress
+179653,Chiesa,1.86,InProgress
+179655,Chiesa,1.61,InProgress
+179660,Chiesa,1.18,InProgress
+179766,Atom,2.49,InProgress
+179773,Atom,2.24,InProgress
+179791,Atom,2.35,InProgress
+179798,Chiesa,1.42,InProgress
+179801,Chiesa,1.09,InProgress
+179844,Chiesa,1.34,InProgress
+179898,Atom,2.77,InProgress
+179927,Degel 1,18.03,InProgress
+179985,Snijmachine,3.67,InProgress
+180563,Laser 4,0.25,InProgress
+180565,Laser 4,0.25,InProgress
+180583,Laser 4,0.25,InProgress
+180584,Laser 4,0.23,InProgress
+180650,Snijmachine,3.51,InProgress
+180653,Snijmachine,1.06,InProgress
+180656,Snijmachine,3.46,InProgress
+180662,Chiesa,11.52,InProgress
+180668,Atom,5.78,InProgress
+180673,Giant,0.29,InProgress
+180820,Flash_Cut 5,0.64,InProgress
+180838,Laser 4,0.25,InProgress
+180886,Laser 4,0.25,InProgress
+180887,Laser 4,0.23,InProgress
+180962,Laser 2,1.71,InProgress
+180963,Laser 2,6.08,InProgress
+180965,Laserstansen,2.51,InProgress
+181178,Zünd Groot,0.25,InProgress
+181210,Flash_Cut 5,0.37,InProgress
+181297,Zünd Groot,52.85,InProgress
+181373,Laser 4,0.25,InProgress
+181378,Giant,1.97,InProgress
+181384,Laser 4,0.25,InProgress
+181400,Giant,0.4,InProgress
+181516,Chiesa,0.1,InProgress
+181517,Chiesa,0.1,InProgress
+181518,Chiesa,0.1,InProgress
+181519,Chiesa,1.77,InProgress
+181520,Chiesa,1.77,InProgress
+181521,Chiesa,1.77,InProgress
+179333,Quad,22.9,InProgress
+179334,Quad,4.47,InProgress
+179357,Flash_Cut 2,3.15,InProgress
+179769,Atom,2.64,InProgress
+179776,Atom,4.85,InProgress
+179784,Giant,1.67,InProgress
+179807,Atom,3.31,InProgress
+179841,Chiesa,1.09,InProgress
+179850,Atom,0.87,InProgress
+179864,Atom,2.17,InProgress
+180119,Laser 4,1.06,InProgress
+180126,Laser 4,8.33,InProgress
+180127,Laser 4,5.72,InProgress
+180128,Laser 4,1.06,InProgress
+180528,Degel 1,2.56,InProgress
+180702,Degel 1,0.64,InProgress
+180834,Zünd Groot,0.25,InProgress
+180837,Laser 4,5.66,InProgress
+181040,Laser 1,4.39,InProgress
+181371,Chiesa 150 ton,1.13,InProgress
+181600,Flash_Cut 2,0.56,InProgress
+181601,Laserstansen,0.04,InProgress
+179270,Preegmachine Omac,60,InProgress
+179654,Chiesa,1.61,InProgress
+179659,Chiesa,1.43,InProgress
+179661,Chiesa,1.18,InProgress
+180243,Degel 1,3.42,InProgress
+180831,Degel 1,5,InProgress
+181122,Laser 4,0.25,InProgress
+181472,Giant,0.25,InProgress
+181475,Zünd Groot,0.25,InProgress
+181488,Chiesa 150 ton,1.66,InProgress
+181489,Chiesa 150 ton,1.38,InProgress
+181490,Chiesa 150 ton,0.66,InProgress
+179509,Chiesa 150 ton,10.8,InProgress
+179817,Atom,4.45,InProgress
+179847,Atom,0.74,InProgress
+179853,Chiesa,1.25,InProgress
+179879,Atom,4.81,InProgress
+179882,Atom,1.35,InProgress
+180536,Laser 4,8.65,InProgress
+180537,Laser 4,5.69,InProgress
+180538,Laser 2,0.44,InProgress
+180539,Laser 2,1.92,InProgress
+180540,Laser 2,1.01,InProgress
+180619,Quad,67.95,InProgress
+180620,Quad,13.51,InProgress
+180621,Quad,12.67,InProgress
+180699,Laser 4,2.68,InProgress
+180798,Laser 4,0.4,InProgress
+180799,Buigmachine,0.83,InProgress
+180800,Laser 4,0.55,InProgress
+180801,Laser 4,0.17,InProgress
+180805,Laser 4,0.44,InProgress
+180806,Laser 4,0.13,InProgress
+180809,Freesmachine,1.03,InProgress
+180811,Buigmachine,2.08,InProgress
+180813,Assemblage 1,2.22,InProgress
+180845,Degel 4,44.08,InProgress
+180846,Degel 4,13.83,InProgress
+180906,Degel 3,1.06,InProgress
+180907,Degel 3,8.84,InProgress
+180908,Degel 3,1.06,InProgress
+180909,Degel 3,2.08,InProgress
+180910,Degel 3,1.05,InProgress
+180911,Degel 3,2.5,InProgress
+180957,Degel 1,7.29,InProgress
+180988,Zünd Groot,6.44,InProgress
+180989,Zünd Groot,6.44,InProgress
+180990,Zünd Groot,6.44,InProgress
+181042,Laser 2,1.45,InProgress
+181043,Laser 2,0.02,InProgress
+181046,Freesmachine,1.85,InProgress
+181047,Buigmachine,1.67,InProgress
+181048,Assemblage 1,0.83,InProgress
+181085,Chiesa 150 ton,8.44,InProgress
+181089,Flash_Cut 1,3.74,InProgress
+181241,Giant,0.65,InProgress
+181291,Assemblage Secrid,2.22,InProgress
+181292,Assemblage Secrid,13.33,InProgress
+181293,Assemblage Secrid,2.22,InProgress
+181294,Assemblage Secrid,2.22,InProgress
+181295,Assemblage Secrid,1.11,InProgress
+181296,Assemblage Secrid,2.22,InProgress
+181309,Quad,4.24,InProgress
+181543,Stikken Secrid,3.08,InProgress
+181544,Stikken Secrid,12.33,InProgress
+181562,Stikken Secrid,6.17,InProgress
+181563,Stikken Secrid,9.25,InProgress
+181568,Chiesa 150 ton,2.22,InProgress
+181569,Chiesa 150 ton,1.93,InProgress
+181611,Giant,6.52,InProgress
+181612,Giant,2.54,InProgress
+179763,Atom,2.99,InProgress
+179781,Atom,2.59,InProgress
+179788,Chiesa,3.58,InProgress
+179804,Atom,4.27,InProgress
+179829,Atom,2.45,InProgress
+179856,Chiesa,1.69,InProgress
+179902,Atom,2.01,InProgress
+180968,Chiesa,1.19,InProgress
+180969,Chiesa,1.12,InProgress
+180970,Chiesa,0.78,InProgress
+181022,Degel 1,8.67,InProgress
+181138,Laser 1,0.25,InProgress
+181140,Laser 1,0.48,InProgress
+181656,Degel 4,4.17,InProgress
+181666,Giant,0.25,InProgress
+181704,Laser 2,0.25,InProgress
+181705,Laser 2,0.25,InProgress
+181798,Degel 4,6.25,InProgress
+181817,Chiesa,129.6,InProgress
+181818,Chiesa,54.59,InProgress
+180689,Laser 2,1.9,InProgress
+181130,Chiesa,16.71,InProgress
+181335,Sysco,2.59,InProgress
+181356,Chiesa 150 ton,0.25,InProgress
+181414,Laser 1,0.25,InProgress
+181478,Giant,1377,InProgress
+181479,Giant,920.7,InProgress
+181548,Flash_Cut 5,2.73,InProgress
+181644,Sysco,1.56,InProgress
+181652,Chiesa 150 ton,0.63,InProgress
+181675,Chiesa 150 ton,7.8,InProgress
+181731,Zünd Groot,0.25,InProgress
+169642,Quad,15.94,InProgress
+169643,Quad,5.18,InProgress
+179579,Quad,25.9,InProgress
+179580,Quad,8.39,InProgress
+181363,Chiesa,6.3,InProgress
+181530,Laser 2,0.25,InProgress
+181533,Laser 2,0.25,InProgress
+181564,Assemblage Secrid,3.33,InProgress
+181565,Assemblage Secrid,5.56,InProgress
+181566,Assemblage Secrid,2.22,InProgress
+181567,Assemblage Secrid,2.22,InProgress
+181754,Laser 4,1.42,InProgress
+181755,Laser 4,0.01,InProgress
+181757,Laser 2,0.42,InProgress
+181894,Stikken Secrid,0,InProgress
+181896,,14.25,InProgress
+181903,Stikken Secrid,18.5,InProgress
+181906,Stikken Secrid,23.75,InProgress
+181907,Stikken Secrid,18.5,InProgress
+181908,Stikken Secrid,3.08,InProgress
+181909,Stikken Secrid,19,InProgress
+181910,Stikken Secrid,3.08,InProgress
+181911,Stikken Secrid,6.17,InProgress
+180956,Degel 1,3.87,InProgress
+180958,Degel 1,6.89,InProgress
+181173,Degel 1,1,InProgress
+181175,Degel 1,0.51,InProgress
+181375,Laser 3,0.28,InProgress
+181502,Degel 1,1,InProgress
+181579,Chiesa 150 ton,59.25,InProgress
+181606,Laser 4,0.25,InProgress
+181607,Laser 4,0.25,InProgress
+181679,Laser 3,0.25,InProgress
+181799,Laser 2,0.83,InProgress
+181801,Laser 4,0.25,InProgress
+181819,Snijmachine,4.87,InProgress
+180903,Degel 1,30.97,InProgress
+181347,Quad,7.55,InProgress
+181348,Quad,3.36,InProgress
+181349,Quad,2.52,InProgress
+181351,Flash_Cut 2,8.39,InProgress
+181352,Quad,9.23,InProgress
+181353,Quad,5.03,InProgress
+181389,Chiesa,7.1,InProgress
+181390,Chiesa,1.08,InProgress
+181391,Chiesa,0.75,InProgress
+181399,Laser 3,64.32,InProgress
+181448,Stikken Secrid,27.75,InProgress
+181449,Quad,14.85,InProgress
+181452,Quad,59.77,InProgress
+181459,Quad,2.42,InProgress
+181462,Quad,7.55,InProgress
+181463,Quad,7.55,InProgress
+181572,Chiesa 150 ton,31.3,InProgress
+181589,Degel 2,197.44,InProgress
+181763,Degel 1,8.22,InProgress
+181786,Laser 2,0.29,InProgress
+181788,Laser 1,5.35,InProgress
+181808,Flash_Cut 2,0.25,InProgress
+181984,Laser 2,0.36,InProgress
+175773,Degel 2,6.98,InProgress
+180369,Degel 2,32.4,InProgress
+181214,Laser 2,1.61,InProgress
+181508,Laser 2,1.7,InProgress
+182156,Laser 4,0.13,InProgress
+182301,Quad,3.36,InProgress
+182302,Quad,0.93,InProgress
+182303,Quad,0.93,InProgress
+179978,Degel 2,4.21,InProgress
+180730,Laser 1,0.76,InProgress
+180732,Laser 1,0.25,InProgress
+180733,Laser 1,0.23,InProgress
+180734,Laser 1,0.82,InProgress
+181737,Giant,4.18,InProgress
+181738,Giant,3.93,InProgress
+181739,Giant,2.95,InProgress
+181740,Giant,2.95,InProgress
+181741,Giant,1.96,InProgress
+181742,Giant,1.96,InProgress
+181743,Giant,1.96,InProgress
+180940,Sysco,10.41,InProgress
+181190,Laser 4,0.25,InProgress
+181191,Laser 4,1.08,InProgress
+181192,Laser 4,3.03,InProgress
+181245,Laser 4,0.61,InProgress
+181246,Laser 4,1.24,InProgress
+181247,Laser 4,0.02,InProgress
+181248,Laser 4,0.48,InProgress
+181249,Laser 4,0.04,InProgress
+181250,Laser 4,0.14,InProgress
+181251,Laser 4,0.08,InProgress
+181304,Quad,18.46,InProgress
+181418,Brugstans,0.81,InProgress
+181670,Giant,1.61,InProgress
+181671,Giant,2.26,InProgress
+181672,Giant,5.89,InProgress
+181710,Quad,71.89,InProgress
+181711,Quad,16.78,InProgress
+181712,Quad,8.53,InProgress
+181721,Laser 2,2.5,InProgress
+181722,Laser 2,1.75,InProgress
+181825,Quad,4.19,InProgress
+181830,Quad,3.57,InProgress
+181831,Quad,21.6,InProgress
+181850,Laser 4,3.18,InProgress
+181851,Laser 4,3.11,InProgress
+181912,Assemblage Secrid,4.44,InProgress
+181913,Assemblage Secrid,3.33,InProgress
+181914,Assemblage Secrid,4.44,InProgress
+181915,Assemblage Secrid,3.33,InProgress
+182163,Giant,2.78,InProgress
+182164,Giant,2.07,InProgress
+182165,Giant,0.76,InProgress
+182168,Giant,1.5,InProgress
+182169,Giant,0.75,InProgress
+182174,Flash_Cut 1,0,InProgress
+182176,Snijmachine,2.19,InProgress
+182209,Verzenden,0,InProgress
+182213,Hengsel,36.67,InProgress
+182318,,3.44,InProgress
+182319,,14.25,InProgress
+182321,Stikken Secrid,9.25,InProgress
+182323,Stikken Secrid,52.25,InProgress
+182324,Stikken Secrid,18.5,InProgress
+182330,Stikken Secrid,6.17,InProgress
+182331,Stikken Secrid,9.5,InProgress
+182332,Stikken Secrid,9.25,InProgress
+182333,Stikken Secrid,12.33,InProgress
+182334,Stikken Secrid,6.17,InProgress
+182335,Stikken Secrid,18.5,InProgress
+182359,Stikken Secrid,3.08,InProgress
+181310,Quad,9.55,InProgress
+181311,Quad,1.94,InProgress
+181312,Quad,8.39,InProgress
+181423,Atom,7.3,InProgress
+181425,Atom,5.03,InProgress
+181426,Giant,0,InProgress
+181587,Chiesa 150 ton,6.37,InProgress
+181662,Laser 4,16.19,InProgress
+181761,Flash_Cut 2,5.19,InProgress
+182034,Laser 4,0.25,InProgress
+182400,Chiesa,7.5,InProgress
+180876,Chiesa,4.56,InProgress
+181618,Laser 4,1.33,InProgress
+181748,Chiesa,5.72,InProgress
+181750,Chiesa,4.22,InProgress
+181768,Laser 3,30.81,InProgress
+181780,Degel 4,18.54,InProgress
+181813,Laser 3,1.34,InProgress
+181877,Laser 3,6.92,InProgress
+181941,Zünd Groot,0.25,InProgress
+181943,Degel 4,6.06,InProgress
+181944,Degel 4,8.02,InProgress
+181969,Giant,1.16,InProgress
+181970,Giant,0.91,InProgress
+181971,Giant,0.91,InProgress
+181972,Giant,0.91,InProgress
+182056,Laser 4,0.25,InProgress
+182066,Flash_Cut 2,13.09,InProgress
+182071,Quad,33.56,InProgress
+182196,Quad,1.49,InProgress
+182199,Quad,10.07,InProgress
+182200,Quad,4.19,InProgress
+182203,Quad,4.19,InProgress
+182204,Quad,2.61,InProgress
+182205,Quad,0.56,InProgress
+182206,Quad,8.39,InProgress
+182224,Chiesa,2.01,InProgress
+182537,Quad,4.19,InProgress
+182538,Quad,2.52,InProgress
+182539,Quad,1.3,InProgress
+182540,Quad,5.43,InProgress
+181751,Atom Groot,0.25,InProgress
+181974,Giant,0.3,InProgress
+181976,Giant,0.57,InProgress
+182382,,0,InProgress
+182520,Giant,0.53,InProgress
+181626,Laser 4,0.35,InProgress
+181789,Laser 1,10.39,InProgress
+181964,Giant,1.67,InProgress
+172865,Verzenden,0,InProgress
+177829,Zwenkarm stans,5,InProgress
+180633,Quad,10.65,InProgress
+180634,Quad,4.57,InProgress
+181529,Giant,23.14,InProgress
+181531,Flash_Cut 1,12.25,InProgress
+181977,Giant,3.26,InProgress
+181987,Giant,2.97,InProgress
+181992,Quad,2.79,InProgress
+181993,Quad,0.93,InProgress
+181994,Quad,0.93,InProgress
+182191,Giant,6.5,InProgress
+182294,Quad,57.88,InProgress
+182295,Quad,5.03,InProgress
+182296,Quad,5.87,InProgress
+182308,Flash_Cut 3,5.33,InProgress
+182309,Atom,2.04,InProgress
+182336,Assemblage Secrid,5.56,InProgress
+182337,Assemblage Secrid,3.33,InProgress
+182338,Assemblage Secrid,3.89,InProgress
+182339,Assemblage Secrid,8.89,InProgress
+182340,Assemblage Secrid,13.33,InProgress
+182341,Assemblage Secrid,6.67,InProgress
+182384,Zünd Groot,8.25,InProgress
+182385,Zünd Groot,8.25,InProgress
+182626,Stikken Secrid,12.33,InProgress
+182627,Stikken Secrid,6.17,InProgress
+182628,Stikken Secrid,9.25,InProgress
+182629,Stikken Secrid,12.33,InProgress
+182630,Stikken Secrid,6.17,InProgress
+182632,Stikken Secrid,12.33,InProgress
+182633,Stikken Secrid,6.17,InProgress
+182634,Stikken Secrid,6.17,InProgress
+182635,Stikken Secrid,3.08,InProgress
+182636,Stikken Secrid,6.17,InProgress
+182637,Stikken Secrid,18.5,InProgress
+180382,Giant,1.02,InProgress
+181134,Giant,2.02,InProgress
+182103,Giant,1.08,InProgress
+182104,Giant,0.32,InProgress
+182105,Giant,0.24,InProgress
+173106,Laser 2,96.43,InProgress
+179994,Degel 2,16.55,InProgress
+180576,Laser 4,0.25,InProgress
+180850,Degel 4,14.49,InProgress
+180854,Degel 4,24.77,InProgress
+180855,Degel 4,18.63,InProgress
+181585,Chiesa 150 ton,11.9,InProgress
+181631,Zünd Groot,0.25,InProgress
+181641,Zünd Groot,0.25,InProgress
+181697,Chiesa 150 ton,10.4,InProgress
+182093,Atom,1.48,InProgress
+182094,Atom,0.38,InProgress
+182095,Atom,0.95,InProgress
+182096,Snijmachine,0.44,InProgress
+182180,Degel 1,4.33,InProgress
+182181,Degel 1,4.33,InProgress
+182420,Quad,3.56,InProgress
+182433,Quad,13.46,InProgress
+182447,Flash_Cut 5,2.11,InProgress
+182448,Flash_Cut 5,1.59,InProgress
+182452,Laser 3,0.55,InProgress
+182453,Laser 3,0.12,InProgress
+182499,Quad,22.65,InProgress
+182500,Quad,1.3,InProgress
+182501,Quad,8.39,InProgress
+182502,Quad,8.39,InProgress
+182507,Stikken Secrid,24.67,InProgress
+182508,Flash_Cut 2,23.54,InProgress
+182510,Flash_Cut 2,1.92,InProgress
+182511,Flash_Cut 2,0.96,InProgress
+182512,Flash_Cut 2,5.83,InProgress
+182514,Quad,4.19,InProgress
+180121,Laser 3,4.61,InProgress
+180122,Laser 3,4.36,InProgress
+181038,Laser 3,2.94,InProgress
+181392,Laser 3,1.86,InProgress
+181956,Laser 3,2.82,InProgress
+182591,Laser 4,1.84,InProgress
+181367,Zünd Groot,0.25,InProgress
+181879,Chiesa,8.71,InProgress
+181880,Chiesa,8.46,InProgress
+182216,Hengsel,33.33,InProgress
+182360,Chiesa,4.74,InProgress
+182425,Laser 4,9.97,InProgress
+182575,Brugstans,1.14,InProgress
+182692,Giant,1.22,InProgress
+182693,Giant,0.68,InProgress
+172852,Verzenden,0,InProgress
+179322,Quad,18.71,InProgress
+181317,Quad,9.44,InProgress
+181318,Quad,5.03,InProgress
+181836,Quad,68.71,InProgress
+181837,Quad,16.78,InProgress
+182003,Quad,3.72,InProgress
+182004,Quad,2.75,InProgress
+182005,Quad,1.63,InProgress
+182080,Quad,12.58,InProgress
+182081,Quad,67.11,InProgress
+182082,Quad,12.58,InProgress
+182101,Laser 2,0.47,InProgress
+182102,Laser 2,0.69,InProgress
+182260,Laser 4,0.47,InProgress
+182261,Laser 3,0.46,InProgress
+182262,Laser 3,2.71,InProgress
+182263,Verzenden,0.25,InProgress
+182264,Laser 4,0.16,InProgress
+182266,Laser 2,3.38,InProgress
+182267,Laser 3,4.42,InProgress
+182268,Laser 4,0.08,InProgress
+182269,Laser 3,0.63,InProgress
+182270,Laser 4,1.1,InProgress
+182271,Laser 3,0.78,InProgress
+182273,Verzenden,0.25,InProgress
+182275,Laser 4,0.13,InProgress
+182279,Buigmachine,0.6,InProgress
+182284,Freesmachine,0.49,InProgress
+182285,Buigmachine,0.92,InProgress
+182286,Assemblage 1,1.47,InProgress
+182287,Freesmachine,0.62,InProgress
+182288,Buigmachine,0.5,InProgress
+182289,Assemblage 1,0.56,InProgress
+182291,Laser 2,0.29,InProgress
+182292,Buigmachine,2.76,InProgress
+182391,Laser 4,0.73,InProgress
+182392,Laser 4,0.48,InProgress
+182638,Assemblage Secrid,6.67,InProgress
+182639,Assemblage Secrid,1.11,InProgress
+182640,Assemblage Secrid,4.44,InProgress
+182641,Assemblage Secrid,1.11,InProgress
+182642,Assemblage Secrid,3.33,InProgress
+182643,Assemblage Secrid,3.33,InProgress
+182658,Laser 4,6.5,InProgress
+182681,Giant,2.16,InProgress
+182985,Stikken Secrid,15.42,InProgress
+182986,Stikken Secrid,3.08,InProgress
+182987,Stikken Secrid,6.17,InProgress
+182988,Stikken Secrid,9.25,InProgress
+182989,Stikken Secrid,3.08,InProgress
+182990,Stikken Secrid,9.25,InProgress
+182998,Stikken Secrid,18.5,InProgress
+182999,Stikken Secrid,10.08,InProgress
+183000,Stikken Secrid,13.41,InProgress
+183001,Stikken Secrid,12.33,InProgress
+183002,Stikken Secrid,6.17,InProgress
+183003,Stikken Secrid,9.25,InProgress
+183004,Stikken Secrid,3.08,InProgress
+180717,Atom,29.63,InProgress
+182413,Chiesa,5.25,InProgress
+182415,Giant,5,InProgress
+182483,Degel 3,0.96,InProgress
+182484,Degel 3,0.63,InProgress
+182485,Degel 3,5.2,InProgress
+182486,Degel 3,0.42,InProgress
+182487,Degel 3,5.63,InProgress
+182781,Laser 2,12.2,InProgress
+182075,Quad,25.17,InProgress
+182076,Quad,8.39,InProgress
+182589,Laser 4,0.25,InProgress
+182685,Flash_Cut 1,0.67,InProgress
+182802,Flash_Cut 2,0.96,InProgress
+182805,Flash_Cut 2,11.67,InProgress
+182806,Flash_Cut 2,23.33,InProgress
+182807,Quad,10.07,InProgress
+182810,Quad,0.84,InProgress
+182813,Quad,0.84,InProgress
+183231,Quad,0.84,InProgress
+182718,Laser 4,5.05,InProgress
+183026,Giant,1.92,InProgress
+183214,Laser 2,0.25,InProgress
+183232,Quad,5.03,InProgress
+183233,Quad,0.65,InProgress
+183234,Quad,5.03,InProgress
+183235,Quad,4.19,InProgress
+183236,Quad,1.68,InProgress
+183237,Quad,2.52,InProgress
+182460,Guidoline,4.83,InProgress
+182569,Degel 1,3.4,InProgress
+178325,Chiesa,0.83,InProgress
+178326,Chiesa,1.25,InProgress
+178327,Chiesa,2.5,InProgress
+181328,Quad,11.74,InProgress
+181329,Quad,5.91,InProgress
+181330,Quad,37.33,InProgress
+182020,Verzenden,4.96,InProgress
+182021,Laser 2,0.34,InProgress
+182024,Laser 3,1.66,InProgress
+182026,Buigmachine,5.83,InProgress
+182108,Laser 4,0.28,InProgress
+182117,Degel 1,31.48,InProgress
+182254,Quad,12.67,InProgress
+182255,Quad,17.86,InProgress
+182343,Giant,24.37,InProgress
+182426,Laser 4,24.33,InProgress
+182651,Freesmachine,0.31,InProgress
+182652,Buigmachine,0.1,InProgress
+182653,Assemblage 1,0.45,InProgress
+182654,Freesmachine,1.6,InProgress
+182655,Buigmachine,1.67,InProgress
+182656,Assemblage 1,1.08,InProgress
+182902,Chiesa,3.75,InProgress
+182903,Chiesa,7.5,InProgress
+182904,Chiesa,2.5,InProgress
+182970,Freesmachine,0.5,InProgress
+182971,Freesmachine,0.5,InProgress
+183005,Assemblage Secrid,16.67,InProgress
+183006,Assemblage Secrid,4.44,InProgress
+183054,Quad,4.93,InProgress
+183224,Basic Wallets,0.92,InProgress
+183225,Quad,0.46,InProgress
+183226,Quad,0.46,InProgress
+183283,Stikken Secrid,12.33,InProgress
+183284,Stikken Secrid,12.33,InProgress
+183285,Stikken Secrid,2.41,InProgress
+183286,Stikken Secrid,3.08,InProgress
+183287,Stikken Secrid,3.08,InProgress
+183288,,5.17,InProgress
+183289,,14.25,InProgress
+183293,Stikken Secrid,18.5,InProgress
+183294,Stikken Secrid,9.25,InProgress
+183295,Stikken Secrid,6.17,InProgress
+183296,Stikken Secrid,6.17,InProgress
+183297,Stikken Secrid,18.5,InProgress
+177598,Giant,17.65,InProgress
+179524,Giant,14.28,InProgress
+180392,Degel 1,7.97,InProgress
+180393,Degel 1,1.13,InProgress
+180394,Degel 1,2.85,InProgress
+180395,Degel 1,1.25,InProgress
+180396,Degel 1,3.08,InProgress
+180851,Degel 4,26.38,InProgress
+180852,Degel 4,81.43,InProgress
+180853,Degel 4,58.1,InProgress
+180889,Zünd Groot,0.48,InProgress
+181856,Chiesa,2.69,InProgress
+181857,Chiesa,4.2,InProgress
+181858,Chiesa,1.04,InProgress
+181863,Chiesa,6.87,InProgress
+181864,Chiesa,2.92,InProgress
+181867,Chiesa,1.13,InProgress
+181868,Chiesa,1.18,InProgress
+181873,Chiesa,0.59,InProgress
+181924,Chiesa 150 ton,141.75,InProgress
+182138,Degel 1,0.93,InProgress
+182157,Giant,0.61,InProgress
+182577,Chiesa,0.73,InProgress
+182578,Chiesa,0.12,InProgress
+182771,Chiesa,16.7,InProgress
+182885,Zünd Groot,0.43,InProgress
+182886,Zünd Groot,0.29,InProgress
+183035,Giant,2.46,InProgress
+183128,Laser 2,5.5,InProgress
+183433,Laser 2,0.5,InProgress
+183435,Laser 2,0.83,InProgress
+180873,Giant,7.25,InProgress
+181437,Laser 4,2.42,InProgress
+181438,Laser 3,1.05,InProgress
+181505,Degel 1,18.19,InProgress
+182350,Chiesa,3.05,InProgress
+182402,Giant,2.23,InProgress
+182582,Atom,3.35,InProgress
+182583,Atom,1.94,InProgress
+182584,Atom,1.9,InProgress
+182600,Atom,5.47,InProgress
+182607,Laser 3,6.38,InProgress
+182608,Laser 3,0.92,InProgress
+182609,Laser 3,0.58,InProgress
+182610,Laser 3,0.27,InProgress
+182611,Laser 4,4.58,InProgress
+182612,Laser 3,0.05,InProgress
+182613,Laser 4,2.01,InProgress
+182614,Laser 4,0.1,InProgress
+182615,Laser 3,0.07,InProgress
+182616,Laser 3,0.06,InProgress
+182617,Laser 3,0.06,InProgress
+182618,Laser 3,0.07,InProgress
+182619,Laser 4,0.03,InProgress
+183200,Quad,12.33,InProgress
+183201,Quad,33.92,InProgress
+183203,Quad,21.58,InProgress
+183206,Quad,18.5,InProgress
+183211,Flash_Cut 2,9.25,InProgress
+183213,,0.03,InProgress
+183268,Atom,1.5,InProgress
+183269,Atom,1.17,InProgress
+183587,Quad,3.08,InProgress
+183588,Quad,40.08,InProgress
+179453,Chiesa,15.83,InProgress
+181497,Degel 1,1.58,InProgress
+182605,Zünd Groot,4.41,InProgress
+182621,Zünd Groot,1.89,InProgress
+182759,Atom,4.19,InProgress
+182761,Atom,5.24,InProgress
+182860,Degel 1,5.93,InProgress
+182861,Degel 1,8.94,InProgress
+183076,Laser 4,0.25,InProgress
+183572,Laser 4,0.01,InProgress
+181772,Laser 3,55.56,InProgress
+182563,Chiesa,103.73,InProgress
+182944,Degel 1,0.87,InProgress
+183030,Giant,3.13,InProgress
+183059,Chiesa,0.41,InProgress
+183432,Laser 4,3.4,InProgress
+183434,Laser 2,3.89,InProgress
+183436,Laser 2,1.75,InProgress
+183438,Laser 3,1.33,InProgress
+183439,Laser 4,1.13,InProgress
+183442,Laser 4,0.85,InProgress
+183443,Laser 4,3.5,InProgress
+183444,Laser 4,4.72,InProgress
+180721,Laser 4,1.31,InProgress
+181395,Laser 4,1.06,InProgress
+181571,Chiesa 150 ton,15.65,InProgress
+181843,Quad,9.76,InProgress
+181844,Quad,50.33,InProgress
+181845,Quad,27.68,InProgress
+181953,Laser 4,0.59,InProgress
+181954,Laser 4,3.63,InProgress
+181955,Laser 4,1.08,InProgress
+182148,Laser 4,0.27,InProgress
+182149,Laser 4,0.01,InProgress
+182150,Laser 4,0.69,InProgress
+182151,Laser 4,0.02,InProgress
+182276,Quad,24.04,InProgress
+182277,Quad,1.74,InProgress
+182278,Quad,4.24,InProgress
+182315,Laser 4,8.58,InProgress
+182559,Chiesa 150 ton,23.9,InProgress
+182602,Giant,7.2,InProgress
+182740,Laser 4,1.28,InProgress
+182950,Degel 2,2.16,InProgress
+183007,Assemblage Secrid,11.11,InProgress
+183008,Assemblage Secrid,2.22,InProgress
+183029,Giant,3.38,InProgress
+183031,Giant,0.15,InProgress
+183032,Giant,3.06,InProgress
+183177,Chiesa 150 ton,35,InProgress
+183179,Chiesa 150 ton,3.8,InProgress
+183267,Assemblage Secrid,12.22,InProgress
+183298,Assemblage Secrid,27.78,InProgress
+183299,Assemblage Secrid,2.22,InProgress
+183300,Assemblage Secrid,6.67,InProgress
+183394,Basic Wallets,0.01,InProgress
+183396,Quad,0.01,InProgress
+183448,Laser 4,6.67,InProgress
+183449,Laser 4,6.67,InProgress
+183487,Laser 4,0.33,InProgress
+183488,Laser 4,0.5,InProgress
+183489,Laser 4,0.42,InProgress
+183490,Laser 4,0.26,InProgress
+183491,Laser 4,0.15,InProgress
+183492,Laser 4,0.29,InProgress
+183493,Laser 4,0.61,InProgress
+183494,Laser 4,0.21,InProgress
+183495,Laser 4,0.21,InProgress
+183496,Laser 4,0.5,InProgress
+183497,Laser 4,0.42,InProgress
+183498,Laser 4,0.88,InProgress
+183499,Laser 4,0.15,InProgress
+183500,Laser 4,0.38,InProgress
+183501,Laser 4,0.38,InProgress
+183502,Laser 4,0.21,InProgress
+183503,Laser 4,0.08,InProgress
+183504,Laser 4,0.17,InProgress
+181958,Atom,5.54,InProgress
+182488,Degel 3,1.87,InProgress
+182489,Degel 3,2.08,InProgress
+182923,Atom,5.83,InProgress
+182948,Atom,2.35,InProgress
+182956,Atom,2.01,InProgress
+182963,Atom,2.41,InProgress
+182967,Atom,3.32,InProgress
+182974,Atom,2.64,InProgress
+182980,Giant,1.67,InProgress
+183045,Flash_Cut 5,0.46,InProgress
+183046,Flash_Cut 5,0.11,InProgress
+183047,Flash_Cut 5,0.13,InProgress
+183048,Flash_Cut 5,0.08,InProgress
+183049,Flash_Cut 5,0.08,InProgress
+183050,Flash_Cut 5,0.17,InProgress
+183056,Laser 3,1.09,InProgress
+183185,Giant,9.34,InProgress
+183409,Degel 4,151.68,InProgress
+183555,Laser 4,0.25,InProgress
+183563,Laser 4,1.35,InProgress
+179369,Giant,0.25,InProgress
+181284,Degel 3,41.79,InProgress
+181285,Assemblage 1,42.19,InProgress
+182688,Sysco,1.24,InProgress
+182689,Sysco,2.78,InProgress
+182959,Giant,13.69,InProgress
+183131,Laser 2,0.25,InProgress
+183140,Degel 3,0.67,InProgress
+183387,Laser 4,0.25,InProgress
+183548,Flash_Cut 2,37,InProgress
+183549,Quad,18.5,InProgress
+183550,Quad,18.5,InProgress
+183551,Flash_Cut 2,9.25,InProgress
+183552,Quad,24.67,InProgress
+183553,Flash_Cut 2,27.75,InProgress
+183557,Flash_Cut 2,21.58,InProgress
+183559,Quad,6.17,InProgress
+183560,,0.03,InProgress
+183659,Degel 1,0.93,InProgress
+183703,Laser 4,0.05,InProgress
+183704,Laser 4,0.05,InProgress
+183705,Laser 4,0.05,InProgress
+183706,Laser 4,0.05,InProgress
+183707,Laser 4,0.05,InProgress
+183708,Laser 4,0.05,InProgress
+183712,Laser 4,0.05,InProgress
+183713,Laser 4,0.05,InProgress
+183714,Laser 4,0.05,InProgress
+183715,Laser 4,0.05,InProgress
+183716,Laser 4,0.05,InProgress
+183717,Laser 4,0.05,InProgress
+183831,Quad,12.33,InProgress
+179454,Assemblage drankverpakkingen,223.06,InProgress
+180718,Atom,21.97,InProgress
+181693,Chiesa,0.25,InProgress
+183247,Giant,0.25,InProgress
+183274,Flash_Cut 5,0.8,InProgress
+183275,Flash_Cut 5,1.5,InProgress
+183276,Flash_Cut 5,0.56,InProgress
+183331,Giant,0.33,InProgress
+183332,Giant,0.08,InProgress
+183333,Giant,0.08,InProgress
+183347,Giant,1.61,InProgress
+183348,Giant,2.26,InProgress
+183349,Giant,5.89,InProgress
+183352,Giant,1.16,InProgress
+183353,Giant,0.91,InProgress
+183354,Giant,0.91,InProgress
+183355,Giant,1.36,InProgress
+183356,Giant,1.36,InProgress
+183458,Flash_Cut 5,0.5,InProgress
+183459,Flash_Cut 5,0.25,InProgress
+183461,Flash_Cut 5,0.09,InProgress
+183477,Flash_Cut 5,0.24,InProgress
+183478,Flash_Cut 5,0.24,InProgress
+183479,Flash_Cut 5,0.09,InProgress
+183832,Zünd Groot,0.25,InProgress
+180826,Degel 2,16.39,InProgress
+181677,Zünd Groot,0.25,InProgress
+182084,Giant,4.53,InProgress
+182086,Giant,4.53,InProgress
+182724,Snijmachine,5.25,InProgress
+183734,Zünd Groot,17.53,InProgress
+183735,Zünd Groot,17.28,InProgress
+183736,Zünd Groot,17.28,InProgress
+183737,Zünd Groot,8.64,InProgress
+183738,Zünd Groot,8.64,InProgress
+183739,Zünd Groot,20.73,InProgress
+183740,Zünd Groot,13.82,InProgress
+183741,Zünd Groot,3.46,InProgress
+183742,Zünd Groot,3.46,InProgress
+182059,Quad,4.56,InProgress
+182225,Verzenden,0.25,InProgress
+182226,Laser 3,0.01,InProgress
+182228,Laser 3,0.27,InProgress
+182229,Laser 3,0.04,InProgress
+182230,Laser 3,0.02,InProgress
+182231,Laser 3,0.02,InProgress
+182232,Laser 3,0.02,InProgress
+182233,Laser 3,0.02,InProgress
+182234,Laser 3,0.02,InProgress
+182235,Laser 3,0.01,InProgress
+182248,Quad,26.01,InProgress
+182249,Quad,12.58,InProgress
+182478,Laser 4,0.14,InProgress
+182546,Chiesa 150 ton,33.2,InProgress
+182547,Chiesa 150 ton,66.4,InProgress
+182556,Hengsel,52.94,InProgress
+182721,Giant,1.13,InProgress
+182730,Laser 3,0.31,InProgress
+182732,Laser 3,0.01,InProgress
+182733,Laser 3,0.01,InProgress
+182734,Laser 3,0.22,InProgress
+182735,Laser 3,0.19,InProgress
+182736,Laser 3,1.25,InProgress
+182737,Laser 3,0.09,InProgress
+182738,Laser 3,0.08,InProgress
+182739,Laser 3,0.78,InProgress
+182744,Laser 2,0.38,InProgress
+182745,Buigmachine,0.6,InProgress
+182746,Freesmachine,0.08,InProgress
+182747,Buigmachine,0.2,InProgress
+182748,Assemblage 1,0.33,InProgress
+182749,Freesmachine,0.18,InProgress
+182750,Buigmachine,0.26,InProgress
+182751,Assemblage 1,0.17,InProgress
+182767,Laser 3,0.29,InProgress
+182768,Laser 2,0.02,InProgress
+182769,Laser 3,0.02,InProgress
+182793,Laser 3,1.4,InProgress
+182797,Laser 3,0.05,InProgress
+182798,Laser 3,0.07,InProgress
+182799,Laser 4,0.16,InProgress
+182893,Laser 3,0.27,InProgress
+182894,Buigmachine,0.17,InProgress
+183088,Laser 4,0.5,InProgress
+183189,Laser 4,2.07,InProgress
+183190,Laser 4,0.83,InProgress
+183191,Laser 4,1.4,InProgress
+183302,Laser 3,0.04,InProgress
+183310,Quad,33.64,InProgress
+183311,Quad,6.71,InProgress
+183312,Quad,7.55,InProgress
+183413,Degel 3,4.44,InProgress
+183511,Quad,8.89,InProgress
+183512,Quad,2.94,InProgress
+183618,Giant,3.52,InProgress
+183619,Giant,3.73,InProgress
+183620,Giant,3.4,InProgress
+183647,Assemblage Secrid,6.67,InProgress
+183648,Assemblage Secrid,11.11,InProgress
+183649,Assemblage Secrid,20,InProgress
+183650,Assemblage Secrid,13.33,InProgress
+183651,Assemblage Secrid,1.11,InProgress
+183744,Quad,5.87,InProgress
+183745,Quad,6.71,InProgress
+183746,Quad,3.36,InProgress
+183903,Stikken Secrid,6.17,InProgress
+183904,Stikken Secrid,18.5,InProgress
+183905,Stikken Secrid,9.25,InProgress
+183906,Stikken Secrid,6.17,InProgress
+183907,Stikken Secrid,3.08,InProgress
+183908,Stikken Secrid,3.08,InProgress
+183909,Stikken Secrid,6.17,InProgress
+183910,Stikken Secrid,0,InProgress
+181287,Degel 3,41.79,InProgress
+181288,Assemblage 1,50.34,InProgress
+183536,Flash_Cut 5,0.61,InProgress
+183541,Quad,1.22,InProgress
+183542,Quad,2.24,InProgress
+183543,Quad,0.54,InProgress
+183691,Laser 4,5.56,InProgress
+183692,Laser 4,6.42,InProgress
+183693,Laser 4,6.67,InProgress
+183694,Laser 4,4.44,InProgress
+183695,Laser 4,8.97,InProgress
+181783,Flash_Cut 5,0.71,InProgress
+181961,Atom,4.65,InProgress
+182775,Giant,0.94,InProgress
+182921,Laser 3,5.97,InProgress
+182930,Snijmachine,3.5,InProgress
+182934,Snijmachine,1.06,InProgress
+182937,Atom,2.59,InProgress
+182977,Atom,2.59,InProgress
+183121,Laser 4,0.03,InProgress
+183143,Slitmachine,3.29,InProgress
+183155,Atom,3.23,InProgress
+183159,Atom,45.49,InProgress
+183168,Atom,3.86,InProgress
+183171,Atom,4.27,InProgress
+183410,Degel 1,17.78,InProgress
+183566,Giant,1.91,InProgress
+183642,Giant,2.06,InProgress
+183720,Quad,12.33,InProgress
+183722,Flash_Cut 2,12.33,InProgress
+183723,Stikken Secrid,43.17,InProgress
+183727,Quad,12.33,InProgress
+183731,Flash_Cut 2,24.67,InProgress
+183732,Flash_Cut 2,37,InProgress
+183733,,0.03,InProgress
+183753,Zünd Groot,3.83,InProgress
+183754,Zünd Groot,1.06,InProgress
+183788,Giant,0.33,InProgress
+183789,Giant,0.53,InProgress
+183790,Giant,0.37,InProgress
+183791,Giant,0.37,InProgress
+183792,Giant,0.46,InProgress
+183793,Giant,0.31,InProgress
+183794,Giant,0.76,InProgress
+183795,Giant,0.39,InProgress
+183813,Giant,1.89,InProgress
+183893,Giant,0.25,InProgress
+183936,Laser 4,0.26,InProgress
+183965,Giant,1.54,InProgress
+183966,Giant,1.27,InProgress
+183980,Basic Wallets,0,InProgress
+183982,Quad,0,InProgress
+184126,Quad,12.33,InProgress
+184127,Quad,30.83,InProgress
+184128,Flash_Cut 2,24.67,InProgress
+178293,Laser 2,0.29,InProgress
+178294,Laser 4,0.43,InProgress
+179464,Chiesa,12.74,InProgress
+179465,Assemblage drankverpakkingen,299.98,InProgress
+179680,Giant,0.31,InProgress
+181095,Laser 1,0.04,InProgress
+182475,Degel 2,0.65,InProgress
+183098,Degel 2,8.5,InProgress
+183871,Laser 2,2.17,InProgress
+184129,Quad,21.58,InProgress
+172515,Laser 1,68.15,InProgress
+181260,Laser 1,32.86,InProgress
+182211,Verzenden,0,InProgress
+182312,Laser 4,1.33,InProgress
+183147,Laser 2,7.87,InProgress
+183227,Laser 2,0.35,InProgress
+183280,Degel 1,1.64,InProgress
+183377,Laser 4,0.25,InProgress
+183383,Laser 3,0.25,InProgress
+183385,Laser 4,0.55,InProgress
+183638,Laser 4,4.25,InProgress
+183641,Laser 3,0.96,InProgress
+183849,Laser 4,0.25,InProgress
+183864,Degel 1,5.75,InProgress
+184083,Laser 4,0.25,InProgress
+184155,Laser 4,10.97,InProgress
+181637,Laser 2,7.86,InProgress
+183089,Laser 3,0.22,InProgress
+183090,Buigmachine,1.87,InProgress
+183163,Atom,4.58,InProgress
+183219,Quad,22.99,InProgress
+183400,Snijmachine,3.41,InProgress
+183698,Laser 3,1.94,InProgress
+183699,Laser 3,1.11,InProgress
+183756,Quad,20.64,InProgress
+183835,Degel 4,11.59,InProgress
+183911,Assemblage Secrid,2.22,InProgress
+183912,Assemblage Secrid,3.33,InProgress
+183913,Assemblage Secrid,6.67,InProgress
+183914,Assemblage Secrid,3.38,InProgress
+183915,Assemblage Secrid,1.11,InProgress
+183916,Assemblage Secrid,1.11,InProgress
+183923,Degel 1,14.17,InProgress
+184039,Laser 3,0.28,InProgress
+184175,Stikken Secrid,0.62,InProgress
+184176,Stikken Secrid,0.62,InProgress
+184177,Stikken Secrid,9.25,InProgress
+184178,Stikken Secrid,0.52,InProgress
+184179,Stikken Secrid,0.43,InProgress
+184180,Stikken Secrid,0.62,InProgress
+184240,Laser 2,-1.33,InProgress
+179458,Chiesa,12.33,InProgress
+179459,Assemblage drankverpakkingen,226.89,InProgress
+182896,Flash_Cut 5,0.76,InProgress
+183243,Sysco,4.45,InProgress
+184116,Degel 1,2.13,InProgress
+185062,Assemblage Secrid,2.22,InProgress
+185063,Assemblage Secrid,6.67,InProgress
+185064,Assemblage Secrid,2.22,InProgress
+182352,Degel 4,17.17,InProgress
+182353,Degel 4,35.22,InProgress
+182354,Degel 4,16.67,InProgress
+182355,Degel 4,16.67,InProgress
+182356,Degel 4,33.33,InProgress
+182357,Degel 4,16.67,InProgress
+182358,Degel 4,16.67,InProgress
+182408,Snijmachine,2.08,InProgress
+182457,Giant,7.01,InProgress
+182561,Chiesa 150 ton,23.9,InProgress
+183188,Laser 3,0.56,InProgress
+183195,Laser 2,0.3,InProgress
+183196,Laser 2,1.03,InProgress
+183633,Laser 4,0.38,InProgress
+183634,Laser 3,1.33,InProgress
+183635,Laser 4,0.35,InProgress
+183636,Laser 4,0.28,InProgress
+183761,Laser 3,4.31,InProgress
+183762,Laser 3,0.08,InProgress
+183872,Giant,0.27,InProgress
+183873,Giant,0.02,InProgress
+183880,Chiesa 150 ton,10.3,InProgress
+183881,Chiesa 150 ton,10.3,InProgress
+183883,Chiesa 150 ton,30.6,InProgress
+183884,Chiesa 150 ton,61.2,InProgress
+183920,Giant,3.62,InProgress
+183921,Giant,1.81,InProgress
+184030,Laser 4,15.92,InProgress
+184087,Quad,18.5,InProgress
+184088,Quad,24.67,InProgress
+184091,Quad,18.5,InProgress
+184092,Quad,15.42,InProgress
+184093,Quad,30.83,InProgress
+184094,Quad,52.42,InProgress
+184096,Stikken Secrid,12.33,InProgress
+184099,Stikken Secrid,43.17,InProgress
+184376,Quad,6.17,InProgress
+184377,Quad,3.08,InProgress
+184378,Quad,15.42,InProgress
+185065,Assemblage Secrid,6.67,InProgress
+179461,Chiesa,15.36,InProgress
+179462,Assemblage drankverpakkingen,282.68,InProgress
+181716,Laser 2,0.89,InProgress
+183257,Atom,6.28,InProgress
+183581,Laser 2,0.62,InProgress
+183589,Laserstansen,0.01,InProgress
+184032,Laser 4,5.22,InProgress
+184120,Laser 1,0.88,InProgress
+184150,Giant,0.25,InProgress
+184241,Laser 4,15.77,InProgress
+184379,Flash_Cut 2,9.25,InProgress
+183150,Laser 2,3.79,InProgress
+183888,Giant,0.93,InProgress
+183890,Giant,0.85,InProgress
+184064,Laser 4,0.25,InProgress
+184156,Brugstans,0.71,InProgress
+184157,Brugstans,0.59,InProgress
+184279,Zünd Groot,3.53,InProgress
+184280,Zünd Groot,1.89,InProgress
+184312,Chiesa 150 ton,0.25,InProgress
+184359,Laser 4,10.51,InProgress
+184360,Laser 4,15.93,InProgress
+184361,Laser 4,0.26,InProgress
+180891,Atom,14.72,InProgress
+180892,Giant,0,InProgress
+180978,Giant,0.44,InProgress
+183175,Chiesa 150 ton,9.07,InProgress
+183181,Chiesa 150 ton,6.37,InProgress
+183183,Chiesa 150 ton,28.35,InProgress
+183317,Quad,51.93,InProgress
+183318,Quad,17.57,InProgress
+183775,Quad,17.62,InProgress
+183776,Quad,2.52,InProgress
+183804,Flash_Cut 2,61.06,InProgress
+183895,Chiesa,2.47,InProgress
+183896,Chiesa,14.14,InProgress
+184016,Quad,36.83,InProgress
+184108,Zünd Groot,2.79,InProgress
+184184,Assemblage Secrid,2.22,InProgress
+184185,Assemblage Secrid,2.22,InProgress
+184186,Assemblage Secrid,6.67,InProgress
+184187,Assemblage Secrid,1.11,InProgress
+184188,Assemblage Secrid,3.33,InProgress
+184189,Assemblage Secrid,1.11,InProgress
+184190,Assemblage Secrid,2.22,InProgress
+184191,Assemblage Secrid,1.11,InProgress
+184192,Assemblage Secrid,1.11,InProgress
+184193,Assemblage Secrid,4.44,InProgress
+184266,Zünd Groot,0.25,InProgress
+184330,Giant,0.25,InProgress
+184345,Zünd Groot,0.25,InProgress
+184426,,3.44,InProgress
+184427,Stikken Secrid,9.25,InProgress
+184428,Stikken Secrid,18.5,InProgress
+184429,Stikken Secrid,38,InProgress
+184430,Stikken Secrid,37,InProgress
+184431,Stikken Secrid,9.25,InProgress
+184432,Stikken Secrid,3.08,InProgress
+184435,Stikken Secrid,3.08,InProgress
+184436,Stikken Secrid,12.33,InProgress
+184437,Stikken Secrid,18.5,InProgress
+184438,Stikken Secrid,55.5,InProgress
+184439,Stikken Secrid,6.17,InProgress
+184440,Stikken Secrid,3.08,InProgress
+184441,Stikken Secrid,3.08,InProgress
+184442,Stikken Secrid,3.08,InProgress
+184460,Laser 4,0.25,InProgress
+183989,Quad,14.26,InProgress
+183990,Quad,5.03,InProgress
+183991,Quad,3.36,InProgress
+184033,Laser 4,15.67,InProgress
+184036,Laser 4,9.65,InProgress
+184123,Giant,17.33,InProgress
+184443,Basic Wallets,0,InProgress
+184445,Quad,0,InProgress
+180926,Hengsel,64.88,InProgress
+181126,Laser 4,0.25,InProgress
+181127,Laser 1,0.46,InProgress
+181254,Laser 1,0.56,InProgress
+181255,Laser 1,0.04,InProgress
+182038,Laser 1,0.37,InProgress
+182040,Laser 1,0.37,InProgress
+182044,Laser 1,0.37,InProgress
+182046,Laser 1,0.37,InProgress
+182048,Laser 1,0.37,InProgress
+182050,Laser 1,0.37,InProgress
+182052,Laser 1,0.37,InProgress
+182549,Laser 2,0.25,InProgress
+182550,Laser 2,0.25,InProgress
+182551,Laser 2,0.25,InProgress
+182593,Zünd Groot,0.53,InProgress
+182851,Laser 1,0.27,InProgress
+182906,Zwenkarm stans,5.03,InProgress
+183105,Degel 1,2.07,InProgress
+183345,Chiesa 150 ton,2.8,InProgress
+184037,Laser 4,4.7,InProgress
+184200,Laser 2,3,InProgress
+184219,Giant,0.25,InProgress
+184254,Laser 2,1.78,InProgress
+184260,Sysco,0.56,InProgress
+184262,Sysco,4.91,InProgress
+184332,Quad,46.25,InProgress
+184333,Quad,80.17,InProgress
+184334,Quad,46.25,InProgress
+184337,Quad,12.33,InProgress
+184339,Stikken Secrid,58.58,InProgress
+184342,Quad,27.75,InProgress
+184344,,0.03,InProgress
+184352,Zünd Groot,0.25,InProgress
+184354,Laserstansen,0.68,InProgress
+184355,Laserstansen,0.69,InProgress
+184356,Laserstansen,1.19,InProgress
+184499,Flash_Cut 2,0.25,InProgress
+184589,Laser 4,15,InProgress
+184637,Laser 4,0.29,InProgress
+180218,Degel 3,4.08,InProgress
+181498,Degel 3,1.53,InProgress
+183960,Degel 2,2.21,InProgress
+183961,Degel 1,2.54,InProgress
+184133,Zünd Groot,0.25,InProgress
+184446,Laser 4,0.85,InProgress
+184447,Laser 4,0.29,InProgress
+184448,Laser 4,0.13,InProgress
+184504,Laser 4,3.7,InProgress
+184674,Laser 4,11.88,InProgress
+184684,Stikken Secrid,40.08,InProgress
+172513,Laser 1,68.15,InProgress
+181594,Degel 2,16.72,InProgress
+182907,Zwenkarm stans,5.03,InProgress
+183011,Chiesa,2.76,InProgress
+183012,Chiesa,1.7,InProgress
+183015,Chiesa,5.41,InProgress
+183016,Chiesa,3.78,InProgress
+183019,Chiesa,4.11,InProgress
+183020,Chiesa,5.44,InProgress
+183809,Degel 1,0.5,InProgress
+184061,Chiesa,15.83,InProgress
+184062,Assemblage drankverpakkingen,118.93,InProgress
+184195,Giant,0.67,InProgress
+184197,Giant,0.8,InProgress
+184232,Flash_Cut 2,0.25,InProgress
+184374,Laser 1,2,InProgress
+184450,Giant,0.72,InProgress
+184451,Giant,0.6,InProgress
+184452,Giant,0.42,InProgress
+184453,Giant,0.18,InProgress
+184454,Giant,0.35,InProgress
+184455,Giant,0.31,InProgress
+184517,Laser 1,0.78,InProgress
+184518,Laser 1,0.06,InProgress
+184519,Laser 1,0.17,InProgress
+184521,Laser 1,0.03,InProgress
+184547,Laser 4,0.25,InProgress
+184549,Laser 4,1,InProgress
+184550,Laser 4,0.5,InProgress
+184551,Laser 4,0.25,InProgress
+184552,Laser 4,0.5,InProgress
+184553,Laser 4,1,InProgress
+184554,Laser 4,2.5,InProgress
+184555,Laser 4,1.75,InProgress
+184556,Laser 4,1.28,InProgress
+184557,Laser 4,0.75,InProgress
+184558,Laser 4,0.25,InProgress
+184559,Laser 4,1,InProgress
+184560,Laser 4,0.25,InProgress
+184561,Laser 4,0.25,InProgress
+184562,Laser 4,0.25,InProgress
+184563,Laser 4,2.63,InProgress
+184564,Laser 4,0.25,InProgress
+184565,Laser 4,0.5,InProgress
+184566,Laser 4,0.32,InProgress
+184567,Laser 4,0.08,InProgress
+184568,Laser 4,0.5,InProgress
+184569,Laser 4,0.25,InProgress
+184570,Laser 4,1.5,InProgress
+184571,Laser 4,1.5,InProgress
+184572,Laser 4,0.5,InProgress
+184573,Laser 4,0.25,InProgress
+184574,Laser 4,0.25,InProgress
+184575,Laser 4,0.25,InProgress
+184576,Laser 4,0.25,InProgress
+184577,Laser 4,0.25,InProgress
+184578,Laser 4,0.11,InProgress
+184579,Laser 4,0.5,InProgress
+184580,Laser 4,0.25,InProgress
+184581,Laser 4,0.25,InProgress
+184582,,0.01,InProgress
+184583,,0.01,InProgress
+184717,Laser 4,4.5,InProgress
+183799,Flash_Cut 2,1.72,InProgress
+184008,Flash_Cut 1,8.39,InProgress
+184009,Laserstansen,24.64,InProgress
+184010,Flash_Cut 1,4.25,InProgress
+184011,Laserstansen,4.54,InProgress
+184021,Quad,23.36,InProgress
+184022,Quad,12.88,InProgress
+184304,Quad,83.18,InProgress
+184305,Quad,16.78,InProgress
+184306,Quad,8.39,InProgress
+184369,Degel 1,5.82,InProgress
+184417,Assemblage Secrid,8.89,InProgress
+184418,Assemblage Secrid,8.89,InProgress
+184419,Assemblage Secrid,10,InProgress
+184420,Assemblage Secrid,3.33,InProgress
+184421,Assemblage Secrid,3.33,InProgress
+184462,Flash_Cut 5,0.25,InProgress
+184515,Laser 4,0.29,InProgress
+184516,Laser 4,0.04,InProgress
+184520,Laser 4,0.05,InProgress
+184592,Slitmachine,0.25,InProgress
+184700,Flash_Cut 5,0.25,InProgress
+184718,Laser 4,14.8,InProgress
+184770,Stikken Secrid,0,InProgress
+184771,Stikken Secrid,0,InProgress
+184890,Assemblage drankverpakkingen,181.05,InProgress
+183977,Giant,1836,InProgress
+183978,Giant,920.7,InProgress
+184365,Degel 1,6.15,InProgress
+182042,Laser 1,0.37,InProgress
+182054,Laser 1,0.37,InProgress
+182778,Giant,0.28,InProgress
+184290,Giant,0.9,InProgress
+184383,Giant,0.25,InProgress
+184508,Laser 1,12.01,InProgress
+184539,Laser 4,5.13,InProgress
+184540,Laser 4,4.5,InProgress
+184541,Laser 4,4.88,InProgress
+184545,Zünd Groot,3.19,InProgress
+184546,Zünd Groot,3.05,InProgress
+184584,Flash_Cut 2,1.82,InProgress
+184585,Flash_Cut 2,0.68,InProgress
+184659,Quad,15.42,InProgress
+184660,Stikken Secrid,24.67,InProgress
+184661,Quad,9.25,InProgress
+184662,Quad,3.08,InProgress
+184663,Quad,9.25,InProgress
+184664,Stikken Secrid,49.33,InProgress
+184665,Quad,27.75,InProgress
+184666,Quad,18.5,InProgress
+184667,Quad,27.75,InProgress
+184668,Stikken Secrid,27.75,InProgress
+184671,Quad,18.5,InProgress
+184675,,0.03,InProgress
+183517,Laser 3,24.34,InProgress
+184067,Chiesa,15.79,InProgress
+184068,Assemblage drankverpakkingen,290.12,InProgress
+184163,Laser 2,0.25,InProgress
+184244,Laser 1,0.25,InProgress
+184608,Giant,1.14,InProgress
+184609,Giant,0.29,InProgress
+184610,Giant,0.46,InProgress
+184790,Guidoline,6.09,InProgress
+184819,Flash_Cut 2,5.25,InProgress
+184820,Flash_Cut 2,10,InProgress
+180719,Chiesa,29.3,InProgress
+181581,Chiesa 150 ton,20.25,InProgress
+184040,Giant,1.27,InProgress
+184130,Laser 2,10.11,InProgress
+184131,Laser 2,18.51,InProgress
+184132,Laser 2,5.85,InProgress
+184386,Giant,2.96,InProgress
+184387,Giant,1.25,InProgress
+184422,Chiesa 150 ton,1.73,InProgress
+184424,Chiesa 150 ton,0.42,InProgress
+181394,Laser 3,13.33,InProgress
+183627,Verzenden,0.25,InProgress
+183628,Laser 2,8.01,InProgress
+183629,Laser 2,8.01,InProgress
+183781,Quad,73.02,InProgress
+183782,Quad,29.36,InProgress
+183783,Quad,16.78,InProgress
+183815,Verzenden,0.25,InProgress
+183817,Freesmachine,0.55,InProgress
+183818,Buigmachine,0.88,InProgress
+183819,Assemblage 1,1.2,InProgress
+183852,Verzenden,0.25,InProgress
+183853,Laser 3,0.05,InProgress
+183854,Buigmachine,0.44,InProgress
+183856,Laser 3,0.06,InProgress
+183857,Buigmachine,0.17,InProgress
+183858,Laser 3,0.02,InProgress
+183860,Buigmachine,0.16,InProgress
+183862,Laser 3,0.32,InProgress
+184314,Laser 3,1.77,InProgress
+184316,Laser 3,0.9,InProgress
+184321,Freesmachine,0.25,InProgress
+184322,Buigmachine,0.25,InProgress
+184362,Giant,0.25,InProgress
+184485,Quad,37.75,InProgress
+184486,Quad,12.58,InProgress
+184487,Quad,4.28,InProgress
+184614,Laser 4,2.14,InProgress
+184615,Laser 4,1.69,InProgress
+184618,Brugstans,3.83,InProgress
+184773,Assemblage Secrid,5.56,InProgress
+184774,Assemblage Secrid,20,InProgress
+184775,Assemblage Secrid,11.11,InProgress
+184776,Assemblage Secrid,1.11,InProgress
+184822,Giant,3.38,InProgress
+184916,Basic Wallets,0.02,InProgress
+184918,Quad,0.02,InProgress
+184973,Giant,0.25,InProgress
+185078,Stikken Secrid,0,InProgress
+185082,,0,InProgress
+185083,Stikken Secrid,0,InProgress
+185084,Stikken Secrid,0,InProgress
+185085,Stikken Secrid,0,InProgress
+185086,Stikken Secrid,0,InProgress
+185087,Stikken Secrid,0,InProgress
+185088,Stikken Secrid,0,InProgress
+185089,Stikken Secrid,0,InProgress
+183625,Degel 1,0.78,InProgress
+184070,Chiesa,15.76,InProgress
+184071,Assemblage drankverpakkingen,290.12,InProgress
+184303,Giant,5.67,InProgress
+184690,Degel 1,2.44,InProgress
+184696,Degel 1,2.47,InProgress
+184769,Brugstans,1.34,InProgress
+184772,Brugstans,1.27,InProgress
+185058,Zünd Groot,3.58,InProgress
+185059,Zünd Groot,1.06,InProgress
+184247,Laser 1,1.12,InProgress
+184248,Laser 4,0.65,InProgress
+184249,Laser 4,2.17,InProgress
+184685,Laser 1,0.46,InProgress
+184742,Laser 4,1.95,InProgress
+184745,Laser 4,7.58,InProgress
+184746,Laser 4,5.5,InProgress
+184750,Atom,7.83,InProgress
+184797,Giant,0.25,InProgress
+184830,Laser 4,2.91,InProgress
+184833,Laser 4,1.76,InProgress
+184834,Laser 4,1.93,InProgress
+184891,Stikken Secrid,24.67,InProgress
+184892,Quad,12.33,InProgress
+184900,Stikken Secrid,40.08,InProgress
+184977,Laser 4,0.63,InProgress
+184978,Laser 4,4.5,InProgress
+184979,Laser 4,9,InProgress
+184983,Flash_Cut 2,15.42,InProgress
+184984,Quad,33.92,InProgress
+184985,Quad,64.75,InProgress
+184986,Quad,107.92,InProgress
+184996,Laser 3,4.5,InProgress
+184997,Laser 3,4.88,InProgress
+184998,,0.01,InProgress
+184999,Laser 4,5.5,InProgress
+185000,Laser 4,5,InProgress
+185192,Laser 1,0.75,InProgress
+185193,Laser 1,0.67,InProgress
+185194,Laser 1,0.67,InProgress
+185199,Laser 1,0.33,InProgress
+185200,Laser 1,0.33,InProgress
+185201,Laser 1,0.33,InProgress
+185202,Laser 4,0.02,InProgress
+184168,Laser 1,8.27,InProgress
+185125,Laser 4,4.5,InProgress
+185126,Laser 4,9,InProgress
+185127,Laser 3,9,InProgress
+183983,Flash_Cut 2,2.41,InProgress
+183984,Flash_Cut 2,1.2,InProgress
+184401,Freesmachine,0.33,InProgress
+184402,Buigmachine,0.45,InProgress
+184403,Assemblage 1,0.27,InProgress
+184468,Quad,3.92,InProgress
+184473,Quad,15.1,InProgress
+184474,Quad,7.55,InProgress
+184479,Quad,19.88,InProgress
+184480,Quad,5.03,InProgress
+184868,Quad,20.97,InProgress
+184869,Quad,3.48,InProgress
+184870,Quad,12.84,InProgress
+185004,Giant,1.78,InProgress
+185072,Snijmachine,0.25,InProgress
+185090,Assemblage Secrid,5.56,InProgress
+185091,Assemblage Secrid,31.11,InProgress
+185092,Assemblage Secrid,6.67,InProgress
+185097,Laser 3,0.59,InProgress
+185297,Laser 1,0.88,InProgress
+185435,,0,InProgress
+185436,Stikken Secrid,0,InProgress
+185437,Stikken Secrid,0,InProgress
+185439,Stikken Secrid,0,InProgress
+185440,Stikken Secrid,0,InProgress
+185441,Stikken Secrid,0,InProgress
+185443,Stikken Secrid,0,InProgress
+185444,Stikken Secrid,0,InProgress
+185445,Stikken Secrid,0,InProgress
+185446,Stikken Secrid,0,InProgress
+181080,Laser 1,0.25,InProgress
+182586,Laser 1,0.58,InProgress
+182841,Laser 1,0.55,InProgress
+182845,Laser 1,0.42,InProgress
+182848,Laser 1,0.58,InProgress
+182855,Laser 2,0.63,InProgress
+182888,Zünd Groot,0.25,InProgress
+183081,Laser 1,0.25,InProgress
+183083,Laser 1,0.25,InProgress
+183085,Laser 1,0.25,InProgress
+183251,Sysco,0.45,InProgress
+183769,Quad,27.68,InProgress
+183770,Quad,7.13,InProgress
+183867,Flash_Cut 5,2.03,InProgress
+183878,Chiesa 150 ton,62.4,InProgress
+183931,Laser 1,0.58,InProgress
+184295,Laser 3,0.47,InProgress
+184296,Laser 3,0.46,InProgress
+184297,Laser 4,0.47,InProgress
+184298,Laser 3,0.5,InProgress
+184299,Laser 3,1.24,InProgress
+184300,Laser 3,0.43,InProgress
+184301,Laser 3,0.18,InProgress
+184302,Laser 3,0.12,InProgress
+184629,Zünd Groot,0.48,InProgress
+184631,Zünd Groot,0.28,InProgress
+184942,Zünd Groot,0.53,InProgress
+185102,Flash_Cut 5,0.49,InProgress
+185114,Laser 1,0.78,InProgress
+185115,Laser 1,0.18,InProgress
+185155,Giant,19,InProgress
+185358,Laser 3,0.38,InProgress
+185359,Laser 4,0.38,InProgress
+185361,Laser 4,0.04,InProgress
+185415,Zünd Groot,12.1,InProgress
+184073,Chiesa,15.92,InProgress
+184074,Assemblage drankverpakkingen,296.13,InProgress
+184325,Laser 3,0.25,InProgress
+185033,Atom,1.98,InProgress
+185175,Laser 2,0.53,InProgress
+185181,Giant,1.82,InProgress
+185381,Giant,1.24,InProgress
+185520,Laser 1,4.35,InProgress
+173107,Laser 2,96.43,InProgress
+184908,Stikken Secrid,49.33,InProgress
+184911,,0,InProgress
+184923,Atom,12.44,InProgress
+184924,Giant,0,InProgress
+185119,Flash_Cut 2,6.58,InProgress
+185187,Giant,0.37,InProgress
+185188,Giant,0.44,InProgress
+185225,Degel 4,4.3,InProgress
+185283,Giant,3.24,InProgress
+185367,Flash_Cut 3,0.72,InProgress
+185409,Laser 2,0.42,InProgress
+185489,Zünd Groot,4.41,InProgress
+185490,Zünd Groot,1.89,InProgress
+185503,Degel 4,4.42,InProgress
+185570,Degel 4,12.26,InProgress
+185584,Laser 2,1.09,InProgress
+185654,Quad,30.83,InProgress
+185655,Flash_Cut 2,3.08,InProgress
+185656,Quad,12.33,InProgress
+185657,Quad,70.92,InProgress
+185658,Quad,49.33,InProgress
+185659,Quad,12.33,InProgress
+185660,Quad,37,InProgress
+185661,Laser 2,0.35,InProgress
+185662,Laser 1,0.68,InProgress
+184919,Freesmachine,2.01,InProgress
+184920,Freesmachine,1.01,InProgress
+185110,Snijmachine,1.14,InProgress
+185111,Snijmachine,1.39,InProgress
+185219,Snijmachine,1.22,InProgress
+185220,Snijmachine,0.97,InProgress
+177837,Zwenkarm stans,5.02,InProgress
+184076,Chiesa,15.83,InProgress
+184077,Assemblage drankverpakkingen,299.98,InProgress
+184394,Laser 3,0.29,InProgress
+184396,Laser 3,0.28,InProgress
+184397,Laser 3,1.04,InProgress
+184398,Laser 3,2.17,InProgress
+184399,Laser 3,1.71,InProgress
+184492,Flash_Cut 2,12.17,InProgress
+184706,Laser 4,6.42,InProgress
+184710,Freesmachine,1.03,InProgress
+184711,Buigmachine,1.33,InProgress
+184712,Assemblage 1,1.56,InProgress
+184713,Freesmachine,0.86,InProgress
+184714,Buigmachine,1,InProgress
+184715,Assemblage 1,2.11,InProgress
+184762,Giant,24.09,InProgress
+184861,Quad,61.24,InProgress
+184862,Quad,20.49,InProgress
+184863,Quad,9.23,InProgress
+184881,Quad,57.59,InProgress
+184882,Quad,16.65,InProgress
+184883,Quad,17.87,InProgress
+185122,Laser 2,1.96,InProgress
+185345,Chiesa,2.17,InProgress
+185346,Chiesa,1.34,InProgress
+185426,Assemblage Secrid,6.67,InProgress
+185427,Assemblage Secrid,6.67,InProgress
+185428,Assemblage Secrid,34.44,InProgress
+185429,Assemblage Secrid,3.33,InProgress
+185431,Assemblage Secrid,1.11,InProgress
+185432,Assemblage Secrid,3.33,InProgress
+185455,Laser 4,2.31,InProgress
+185466,Quad,35.65,InProgress
+185467,Quad,9.48,InProgress
+185468,Quad,6.71,InProgress
+173108,Laser 2,96.43,InProgress
+183509,Chiesa,17.25,InProgress
+184027,Chiesa,6.1,InProgress
+185588,Laser 1,0.57,InProgress
+185776,Zünd Groot,8,InProgress
+185783,,1.78,InProgress
+182557,Hengsel,51.94,InProgress
+182909,Chiesa,2.5,InProgress
+182910,Chiesa,5,InProgress
+182911,Chiesa,1.67,InProgress
+183067,Chiesa 150 ton,16.1,InProgress
+183875,Chiesa 150 ton,16.6,InProgress
+184525,Quad,16.28,InProgress
+184526,Quad,4.44,InProgress
+184527,Quad,3.89,InProgress
+184622,Snijmachine,1.14,InProgress
+184625,Snijmachine,2.11,InProgress
+184787,Atom,4.17,InProgress
+184849,Quad,14.14,InProgress
+184850,Quad,2.81,InProgress
+184851,Quad,2.22,InProgress
+184913,Laser 2,9.33,InProgress
+184914,Laser 2,0,InProgress
+184933,Chiesa 150 ton,5.87,InProgress
+184934,Chiesa 150 ton,11.07,InProgress
+185020,Chiesa,11.26,InProgress
+185041,Giant,36.14,InProgress
+185137,Giant,46.25,InProgress
+185261,Flash_Cut 5,1.93,InProgress
+185262,Laser 2,0.81,InProgress
+185419,Degel 4,2.58,InProgress
+185425,Degel 4,5.5,InProgress
+185504,Degel 4,6.5,InProgress
+185506,Degel 4,10.22,InProgress
+185507,Degel 4,3.39,InProgress
+185629,Giant,0.91,InProgress
+185630,Giant,0.91,InProgress
+185631,Giant,1.96,InProgress
+185642,Quad,37,InProgress
+185643,Quad,21.58,InProgress
+185644,Quad,18.5,InProgress
+185647,Quad,18.5,InProgress
+185648,Quad,37,InProgress
+185650,Quad,24.67,InProgress
+185651,Flash_Cut 2,12.33,InProgress
+185652,Quad,12.33,InProgress
+185677,Giant,1.61,InProgress
+185886,Atom Groot,59.3,InProgress
+185890,Chiesa,6.6,InProgress
+185940,Laser 2,0.21,InProgress
+184107,Quad,5.46,InProgress
+184144,Basic Wallets,8.83,InProgress
+184639,Basic Wallets,0.52,InProgress
+184658,Quad,0.25,InProgress
+185024,Chiesa,3.07,InProgress
+185719,Verzenden,0,InProgress
+185720,Giant,0.96,InProgress
+185723,Giant,0.12,InProgress
+185725,Laserstansen,1.33,InProgress
+185726,Laserstansen,0.21,InProgress
+186002,Stikken Secrid,40.08,InProgress
+186003,Stikken Secrid,3.08,InProgress
+186004,Flash_Cut 2,18.5,InProgress
+186005,Quad,24.67,InProgress
+175779,Degel 3,5.22,InProgress
+175780,Degel 3,4.77,InProgress
+183825,Zünd Groot,16.34,InProgress
+184930,Degel 1,31.5,InProgress
+185581,Laser 4,2,InProgress
+185699,Giant,0.46,InProgress
+185808,Giant,36,InProgress
+185809,Giant,29.9,InProgress
+185810,Giant,4.85,InProgress
+182661,Laser 4,1.06,InProgress
+182662,Laser 4,7.11,InProgress
+182908,Zwenkarm stans,5.03,InProgress
+184046,Giant,1.03,InProgress
+184051,Giant,1.28,InProgress
+184226,Freesmachine,1.07,InProgress
+184272,Giant,0.46,InProgress
+184274,Giant,0.48,InProgress
+184275,Giant,1.42,InProgress
+184347,Buigmachine,1.37,InProgress
+184348,Assemblage 1,3.48,InProgress
+184349,Freesmachine,0.16,InProgress
+184350,Buigmachine,0.33,InProgress
+184351,Assemblage 1,0.28,InProgress
+184730,Laser 3,0.37,InProgress
+184732,Laser 3,0.26,InProgress
+184733,Buigmachine,0.03,InProgress
+184758,Snijmachine,7.04,InProgress
+184785,Laser 4,0.37,InProgress
+184838,Quad,16.83,InProgress
+184926,Snijmachine,3.51,InProgress
+185044,Laser 4,0.67,InProgress
+185047,Freesmachine,0.57,InProgress
+185048,Buigmachine,0.33,InProgress
+185049,Assemblage 1,0.58,InProgress
+185165,Laser 4,4.83,InProgress
+185166,Laser 4,0.33,InProgress
+185167,Laser 4,1.2,InProgress
+185402,Quad,13.92,InProgress
+185403,Quad,10.44,InProgress
+185404,Quad,10,InProgress
+185566,Laser 2,13.31,InProgress
+185593,Laser 4,0.36,InProgress
+185594,Laser 4,0.42,InProgress
+185696,Laser 4,0.4,InProgress
+185697,Buigmachine,0.42,InProgress
+185765,Assemblage Secrid,0,InProgress
+185766,Assemblage Secrid,0,InProgress
+185767,Assemblage Secrid,0,InProgress
+185768,Assemblage Secrid,0,InProgress
+185769,Assemblage Secrid,0,InProgress
+186053,Stikken Secrid,0,InProgress
+186054,Stikken Secrid,0,InProgress
+186056,Stikken Secrid,0,InProgress
+186077,Laser 4,0.58,InProgress
+186081,Laser 3,8.01,InProgress
+182966,Laser 1,0.25,InProgress
+183193,Laser 1,0.58,InProgress
+183900,Laser 1,0.42,InProgress
+184160,Degel 4,22.47,InProgress
+184161,Degel 4,42.03,InProgress
+184269,Laser 1,0.36,InProgress
+184381,Laser 1,0.01,InProgress
+184390,Laser 1,0.46,InProgress
+184590,Laser 1,0.25,InProgress
+184780,Giant,0.56,InProgress
+184781,Giant,0.31,InProgress
+184806,Laser 1,0.25,InProgress
+185169,Laser 4,0.64,InProgress
+185170,Buigmachine,1.33,InProgress
+185197,Giant,2.34,InProgress
+185203,Giant,3.06,InProgress
+185473,Degel 2,5.94,InProgress
+185479,Laser 2,8.02,InProgress
+185625,Atom,3.66,InProgress
+185680,Degel 1,0.74,InProgress
+185681,Degel 1,0.39,InProgress
+185891,Degel 4,52.39,InProgress
+184079,Chiesa,15.86,InProgress
+184080,Assemblage drankverpakkingen,275.24,InProgress
+185248,Giant,3.65,InProgress
+185293,Degel 1,4.12,InProgress
+185360,Degel 1,0.01,InProgress
+185384,Zünd Groot,7.83,InProgress
+185476,Laser 1,1.7,InProgress
+185500,Laser 4,9.79,InProgress
+185514,Chiesa,11.36,InProgress
+185517,Zünd Groot,1.32,InProgress
+185518,Zünd Groot,1.06,InProgress
+185575,Laser 2,4.44,InProgress
+185578,Flash_Cut 2,6.58,InProgress
+185579,Degel 2,6.33,InProgress
+185618,Degel 1,6.16,InProgress
+185666,Atom,70,InProgress
+185811,Freesmachine,1.75,InProgress
+185821,Giant,7.67,InProgress
+185824,Giant,5.25,InProgress
+185843,Laser 2,0.93,InProgress
+185916,Degel 1,6.89,InProgress
+186328,Flash_Cut 2,3.08,InProgress
+186329,Quad,24.67,InProgress
+180725,Freesmachine,5.04,InProgress
+180726,Buigmachine,5.08,InProgress
+180727,Assemblage 1,10,InProgress
+184801,Brugstans,0.25,InProgress
+184856,Flash_Cut 2,8.85,InProgress
+184875,Quad,5.56,InProgress
+184876,Quad,2.22,InProgress
+185234,Degel 1,6.05,InProgress
+185598,Snijmachine,0.83,InProgress
+185602,Snijmachine,4.87,InProgress
+185636,Laser 4,13.58,InProgress
+185927,Giant,3.93,InProgress
+185928,Giant,3.93,InProgress
+185935,Zünd Groot,244.44,InProgress
+186154,Giant,1.96,InProgress
+186330,Quad,12.33,InProgress
+186332,Stikken Secrid,15.42,InProgress
+186333,Quad,43.17,InProgress
+183342,Zünd Groot,0.25,InProgress
+186024,Laser 2,1.55,InProgress
+186040,Degel 1,0.7,InProgress
+186159,Zünd Groot,3.78,InProgress
+186401,Laser 2,0.27,InProgress
+182544,Chiesa 150 ton,59.25,InProgress
+183876,Chiesa 150 ton,33.2,InProgress
+184944,Laser 3,1.07,InProgress
+184945,Laser 4,0.45,InProgress
+184948,Freesmachine,1.85,InProgress
+184949,Buigmachine,1.67,InProgress
+184950,Assemblage 1,2.5,InProgress
+185394,Quad,34.97,InProgress
+185542,Quad,15.14,InProgress
+185547,Quad,26.78,InProgress
+185548,Quad,7.89,InProgress
+185779,Giant,1.66,InProgress
+185852,Quad,21.47,InProgress
+185853,Quad,6.67,InProgress
+185866,Quad,17.72,InProgress
+185868,Quad,2.81,InProgress
+185922,Laser 2,19.43,InProgress
+185948,Laser 4,0.44,InProgress
+185949,Buigmachine,0.82,InProgress
+185992,Snijmachine,1.76,InProgress
+186058,Assemblage Secrid,0,InProgress
+186060,Assemblage Secrid,0,InProgress
+186061,Assemblage Secrid,0,InProgress
+186062,Assemblage Secrid,0,InProgress
+186063,Assemblage Secrid,0,InProgress
+186064,Assemblage Secrid,0,InProgress
+186065,Assemblage Secrid,0,InProgress
+186066,Assemblage Secrid,0,InProgress
+186067,Assemblage Secrid,0,InProgress
+186068,Assemblage Secrid,0,InProgress
+186082,Snijmachine,1.22,InProgress
+186180,Snijmachine,0.97,InProgress
+186296,Laser 4,0.31,InProgress
+186297,Laser 4,0.06,InProgress
+186298,Laser 4,0.28,InProgress
+186381,Laser 3,0.58,InProgress
+172517,Laser 1,68.15,InProgress
+185388,Zünd Groot,20.4,InProgress
+186033,Giant,2.32,InProgress
+186277,Laser 3,0.81,InProgress
+186284,,0.06,InProgress
+181745,Atom,51.5,InProgress
+181746,,0,InProgress
+184412,Sysco,0.43,InProgress
+184532,Quad,14.08,InProgress
+184533,Quad,4.39,InProgress
+185537,Flash_Cut 2,16.91,InProgress
+185611,Laser 2,0.67,InProgress
+185789,Laser 4,0.6,InProgress
+185790,Laser 4,0.83,InProgress
+185791,Laser 4,0.38,InProgress
+185925,Zünd Groot,24.19,InProgress
+185995,Degel 4,2.42,InProgress
+185998,Degel 4,2.74,InProgress
+185999,Degel 4,3.68,InProgress
+186074,Atom,25.83,InProgress
+186075,,0,InProgress
+186170,Laserstansen,13.62,InProgress
+186222,Degel 2,0.61,InProgress
+186224,Quad,18.52,InProgress
+186225,Quad,9.26,InProgress
+186226,Quad,24.69,InProgress
+186227,Stikken Secrid,43.21,InProgress
+186228,Quad,18.52,InProgress
+186231,Stikken Secrid,15.43,InProgress
+186232,Quad,18.52,InProgress
+186234,Stikken Secrid,18.52,InProgress
+186235,Quad,37.03,InProgress
+186236,,0,InProgress
+186317,Atom Groot,58.33,InProgress
+186634,Quad,21.6,InProgress
+184202,Chiesa,15.92,InProgress
+184203,Assemblage drankverpakkingen,299.98,InProgress
+185932,Sysco,19.2,InProgress
+186007,Degel 4,22.08,InProgress
+186009,Degel 4,6.25,InProgress
+186140,Degel 4,14.62,InProgress
+186518,Laser 1,0.25,InProgress
+186637,Flash_Cut 1,27.78,InProgress
+186639,Quad,21.6,InProgress
+186640,Quad,37.03,InProgress
+186644,Stikken Secrid,21.6,InProgress
+182765,Degel 2,16.39,InProgress
+185214,Laser 4,10.67,InProgress
+185285,Flash_Cut 5,0.75,InProgress
+185389,Zünd Groot,27.6,InProgress
+185390,Zünd Groot,34.44,InProgress
+185729,Chiesa,2.19,InProgress
+185803,Snijmachine,0.6,InProgress
+185946,Laser 4,0.31,InProgress
+185950,Laser 4,6.13,InProgress
+185951,Laser 4,0.28,InProgress
+185952,Laser 2,0.17,InProgress
+185953,Laser 4,0.63,InProgress
+186030,Laser 4,4.39,InProgress
+186481,Laser 3,0.56,InProgress
+186501,Laser 1,0.28,InProgress
+186503,Laser 1,0.02,InProgress
+186506,Laser 1,0.34,InProgress
+182913,Zwenkarm stans,5.03,InProgress
+184754,Chiesa,0.5,InProgress
+184966,Chiesa 150 ton,0.25,InProgress
+184967,Chiesa 150 ton,0.25,InProgress
+184968,Chiesa 150 ton,0.25,InProgress
+184969,Chiesa 150 ton,0.25,InProgress
+184970,Chiesa 150 ton,0.25,InProgress
+184971,Chiesa 150 ton,0.25,InProgress
+185141,Flash_Cut 5,1.38,InProgress
+185239,Laser 4,3.86,InProgress
+185241,Laser 3,2.5,InProgress
+185242,Laser 4,0.38,InProgress
+185244,Laser 4,0.67,InProgress
+185245,Buigmachine,1,InProgress
+185553,Quad,20.28,InProgress
+185554,Quad,5.6,InProgress
+185555,Quad,3,InProgress
+185693,Giant,22.61,InProgress
+185827,Giant,2.06,InProgress
+186084,Laser 3,2.08,InProgress
+186085,Laser 3,8.31,InProgress
+186198,Quad,5.83,InProgress
+186206,Quad,5.56,InProgress
+186211,Quad,5.83,InProgress
+186309,Laser 3,0.81,InProgress
+186318,Giant,1.71,InProgress
+186319,Giant,1.46,InProgress
+186374,Snijmachine,5.17,InProgress
+186384,Quad,14.42,InProgress
+186385,Quad,5.56,InProgress
+186404,Laser 4,0.34,InProgress
+186408,Laser 4,0.22,InProgress
+186448,Assemblage Secrid,0,InProgress
+186451,Assemblage Secrid,0,InProgress
+186452,Assemblage Secrid,0,InProgress
+186453,Assemblage Secrid,0,InProgress
+186454,Assemblage Secrid,0,InProgress
+186670,Zünd Groot,3.83,InProgress
+186707,Zünd Groot,12.23,InProgress
+187384,Laser 3,6.61,InProgress
+184991,Chiesa,7.32,InProgress
+185621,Chiesa,5.72,InProgress
+186155,Degel 3,5.05,InProgress
+186174,Atom,27.27,InProgress
+186175,Giant,0,InProgress
+186389,Quad,10.25,InProgress
+186390,Quad,2.78,InProgress
+186429,Laser 3,3.17,InProgress
+186457,Laser 1,3.39,InProgress
+186532,Quad,40.12,InProgress
+186535,Stikken Secrid,49.38,InProgress
+186536,Quad,24.69,InProgress
+186537,Quad,24.69,InProgress
+186538,Quad,27.78,InProgress
+186543,Stikken Secrid,30.86,InProgress
+186544,Quad,58.64,InProgress
+186632,Giant,0.25,InProgress
+186769,Chiesa,2.99,InProgress
+186879,Laser 3,0.5,InProgress
+186885,Laser 3,0.5,InProgress
+184205,Chiesa,15.86,InProgress
+184206,Assemblage drankverpakkingen,290.12,InProgress
+185093,Giant,0.25,InProgress
+185205,Giant,2.65,InProgress
+185223,Laser 1,2.98,InProgress
+185627,Atom,3.25,InProgress
+186243,Chiesa 150 ton,46.15,InProgress
+186292,Giant,0.25,InProgress
+186377,Laser 1,0.65,InProgress
+186378,Laser 1,0.47,InProgress
+186379,Laser 1,0.33,InProgress
+186416,Laser 4,0.28,InProgress
+186417,Buigmachine,0.19,InProgress
+186492,Giant,2.75,InProgress
+186493,Giant,2.78,InProgress
+186494,Giant,0.56,InProgress
+186495,Giant,1.42,InProgress
+186591,Sysco,28.33,InProgress
+186609,Chiesa,4,InProgress
+186852,Laser 3,0.25,InProgress
+186088,Laser 4,0.61,InProgress
+186089,Laser 4,4.31,InProgress
+186090,Laser 4,6.08,InProgress
+186091,Laser 4,0.25,InProgress
+186092,Laser 4,5.69,InProgress
+186093,Laser 4,1.46,InProgress
+186094,Laser 4,0.51,InProgress
+186239,Zünd Groot,8.79,InProgress
+186358,Flash_Cut 1,2.83,InProgress
+186359,Giant,2.97,InProgress
+186929,Chiesa,11.35,InProgress
+187069,Quad,15.43,InProgress
+187070,Stikken Secrid,18.52,InProgress
+187071,Quad,24.69,InProgress
+173109,Laser 2,96.43,InProgress
+184415,Degel 2,9.22,InProgress
+185623,Atom,4.6,InProgress
+186497,Giant,0.68,InProgress
+186556,Giant,0.25,InProgress
+186657,Zünd Groot,0.73,InProgress
+186709,Chiesa,2.44,InProgress
+186733,Slitmachine,0.25,InProgress
+186745,Degel 1,5,InProgress
+186873,Laser 4,0.42,InProgress
+186874,Laser 4,0.25,InProgress
+186875,Laser 4,0.83,InProgress
+186876,Laser 3,4.17,InProgress
+186877,Laser 1,5,InProgress
+186878,Laser 1,2.5,InProgress
+186880,Laser 1,4.25,InProgress
+186881,Laser 3,0.39,InProgress
+186882,Laser 3,1.5,InProgress
+186883,Laser 3,0.75,InProgress
+186884,Laser 3,1.5,InProgress
+186886,Laser 1,1,InProgress
+186887,Laser 3,1,InProgress
+186888,Laser 3,1,InProgress
+186891,Laser 3,2.89,InProgress
+186893,Laser 1,0.67,InProgress
+186894,Laser 3,2.67,InProgress
+186896,Laser 1,2.67,InProgress
+186965,Zünd Groot,3,InProgress
+187015,Chiesa,3.99,InProgress
+182558,Hengsel,10.63,InProgress
+185031,Giant,0.25,InProgress
+185858,Quad,17.22,InProgress
+185859,Quad,3.18,InProgress
+185860,Quad,10.5,InProgress
+185907,Laser 4,2.4,InProgress
+185910,Freesmachine,0.44,InProgress
+185911,Buigmachine,0.58,InProgress
+185912,Assemblage 1,0.39,InProgress
+186142,Quad,21.08,InProgress
+186143,Quad,10.28,InProgress
+186186,Quad,5.09,InProgress
+186410,Laser 4,0.28,InProgress
+186411,Laser 4,0.03,InProgress
+186465,Snijmachine,3.36,InProgress
+186486,Laser 4,0.36,InProgress
+186496,Giant,18.56,InProgress
+186498,Giant,7.7,InProgress
+186551,Flash_Cut 2,23.51,InProgress
+186563,Giant,0.7,InProgress
+186613,Chiesa,1.33,InProgress
+186617,Chiesa,1.17,InProgress
+186620,Chiesa,0.33,InProgress
+186623,Chiesa,4.28,InProgress
+186706,Zünd Groot,6.33,InProgress
+186723,Giant,1.85,InProgress
+186724,Giant,0.9,InProgress
+186765,Assemblage Secrid,16.67,InProgress
+186766,Assemblage Secrid,8.33,InProgress
+186767,Assemblage Secrid,23.33,InProgress
+186778,Giant,0.98,InProgress
+186782,Giant,0.98,InProgress
+186783,Giant,0.98,InProgress
+186784,Giant,0.98,InProgress
+186799,Degel 1,7.46,InProgress
+186912,Giant,1.71,InProgress
+186913,Giant,1.46,InProgress
+186006,Degel 4,21.42,InProgress
+186008,Degel 4,21.53,InProgress
+186251,Laser 4,0.45,InProgress
+186252,Buigmachine,0.92,InProgress
+186546,Quad,16.72,InProgress
+186704,Slitmachine,5.43,InProgress
+186810,Slitmachine,5.1,InProgress
+181583,Slitmachine,24,InProgress
+181590,Chiesa 150 ton,9.95,InProgress
+181591,Chiesa 150 ton,9.45,InProgress
+185392,Zünd Groot,28,InProgress
+185743,Laser 4,0.44,InProgress
+185744,Laser 4,1.22,InProgress
+185745,Laser 4,0.88,InProgress
+185746,Laser 4,0.55,InProgress
+185747,Laser 4,2.26,InProgress
+185748,Laser 4,2.33,InProgress
+185751,Freesmachine,0.35,InProgress
+185752,Buigmachine,0.17,InProgress
+185753,Assemblage 1,0.5,InProgress
+186020,Giant,77.33,InProgress
+186248,Laser 4,0.29,InProgress
+186250,Laser 4,1.42,InProgress
+186346,Chiesa,4.02,InProgress
+186369,Quad,17.53,InProgress
+186469,Chiesa 150 ton,13.7,InProgress
+186672,Chiesa 150 ton,18.7,InProgress
+186673,Atom Groot,4.23,InProgress
+186680,Atom Groot,3.67,InProgress
+186689,Laser 4,0.42,InProgress
+186691,Freesmachine,1.69,InProgress
+186692,Assemblage 1,1.67,InProgress
+186693,Buigmachine,1.5,InProgress
+186695,Freesmachine,0.53,InProgress
+186697,Buigmachine,0.33,InProgress
+186698,Assemblage 1,0.72,InProgress
+186796,Giant,0,InProgress
+186808,Slitmachine,3.62,InProgress
+186845,Giant,6.92,InProgress
+186848,Laser 3,1.91,InProgress
+186982,Quad,37.03,InProgress
+186983,Stikken Secrid,37.03,InProgress
+186988,Stikken Secrid,27.78,InProgress
+186989,Quad,12.34,InProgress
+186990,Quad,46.29,InProgress
+186994,Quad,12.34,InProgress
+186996,Laser 1,0.26,InProgress
+186997,Laser 1,0.7,InProgress
+187369,Snijmachine,0.38,InProgress
+187401,Quad,15.43,InProgress
+187402,Stikken Secrid,6.17,InProgress
+187403,Quad,3.09,InProgress
+187404,Quad,9.26,InProgress
+187405,Stikken Secrid,21.6,InProgress
+187406,Quad,24.69,InProgress
+186108,Laser 3,14.41,InProgress
+186126,Atom,25.5,InProgress
+186127,,0,InProgress
+186183,Zünd Groot,0.25,InProgress
+186356,Chiesa,17.7,InProgress
+186364,Quad,33.31,InProgress
+186365,Quad,11.25,InProgress
+186574,Chiesa,0.25,InProgress
+186576,Chiesa,0,InProgress
+186577,Chiesa,0,InProgress
+186578,Chiesa,0,InProgress
+186579,Chiesa,0,InProgress
+186594,Atom Groot,0.25,InProgress
+186968,Chiesa,2.31,InProgress
+187127,Laser 4,6.36,InProgress
+187128,Laser 3,6.22,InProgress
+185523,Giant,0.25,InProgress
+185527,Giant,0,InProgress
+185528,Giant,0,InProgress
+185614,Flash_Cut 1,0.93,InProgress
+186016,Degel 3,2.42,InProgress
+186017,Degel 3,2.07,InProgress
+186018,Degel 3,1.04,InProgress
+186136,Snijmachine,4.42,InProgress
+186413,Degel 1,0.52,InProgress
+186822,Laser 1,0.25,InProgress
+186825,Laser 1,0.25,InProgress
+186966,Sysco,7,InProgress
+187088,Snijmachine,1.47,InProgress
+187229,Zünd Groot,3.78,InProgress
+184208,Chiesa,15.76,InProgress
+184209,Assemblage drankverpakkingen,0,InProgress
+185531,Giant,0.25,InProgress
+185532,Giant,0,InProgress
+185606,Giant,0,InProgress
+185607,Giant,0,InProgress
+185797,Degel 1,2.61,InProgress
+186132,Laser 4,0.1,InProgress
+186133,Buigmachine,0.47,InProgress
+186134,Laser 4,0.33,InProgress
+186216,Verzenden,0,InProgress
+186490,Buigmachine,0.05,InProgress
+186529,Snijmachine,4.35,InProgress
+186770,Flash_Cut 5,6.58,InProgress
+187027,Quad,11.44,InProgress
+187028,Quad,2.89,InProgress
+187049,Degel 1,0.25,InProgress
+187111,Giant,1.33,InProgress
+187123,Zünd Groot,22.35,InProgress
+187124,Atom Klein,0,InProgress
+187125,Atom Klein,0,InProgress
+187160,Assemblage Secrid,13.33,InProgress
+187161,Assemblage Secrid,10,InProgress
+187162,Assemblage Secrid,3.33,InProgress
+187163,Assemblage Secrid,11.11,InProgress
+187164,Assemblage Secrid,6.67,InProgress
+187165,Assemblage Secrid,6.67,InProgress
+187166,Assemblage Secrid,3.33,InProgress
+187167,Assemblage Secrid,6.67,InProgress
+187168,Assemblage Secrid,6.67,InProgress
+187169,Assemblage Secrid,1.47,InProgress
+187201,Laser 4,0.32,InProgress
+187258,Basic Wallets,0.03,InProgress
+187260,Quad,0.02,InProgress
+187359,Atom,30.2,InProgress
+187460,Laser 2,0.25,InProgress
+187521,Laser 4,0,InProgress
+187527,Laser 4,0,InProgress
+185350,Degel 3,1.38,InProgress
+186245,Laser 3,0.5,InProgress
+186756,Degel 1,0.25,InProgress
+186959,Giant,2.26,InProgress
+186960,Giant,1.36,InProgress
+186961,Giant,1.81,InProgress
+187278,Chiesa,0,InProgress
+187297,Laser 4,0.25,InProgress
+187409,Chiesa,83.54,InProgress
+183304,Sysco,0.5,InProgress
+183305,Sysco,0.5,InProgress
+184433,Chiesa 150 ton,2.31,InProgress
+185147,Giant,0.25,InProgress
+185217,Sysco,27.58,InProgress
+185304,Chiesa,0,InProgress
+185307,Atom,0.33,InProgress
+185310,Atom,0.33,InProgress
+185313,Giant,3.1,InProgress
+185317,Chiesa,3.62,InProgress
+185320,Chiesa,0.33,InProgress
+185323,Atom,0.25,InProgress
+185326,Atom,0.25,InProgress
+185329,Atom,0.25,InProgress
+185332,Chiesa,0.25,InProgress
+185337,Chiesa,0.25,InProgress
+185340,Chiesa,0.33,InProgress
+185632,Chiesa 150 ton,2.31,InProgress
+185633,Chiesa 150 ton,0.11,InProgress
+185634,Chiesa 150 ton,0.25,InProgress
+185703,Zünd Groot,0,InProgress
+186569,Brugstans,0.25,InProgress
+186570,Brugstans,3.51,InProgress
+186571,Brugstans,0,InProgress
+186572,Brugstans,0,InProgress
+186606,Giant,0.25,InProgress
+186684,Chiesa,0.5,InProgress
+186906,Chiesa,0.25,InProgress
+186955,Degel 2,0.25,InProgress
+187112,Laser 4,0.5,InProgress
+187142,Atom,1.38,InProgress
+187145,Degel 4,9.39,InProgress
+187146,Degel 4,8.02,InProgress
+187147,Degel 4,0.5,InProgress
+187148,Degel 4,4.38,InProgress
+187237,Giant,0.25,InProgress
+187238,Giant,0,InProgress
+187239,Giant,0,InProgress
+187240,Giant,0,InProgress
+187250,Chiesa 150 ton,0.25,InProgress
+187279,Quad,0,InProgress
+187281,Stikken Secrid,0,InProgress
+187282,Quad,0,InProgress
+187283,Quad,0,InProgress
+187284,Quad,0,InProgress
+187285,Quad,0,InProgress
+187286,Stikken Secrid,0,InProgress
+187287,Quad,0,InProgress
+187288,Quad,0,InProgress
+187289,Quad,0,InProgress
+187290,Stikken Secrid,12.34,InProgress
+187419,Laser 4,0,InProgress
+187428,Laser 1,0.25,InProgress
+187514,Zünd Groot,0,InProgress
+186109,Laser 3,0,InProgress
+186110,Laser 3,0,InProgress
+186111,Laser 3,0,InProgress
+186112,Laser 3,0,InProgress
+186177,Atom,0.5,InProgress
+186178,Giant,0,InProgress
+187117,Giant,0.25,InProgress
+187138,Chiesa,0.67,InProgress
+187382,Laser 3,7.17,InProgress
+186191,Quad,0,InProgress
+186192,Quad,0,InProgress
+186193,Quad,0,InProgress
+187059,Laser 4,0.29,InProgress
+187060,Laser 4,0.05,InProgress
+187061,Laser 4,0.25,InProgress
+187062,Laser 4,0,InProgress
+187063,Laser 4,0,InProgress
+187065,Laser 4,0,InProgress
+187066,Laser 4,1.1,InProgress
+187067,Laser 4,0,InProgress
+187543,Zünd Groot,0.25,InProgress
+176422,Verzenden,62.81,InProgress
+182914,Zwenkarm stans,5.03,InProgress
+186423,Verzenden,0,InProgress
+186511,Laser 4,0.61,InProgress
+186512,Laser 4,0.12,InProgress
+186513,Laser 4,0.73,InProgress
+186514,Laser 4,0.24,InProgress
+186515,Laser 4,2.81,InProgress
+186516,Laser 4,0.02,InProgress
+186651,Quad,0,InProgress
+186652,Quad,0,InProgress
+186659,Quad,0,InProgress
+186660,Quad,0,InProgress
+186664,Quad,0,InProgress
+186665,Quad,0,InProgress
+186666,Quad,0,InProgress
+186714,Giant,24.03,InProgress
+186715,Flash_Cut 1,7.5,InProgress
+186842,Laser 4,0.25,InProgress
+186843,Laser 4,0,InProgress
+186914,Quad,0,InProgress
+186915,Quad,0,InProgress
+186916,Quad,0,InProgress
+187006,Chiesa,0.25,InProgress
+187009,Chiesa,0.25,InProgress
+187010,Chiesa,0.25,InProgress
+187132,Giant,0.25,InProgress
+187208,Giant,0.25,InProgress
+187210,Giant,0,InProgress
+187247,Degel 1,0.25,InProgress
+187253,Flash_Cut 2,21.14,InProgress
+187270,Degel 1,0,InProgress
+187292,Laserstansen,0,InProgress
+187354,Laser 4,0,InProgress
+187357,,0.25,InProgress
+187358,,0.03,InProgress
+187446,Snijmachine,0.17,InProgress
+187447,Snijmachine,0,InProgress
+187455,Snijmachine,0.25,InProgress
+187536,Chiesa,0.25,InProgress
+185702,Zünd Groot,0,InProgress
+185937,Zünd Groot,262.5,InProgress
+187444,Zünd Groot,0,InProgress
+185279,Giant,0.64,InProgress
+185280,Giant,0.51,InProgress
+185281,Giant,0.09,InProgress
+185799,Flash_Cut 5,0.25,InProgress
+186405,Laser 1,0.33,InProgress
+186471,Chiesa 150 ton,0,InProgress
+186472,Chiesa 150 ton,0,InProgress
+186635,Chiesa,3.67,InProgress
+186737,Degel 1,0.5,InProgress
+186748,Degel 3,4.88,InProgress
+186978,Chiesa,0.25,InProgress
+187097,Degel 1,0.25,InProgress
+187218,Giant,0.25,InProgress
+187219,Giant,0.25,InProgress
+187261,Chiesa 150 ton,0.25,InProgress
+187374,Atom Groot,0.25,InProgress
+185585,Laser 2,1.84,InProgress
+186789,Snijmachine,0.08,InProgress
+186792,Snijmachine,0.25,InProgress
+187203,Laser 2,0,InProgress
+181073,Laser 1,0.25,InProgress
+187263,Laser 4,0.25,InProgress
+187264,Laser 4,0,InProgress
+187265,Laser 4,0,InProgress
+187266,Laser 4,0,InProgress
+184844,Quad,0,InProgress
+185770,Laser 1,2.42,InProgress
+186114,Atom,12.4,InProgress
+186115,,0,InProgress
+186203,Hengsel,0,InProgress
+186217,Verzenden,0,InProgress
+186360,Quad,0.33,InProgress
+186587,Atom Groot,0.25,InProgress
+187022,Quad,0,InProgress
+187073,Quad,0,InProgress
+187074,Quad,0,InProgress
+187091,Quad,0,InProgress
+187213,Chiesa,0.25,InProgress
+187436,Chiesa,0.5,InProgress
+187459,Quad,0,InProgress
+187477,Quad,0,InProgress
+187478,Quad,0,InProgress
+185704,Zünd Groot,0,InProgress
+186337,Laser 2,0.25,InProgress
+187296,Atom,0.5,InProgress
+187302,Atom,0.5,InProgress
+187360,Atom,0,InProgress
+185784,Laser 1,0.32,InProgress
+186600,Giant,17.42,InProgress
+186675,Giant,58.06,InProgress
+186676,Giant,9.24,InProgress
+186677,Giant,4.75,InProgress
+186678,Giant,5.81,InProgress
+187044,Laser 4,0.25,InProgress
+187306,Sysco,0.5,InProgress
+187314,Degel 1,0,InProgress
+187361,Chiesa,0,InProgress
+187386,Guidoline,0.33,InProgress
+187450,Laser 3,0.25,InProgress
+187451,Laser 3,0,InProgress
+185957,Giant,0.25,InProgress
+186641,Chiesa,6.37,InProgress
+186636,Assemblage drankverpakkingen,0,InProgress
+187130,Laser 4,0.25,InProgress
+187198,Degel 1,6.08,InProgress
+185884,Quad,0,InProgress
+185885,Quad,0,InProgress
+187294,Chiesa,0,InProgress
+187295,Chiesa,0,InProgress
+187469,Quad,0,InProgress
+187473,Flash_Cut 2,0,InProgress
+187482,Flash_Cut 2,0,InProgress
+187486,Quad,0,InProgress
+187487,Quad,0,InProgress
+187488,Quad,0,InProgress
+187489,Quad,0,InProgress
+187538,Atom,0.25,InProgress
+187540,Chiesa,0.25,InProgress
+185705,Zünd Groot,0,InProgress
+182869,Laser 2,0.65,InProgress
+184936,Chiesa 150 ton,0.33,InProgress
+185017,Chiesa 150 ton,0,InProgress
+185818,Flash_Cut 3,0.25,InProgress
+185819,Giant,0,InProgress
+186011,Degel 4,0.33,InProgress
+186012,Degel 4,42.58,InProgress
+186013,Degel 4,23.98,InProgress
+186014,Degel 4,17.22,InProgress
+186952,Chiesa 150 ton,0.5,InProgress
+187348,Giant,0.25,InProgress
+173110,Laser 2,28.04,InProgress
+186642,Assemblage drankverpakkingen,0,InProgress
+186645,Chiesa,0,InProgress
+185685,Quad,11.11,InProgress
+185686,Quad,11.11,InProgress
+185875,Quad,0,InProgress
+186267,Freesmachine,1.34,InProgress
+186268,Buigmachine,1.9,InProgress
+186269,Assemblage 1,0.08,InProgress
+186270,Freesmachine,0,InProgress
+186271,Buigmachine,0,InProgress
+186272,Assemblage 1,0,InProgress
+187513,Laser 2,0,InProgress
+184938,Chiesa 150 ton,0,InProgress
+186426,Giant,0.25,InProgress
+187154,Laser 1,2.17,InProgress
+187155,Laser 1,0.22,InProgress
+187156,Laser 1,0.22,InProgress
+187186,Laser 4,0.01,InProgress
+186204,Hengsel,0,InProgress
+186592,Atom Groot,0.25,InProgress
+187458,Laser 2,0,InProgress
+186646,Assemblage drankverpakkingen,0,InProgress
+186648,Chiesa,0,InProgress
+185136,Laser 2,0,InProgress
+186027,Giant,0.25,InProgress
+186276,Giant,0.25,InProgress
+186286,Laser 1,0.25,InProgress
+187512,Zünd Groot,0,InProgress
+176419,Verzenden,0,InProgress
+187005,Chiesa,0,InProgress
+187226,Degel 4,0,InProgress
+186649,Assemblage drankverpakkingen,0,InProgress
+185019,Giant,0.25,InProgress
+186742,Laser 1,0.25,InProgress
+187207,Chiesa 150 ton,0.25,InProgress
+186901,Sysco,0.5,InProgress
+187433,Sysco,0.25,InProgress
+185208,Giant,1.26,InProgress
+187534,Verzenden,0.25,InProgress
+175788,Degel 3,7.58,InProgress
+175790,Degel 3,7.58,InProgress
+175791,Degel 3,7.58,InProgress
+175792,Degel 3,7.58,InProgress
+175793,Degel 3,7.21,InProgress
+172853,Verzenden,0,InProgress
+172860,Hengsel,54.67,InProgress
+172861,Hengsel,56.06,InProgress
+172862,Hengsel,48.28,InProgress
+172866,Verzenden,0,InProgress
+172873,Verzenden,0,InProgress
+172874,Verzenden,0,InProgress
+181776,Laser 2,0.25,InProgress
+184213,Chiesa,0,InProgress
+184214,Assemblage drankverpakkingen,0,InProgress
+184216,Chiesa,6.37,InProgress
+184217,Assemblage drankverpakkingen,0,InProgress
+186205,Hengsel,0,InProgress
+186218,Verzenden,0,InProgress
+187332,Laser 1,0.25,InProgress
+187334,Laser 1,0.25,InProgress
+187336,Laser 1,0.25,InProgress
+187338,Laser 1,0.25,InProgress
+187340,Laser 1,0.25,InProgress
+187342,Laser 1,0.25,InProgress
+182882,Zwenkarm stans,0,InProgress
+182883,Zwenkarm stans,0,InProgress
+182884,Zwenkarm stans,0,InProgress
+186948,Chiesa 150 ton,0.5,InProgress
+186950,Chiesa 150 ton,0.5,InProgress
+185596,Laser 4,1.18,InProgress
+182877,Chiesa,2.35,InProgress
+182878,Chiesa,7.5,InProgress
+182879,Chiesa,0,InProgress
+176420,Verzenden,0,InProgress
+185210,Giant,2.85,InProgress
+186944,Chiesa 150 ton,0.5,InProgress
+186945,Chiesa 150 ton,0,InProgress
+186946,Chiesa 150 ton,0,InProgress
+176421,Verzenden,0,InProgress
+176418,Verzenden,0,InProgress
+187317,Laser 1,0.25,InProgress
+187345,Laser 1,0.25,InProgress
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
