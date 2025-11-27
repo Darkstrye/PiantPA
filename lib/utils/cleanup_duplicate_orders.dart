@@ -1,11 +1,10 @@
-import '../repositories/excel_repository.dart';
+import '../repositories/repository_interface.dart';
 import '../models/order.dart';
 
 /// Utility to clean up duplicate orders (same orderNumber)
 /// Keeps the most recent order and deletes older duplicates
 class CleanupDuplicateOrders {
-  static Future<void> cleanup() async {
-    final repository = ExcelRepository();
+  static Future<void> cleanup({required RepositoryInterface repository}) async {
     
     try {
       print('Cleaning up duplicate orders...');

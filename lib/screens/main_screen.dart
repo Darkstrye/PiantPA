@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/order.dart';
 import '../models/hour_registration_order.dart';
 import '../repositories/repository_interface.dart';
@@ -24,7 +25,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final RepositoryInterface _repository = ExcelRepository();
+  late final RepositoryInterface _repository;
   late final TimerService _timerService;
   static const bool _verboseLogs = false;
   void _log(String message) {
@@ -47,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    _repository = Provider.of<RepositoryInterface>(context, listen: false);
     _timerService = TimerService(_repository);
     _searchController.addListener(() {
       final next = _searchController.text.trim();
@@ -339,17 +341,29 @@ class _MainScreenState extends State<MainScreen> {
       setState(() {
         _activeOrderLinks = [];
       });
-      for (final order in _orders) {
-        if (currentActiveOrderIds.contains(order.orderId)) {
-          final updatedOrder = order.copyWith(status: OrderStatus.completed);
-          await _repository.updateOrder(updatedOrder);
-          if (_selectedOrder != null &&
-              _selectedOrder!.orderId == updatedOrder.orderId) {
-            setState(() {
-              _selectedOrder = updatedOrder;
-            });
+      try {
+        for (final order in _orders) {
+          if (currentActiveOrderIds.contains(order.orderId)) {
+            final updatedOrder = order.copyWith(status: OrderStatus.completed);
+            await _repository.updateOrder(updatedOrder);
+            if (_selectedOrder != null &&
+                _selectedOrder!.orderId == updatedOrder.orderId) {
+              setState(() {
+                _selectedOrder = updatedOrder;
+              });
+            }
           }
         }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Could not save order status. Close Excel files in data/ and retry. Details: $e'),
+              backgroundColor: Colors.red.shade700,
+            ),
+          );
+        }
+        return;
       }
       
       await _loadData();
@@ -358,11 +372,45 @@ class _MainScreenState extends State<MainScreen> {
       if (_selectedOrder != null) {
         await _loadDurationsForOrder(_selectedOrder!.orderId);
       }
-      
+      // Verify persisted status by reloading from disk
+      if (_repository is ExcelRepository) {
+        (_repository as ExcelRepository).clearCache();
+      }
+      bool allCompleted = true;
+      for (final id in currentActiveOrderIds) {
+        final refreshed = await _repository.getOrderById(id);
+        if (refreshed?.status != OrderStatus.completed) {
+          allCompleted = false;
+          break;
+        }
+      }
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Order completed')),
-        );
+        if (!allCompleted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Saved locally, but files seem locked. Close Excel files in data/ and retry.'),
+              backgroundColor: Colors.orange.shade700,
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Order(s) completed'),
+              action: SnackBarAction(
+                label: 'View Completed',
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CompletedOrdersScreen(
+                        authService: widget.authService,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        }
       }
     } else {
       if (mounted) {
@@ -395,14 +443,26 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     if (orderToUpdate != null) {
-      final updatedOrder = orderToUpdate.copyWith(
-        status: OrderStatus.completed,
-      );
-      await _repository.updateOrder(updatedOrder);
-      if (_selectedOrder != null && _selectedOrder!.orderId == orderId) {
-        setState(() {
-          _selectedOrder = updatedOrder;
-        });
+      try {
+        final updatedOrder = orderToUpdate.copyWith(
+          status: OrderStatus.completed,
+        );
+        await _repository.updateOrder(updatedOrder);
+        if (_selectedOrder != null && _selectedOrder!.orderId == orderId) {
+          setState(() {
+            _selectedOrder = updatedOrder;
+          });
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Could not save order status. Close Excel files in data/ and retry. Details: $e'),
+              backgroundColor: Colors.red.shade700,
+            ),
+          );
+        }
+        return;
       }
     }
 
@@ -419,10 +479,40 @@ class _MainScreenState extends State<MainScreen> {
       _downtimeSubscription = null;
     }
 
+    // Verify persisted status by reloading from disk
+    if (_repository is ExcelRepository) {
+      (_repository as ExcelRepository).clearCache();
+    }
+    final refreshed = await _repository.getOrderById(orderId);
+    final completed = refreshed?.status == OrderStatus.completed;
+
     if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Order afgerond.')),
-      );
+      if (!completed) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Saved locally, but files seem locked. Close Excel files in data/ and retry.'),
+            backgroundColor: Colors.orange.shade700,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Order afgerond.'),
+            action: SnackBarAction(
+              label: 'View Completed',
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CompletedOrdersScreen(
+                      authService: widget.authService,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      }
     }
   }
 
@@ -506,7 +596,7 @@ class _MainScreenState extends State<MainScreen> {
     final hasActiveTimer = activeReg != null && activeReg.isActive;
     final isTimerForSelectedOrder = _selectedOrder != null &&
         activeOrderIds.contains(_selectedOrder!.orderId);
-    final selectionLocked = hasActiveTimer;
+    final selectionLocked = false;
     final ordersById = {
       for (final order in _orders) order.orderId: order,
     };
@@ -658,7 +748,7 @@ class _MainScreenState extends State<MainScreen> {
 
                                             if (confirmed == true) {
                                               try {
-                                                await ResetCompletedOrders.resetAll();
+                                                await ResetCompletedOrders.resetAll(repository: _repository);
                                                 if (mounted) {
                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                     const SnackBar(

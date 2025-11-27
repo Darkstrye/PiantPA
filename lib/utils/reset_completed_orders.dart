@@ -1,12 +1,11 @@
 import 'dart:io';
-import '../repositories/excel_repository.dart';
+import '../repositories/repository_interface.dart';
 import '../models/order.dart';
 import 'cleanup_duplicate_orders.dart';
 
 /// Utility to reset all completed orders and their time registrations
 class ResetCompletedOrders {
-  static Future<void> resetAll() async {
-    final repository = ExcelRepository();
+  static Future<void> resetAll({required RepositoryInterface repository}) async {
     
     try {
       print('Resetting all completed orders and their time registrations...');
@@ -15,7 +14,7 @@ class ResetCompletedOrders {
       print('');
       print('Step 1: Cleaning up duplicate orders...');
       try {
-        await CleanupDuplicateOrders.cleanup();
+        await CleanupDuplicateOrders.cleanup(repository: repository);
       } catch (e) {
         print('Warning: Error during cleanup: $e');
         print('Continuing with reset...');

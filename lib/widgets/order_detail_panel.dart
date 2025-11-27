@@ -228,27 +228,20 @@ class OrderDetailPanel extends StatelessWidget {
               ],
               if (hasActiveTimer && !isTimerForSelectedOrder) ...[
                 const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.orange.withOpacity(0.3)),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.info_outline, color: Colors.orange.shade700, size: 20),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          'Timer is running for another order',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.orange.shade700,
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                      onPressed: onStartTimer,
+                      icon: const Icon(Icons.playlist_add, size: 20),
+                      label: const Text('Add to Active Session'),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue.shade700,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
                       ),
-                    ],
                   ),
                 ),
               ],

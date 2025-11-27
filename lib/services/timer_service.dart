@@ -129,21 +129,9 @@ class TimerService {
         final links = await measureAsync(
           'getHourRegistrationOrdersByRegistrationId',
           () => repository.getHourRegistrationOrdersByRegistrationId(
-              nonNullRegistration.hourRegistrationId),
+                nonNullRegistration.hourRegistrationId,
+              ),
         );
-        final sessionActiveIds = links
-            .where((link) => link.isActive)
-            .map((link) => link.orderId)
-            .toSet();
-
-        if (sessionActiveIds.isEmpty) {
-          return false;
-        }
-
-        final requestedIds = normalizedOrderIds.toSet();
-        if (requestedIds.isNotEmpty && requestedIds != sessionActiveIds) {
-          return false;
-        }
 
         _activeRegistration = nonNullRegistration;
         _activeOrderLinks = List.of(links);
@@ -151,7 +139,60 @@ class TimerService {
             nonNullRegistration.elapsedTime ??
             0.0;
         _accumulatedDowntime = nonNullRegistration.downtimeElapsedTime ?? 0.0;
-        _log('[TimerService] resume existing registration ${nonNullRegistration.hourRegistrationId} -> pausedElapsed=${nonNullRegistration.pausedElapsedTime}, elapsed=${nonNullRegistration.elapsedTime}, accumulatedElapsed=$_accumulatedElapsedTime, accumulatedDowntime=$_accumulatedDowntime');
+
+        final sessionActiveIds = _activeOrderLinks
+            .where((link) => link.isActive)
+            .map((link) => link.orderId)
+            .toSet();
+
+        final requestedIds = normalizedOrderIds.toSet();
+        final newOrderIds = requestedIds.difference(sessionActiveIds);
+
+        if (newOrderIds.isNotEmpty) {
+          _log(
+              '[TimerService] startTimerForOrders -> adding new orders to existing session ${nonNullRegistration.hourRegistrationId}: $newOrderIds');
+
+          final conflictedOrder = await measureAsync(
+            'findConflictingOrder',
+            () => _findConflictingOrder(newOrderIds.toList(), userId),
+          );
+          if (conflictedOrder != null) {
+            _log(
+                '[TimerService] startTimerForOrders -> conflict detected for $conflictedOrder');
+            return false;
+          }
+
+          final now = DateTime.now();
+          final baseElapsed = _accumulatedElapsedTime;
+          final baseDowntime = _accumulatedDowntime;
+          final List<HourRegistrationOrder> updatedLinks =
+              List<HourRegistrationOrder>.from(_activeOrderLinks);
+
+          for (final orderId in newOrderIds) {
+            final newLink = HourRegistrationOrder(
+              hourRegistrationOrderId: '',
+              hourRegistrationId: nonNullRegistration.hourRegistrationId,
+              orderId: orderId,
+              isActive: true,
+              elapsedTime: 0.0,
+              elapsedOffset: baseElapsed,
+              downtimeElapsedTime: 0.0,
+              downtimeOffset: baseDowntime,
+              createdOn: now,
+              modifiedOn: now,
+            );
+            final savedLink = await measureAsync(
+              'createHourRegistrationOrder',
+              () => repository.createHourRegistrationOrder(newLink),
+            );
+            updatedLinks.add(savedLink);
+          }
+
+          _activeOrderLinks = updatedLinks;
+        }
+
+        _log(
+            '[TimerService] resume existing registration ${nonNullRegistration.hourRegistrationId} -> pausedElapsed=${nonNullRegistration.pausedElapsedTime}, elapsed=${nonNullRegistration.elapsedTime}, accumulatedElapsed=$_accumulatedElapsedTime, accumulatedDowntime=$_accumulatedDowntime');
       }
 
       await _resumeActiveRegistration(now);
@@ -839,6 +880,42 @@ class TimerService {
   void _stopDowntimeTimer() {
     _downtimeTimer?.cancel();
     _downtimeTimer = null;
+  }
+
+  ({Duration elapsed, Duration downtime}) getOrderTimingSnapshot(
+      HourRegistrationOrder link) {
+    final elapsedHours = _calculateOrderElapsedHours(link);
+    final downtimeHours = _calculateOrderDowntimeHours(link);
+    return (
+      elapsed: Duration(seconds: (elapsedHours * 3600).toInt()),
+      downtime: Duration(seconds: (downtimeHours * 3600).toInt()),
+    );
+  }
+
+  double _calculateOrderElapsedHours(HourRegistrationOrder link) {
+    if (_activeRegistration != null &&
+        link.isActive &&
+        link.hourRegistrationId == _activeRegistration!.hourRegistrationId) {
+      final globalElapsed = _currentElapsedHours();
+      final base = link.elapsedTime ?? 0.0;
+      final offset = link.elapsedOffset ?? globalElapsed;
+      final increment = globalElapsed - offset;
+      return base + (increment > 0 ? increment : 0.0);
+    }
+    return link.elapsedTime ?? 0.0;
+  }
+
+  double _calculateOrderDowntimeHours(HourRegistrationOrder link) {
+    if (_activeRegistration != null &&
+        link.isActive &&
+        link.hourRegistrationId == _activeRegistration!.hourRegistrationId) {
+      final globalDowntime = _currentDowntimeHours();
+      final base = link.downtimeElapsedTime ?? 0.0;
+      final offset = link.downtimeOffset ?? globalDowntime;
+      final increment = globalDowntime - offset;
+      return base + (increment > 0 ? increment : 0.0);
+    }
+    return link.downtimeElapsedTime ?? 0.0;
   }
 }
 

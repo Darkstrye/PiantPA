@@ -170,6 +170,22 @@ class ExcelRepository implements RepositoryInterface {
     _hourRegistrationOrdersDirty = false;
   }
 
+  /// Clear only the orders cache (use after order status changes)
+  void clearOrdersCache() {
+    print('[ExcelRepository] Clearing orders cache only');
+    _ordersCache = null;
+    _ordersDirty = false;
+  }
+
+  /// Clear only the hour registrations cache
+  void clearRegistrationsCache() {
+    print('[ExcelRepository] Clearing registrations cache only');
+    _hourRegistrationsCache = null;
+    _hourRegistrationOrdersCache = null;
+    _hourRegistrationsDirty = false;
+    _hourRegistrationOrdersDirty = false;
+  }
+
   // LoginDetails operations
   @override
   Future<List<LoginDetails>> getAllLoginDetails() async {
@@ -263,7 +279,12 @@ class ExcelRepository implements RepositoryInterface {
 
     final data = loginDetails.map((item) => item.toJson()).toList();
     ExcelService.mapListToExcel(excel, _sheetName, data, headers);
-    await ExcelService.saveExcelFile(excel, filePath);
+    try {
+      print('[ExcelRepository] Saving login details to $filePath');
+      await ExcelService.saveExcelFile(excel, filePath);
+    } on FileSystemException catch (e) {
+      _rethrowLockedFile('login details Excel', filePath, e);
+    }
   }
 
   // Order operations
@@ -641,7 +662,12 @@ class ExcelRepository implements RepositoryInterface {
           _escapeCsv(_statusToCsv(o.status)),
         ].join(','));
       }
-      await File(path).writeAsString(lines.join('\r\n'));
+      try {
+        print('[ExcelRepository] Creating CSV and writing statuses to $path');
+        await ExcelService.writeStringAtomic(path, lines.join('\r\n'));
+      } on FileSystemException catch (e) {
+        _rethrowLockedFile('orders CSV', path, e);
+      }
       return;
     }
 
@@ -688,7 +714,12 @@ class ExcelRepository implements RepositoryInterface {
       }
       out.writeln(row.map(_escapeCsv).join(','));
     }
-    await File(path).writeAsString(out.toString());
+    try {
+      print('[ExcelRepository] Writing updated statuses to $path');
+      await ExcelService.writeStringAtomic(path, out.toString());
+    } on FileSystemException catch (e) {
+      _rethrowLockedFile('orders CSV', path, e);
+    }
   }
 
   // HourRegistration operations
@@ -879,7 +910,12 @@ class ExcelRepository implements RepositoryInterface {
 
     final data = registrations.map((item) => item.toJson()).toList();
     ExcelService.mapListToExcel(excel, _sheetName, data, headers);
-    await ExcelService.saveExcelFile(excel, filePath);
+    try {
+      print('[ExcelRepository] Saving hour registrations to $filePath');
+      await ExcelService.saveExcelFile(excel, filePath);
+    } on FileSystemException catch (e) {
+      _rethrowLockedFile('hour registration Excel', filePath, e);
+    }
   }
 
   // HourRegistrationOrder operations
@@ -1044,7 +1080,18 @@ class ExcelRepository implements RepositoryInterface {
 
     final data = registrations.map((item) => item.toJson()).toList();
     ExcelService.mapListToExcel(excel, _sheetName, data, headers);
-    await ExcelService.saveExcelFile(excel, filePath);
+    try {
+      print('[ExcelRepository] Saving hour registration orders to $filePath');
+      await ExcelService.saveExcelFile(excel, filePath);
+    } on FileSystemException catch (e) {
+      _rethrowLockedFile('hour registration order Excel', filePath, e);
+    }
+  }
+
+  Never _rethrowLockedFile(String kind, String path, FileSystemException e) {
+    final msg =
+        'Cannot write $kind at "$path". It may be open in another program. Close files in data/ and retry.\n$e';
+    throw Exception(msg);
   }
 
   Future<List<HourRegistrationOrder>> _buildLegacyRegistrationOrders() async {

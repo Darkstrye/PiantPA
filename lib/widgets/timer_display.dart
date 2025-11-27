@@ -29,7 +29,7 @@ class TimerDisplay extends StatelessWidget {
         accentColor != null ? accentColor!.withOpacity(0.3) : Colors.blue.shade200;
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
@@ -45,11 +45,11 @@ class TimerDisplay extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           Text(
             _formatDuration(duration),
             style: TextStyle(
-              fontSize: 36,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
               color: titleColor,
               fontFeatures: [const FontFeature.tabularFigures()],

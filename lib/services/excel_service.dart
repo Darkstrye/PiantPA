@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:excel/excel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
@@ -39,11 +40,48 @@ class ExcelService {
   }
 
   static Future<void> saveExcelFile(Excel excel, String filePath) async {
-    final file = File(filePath);
     final bytes = excel.encode();
     if (bytes != null) {
-      await file.writeAsBytes(bytes);
+      await writeFileAtomic(filePath, bytes);
     }
+  }
+
+  /// Atomically write bytes to a file with basic retry/backoff.
+  static Future<void> writeFileAtomic(
+    String filePath,
+    List<int> bytes, {
+    int retries = 3,
+    Duration backoff = const Duration(milliseconds: 500),
+  }) async {
+    final dir = File(filePath).parent;
+    if (!await dir.exists()) {
+      await dir.create(recursive: true);
+    }
+    final tmpPath = '$filePath.tmp';
+    for (int attempt = 0; attempt < retries; attempt++) {
+      try {
+        await File(tmpPath).writeAsBytes(bytes, flush: true);
+        // On Windows, rename will fail if target is locked/open
+        if (await File(filePath).exists()) {
+          await File(filePath).delete();
+        }
+        await File(tmpPath).rename(filePath);
+        return;
+      } on FileSystemException catch (e) {
+        if (attempt == retries - 1) rethrow;
+        await Future.delayed(backoff);
+      }
+    }
+  }
+
+  static Future<void> writeStringAtomic(
+    String filePath,
+    String content, {
+    int retries = 3,
+    Duration backoff = const Duration(milliseconds: 500),
+    Encoding encoding = utf8,
+  }) async {
+    await writeFileAtomic(filePath, encoding.encode(content), retries: retries, backoff: backoff);
   }
 
   static Excel createExcelWithHeaders(List<String> headers, String sheetName) {

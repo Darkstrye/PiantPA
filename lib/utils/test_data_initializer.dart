@@ -1,4 +1,4 @@
-import '../repositories/excel_repository.dart';
+import '../repositories/repository_interface.dart';
 import '../models/login_details.dart';
 import '../models/order.dart';
 import 'package:uuid/uuid.dart';
@@ -8,8 +8,7 @@ import 'package:uuid/uuid.dart';
 class TestDataInitializer {
   static const _uuid = Uuid();
 
-  static Future<void> initializeTestData() async {
-    final repository = ExcelRepository();
+  static Future<void> initializeTestData(RepositoryInterface repository) async {
 
     // Check if data already exists
     final existingUsers = await repository.getAllLoginDetails();

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/order.dart';
 import '../repositories/repository_interface.dart';
 import '../repositories/excel_repository.dart';
 import '../services/auth_service.dart';
 import '../services/timer_service.dart';
-import '../widgets/order_list_item.dart';
-import '../widgets/order_detail_panel.dart';
 import '../widgets/timer_display.dart';
 import '../utils/reset_completed_orders.dart';
 
@@ -22,9 +21,11 @@ class CompletedOrdersScreen extends StatefulWidget {
 }
 
 class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
-  final RepositoryInterface _repository = ExcelRepository();
-  late final TimerService _timerService;
-  
+  RepositoryInterface get _repository =>
+      Provider.of<RepositoryInterface>(context, listen: false);
+  TimerService get _timerService =>
+      Provider.of<TimerService>(context, listen: false);
+
   List<Order> _orders = [];
   Order? _selectedOrder;
   bool _isLoading = true;
@@ -36,8 +37,9 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
   @override
   void initState() {
     super.initState();
-    _timerService = TimerService(_repository);
-    _loadData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadData();
+    });
   }
 
   Future<void> _loadData() async {
@@ -134,16 +136,20 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
     return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
-  void _selectOrder(Order order) async {
+  void _selectOrder(Order order) {
+    final cachedElapsed = _orderElapsedTotals[order.orderId];
+    final cachedDowntime = _orderDowntimeTotals[order.orderId];
+
     setState(() {
       _selectedOrder = order;
-      // Use pre-loaded totals as initial values if available
-      _elapsedTime = _orderElapsedTotals[order.orderId];
-      _downtime = _orderDowntimeTotals[order.orderId];
+      _elapsedTime = cachedElapsed;
+      _downtime = cachedDowntime;
     });
-    
-    // Load time metrics for this completed order (will update if different)
-    await _loadDurationsForOrder(order.orderId);
+
+    // Only load if not already cached (avoids redundant async work)
+    if (cachedElapsed == null) {
+      _loadDurationsForOrder(order.orderId);
+    }
   }
 
   Future<void> _loadDurationsForOrder(String orderId) async {
@@ -178,7 +184,6 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
   }
 
   void _handleLogout() {
-    _timerService.dispose();
     widget.authService.logout();
     Navigator.of(context).pushReplacementNamed('/login');
   }
@@ -209,7 +214,6 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
 
   @override
   void dispose() {
-    _timerService.dispose();
     super.dispose();
   }
 
@@ -275,7 +279,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
 
                 if (confirmed == true) {
                   try {
-                    await ResetCompletedOrders.resetAll();
+                    await ResetCompletedOrders.resetAll(repository: _repository);
                     if (mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

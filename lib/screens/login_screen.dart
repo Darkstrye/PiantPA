@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import '../repositories/excel_repository.dart';
+import '../repositories/repository_interface.dart';
 import '../utils/test_data_initializer.dart';
-import 'main_screen.dart';
+import '../services/excel_service.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,14 +28,19 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    final repository = ExcelRepository();
-    _authService = AuthService(repository);
-    _initializeTestData();
+    // Repository is provided at app root
+    // Delay to ensure context is available
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final repository = Provider.of<RepositoryInterface>(context, listen: false);
+      _authService = AuthService(repository);
+      _initialize(repository);
+    });
   }
 
-  Future<void> _initializeTestData() async {
+  Future<void> _initialize(RepositoryInterface repository) async {
     try {
-      await TestDataInitializer.initializeTestData();
+      await TestDataInitializer.initializeTestData(repository);
+      await _checkDataFolderWritable();
     } catch (e) {
       // Silently handle errors - data might already exist
       print('Test data initialization: $e');
@@ -42,6 +50,28 @@ class _LoginScreenState extends State<LoginScreen> {
           _isInitializing = false;
         });
       }
+    }
+  }
+
+  Future<void> _checkDataFolderWritable() async {
+    try {
+      final dir = await ExcelService.getDocumentsDirectory();
+      final testPath = '$dir/.write_test.tmp';
+      await ExcelService.writeStringAtomic(testPath, 'ok', retries: 1);
+      final f = File(testPath);
+      if (await f.exists()) {
+        await f.delete();
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Data folder not writable (files may be open). Close Excel files in data/ and retry. Details: $e',
+          ),
+          backgroundColor: Colors.orange.shade700,
+        ),
+      );
     }
   }
 
@@ -67,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (success && mounted) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => MainScreen(authService: _authService),
+          builder: (context) => HomeScreen(authService: _authService),
         ),
       );
     } else {
