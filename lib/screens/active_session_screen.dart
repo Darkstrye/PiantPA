@@ -7,6 +7,7 @@ import '../repositories/repository_interface.dart';
 import '../repositories/excel_repository.dart';
 import '../services/auth_service.dart';
 import '../services/timer_service.dart';
+import '../widgets/loading_indicator.dart';
 import '../widgets/timer_display.dart';
 import 'completed_orders_screen.dart';
 import 'order_selection_screen.dart';
@@ -32,6 +33,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
   Map<String, Order> _ordersById = {};
   Duration? _sessionElapsed;
   Duration? _sessionDowntime;
+  Duration _debugTimeOffset = Duration.zero; // Debug offset for testing
   bool _isLoading = true;
   bool _isProcessing = false;
 
@@ -50,9 +52,12 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
   }
 
   Future<void> _initialize() async {
-    final userId = widget.authService.getCurrentUserId();
-    if (userId != null) {
-      await _timerService.loadActiveTimer(userId);
+    // Only load from repository if TimerService doesn't have active data
+    if (_timerService.activeRegistration == null) {
+      final userId = widget.authService.getCurrentUserId();
+      if (userId != null) {
+        await _timerService.loadActiveTimer(userId);
+      }
     }
     await _refreshActiveOrders();
     _primeSessionDurations();
@@ -80,7 +85,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
     _elapsedSubscription = _timerService.elapsedTimeStream.listen((duration) {
       if (!mounted) return;
       setState(() {
-        _sessionElapsed = duration;
+        _sessionElapsed = duration + _debugTimeOffset; // Add debug offset
         _activeLinks = _timerService.activeOrderLinks
             .where((link) => link.isActive)
             .toList();
@@ -100,15 +105,10 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
     final links = _timerService.activeOrderLinks
         .where((link) => link.isActive)
         .toList();
-    final ids = links.map((link) => link.orderId).toSet();
+    final ids = links.map((link) => link.orderId).toList();
 
-    final allOrders = await _repository.getAllOrders();
-    final byId = <String, Order>{};
-    for (final order in allOrders) {
-      if (ids.contains(order.orderId)) {
-        byId[order.orderId] = order;
-      }
-    }
+    // Only fetch the orders we need, not all orders
+    final byId = await _repository.getOrdersByIds(ids);
 
     if (mounted) {
       setState(() {
@@ -121,6 +121,28 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
   bool get _hasActiveSession =>
       _timerService.activeRegistration != null &&
       _timerService.activeRegistration!.isActive;
+
+  /// Calculate total VOCA from all active orders
+  double _calculateTotalVoca() {
+    double total = 0;
+    for (final link in _activeLinks) {
+      final order = _ordersById[link.orderId];
+      if (order?.vocaInUur != null) {
+        total += order!.vocaInUur!;
+      }
+    }
+    return total;
+  }
+
+  /// Debug: Add 1 hour to elapsed time for testing progress bar
+  void _handleAddHour() {
+    setState(() {
+      _debugTimeOffset += const Duration(hours: 1);
+      if (_sessionElapsed != null) {
+        _sessionElapsed = _sessionElapsed! + const Duration(hours: 1);
+      }
+    });
+  }
 
   Future<void> _handlePauseResume() async {
     if (!_hasActiveSession) return;
@@ -284,7 +306,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+        body: const LoadingIndicator(message: 'Loading session...'),
       );
     }
 
@@ -325,6 +347,8 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                 isPaused: _timerService.isTimerPaused,
                 elapsed: _sessionElapsed,
                 downtime: _sessionDowntime,
+                totalVoca: _calculateTotalVoca(),
+                onAddHour: _handleAddHour,
               ),
               const SizedBox(height: 16),
               Expanded(
@@ -356,11 +380,15 @@ class _SessionSummary extends StatelessWidget {
   final bool isPaused;
   final Duration? elapsed;
   final Duration? downtime;
+  final double totalVoca;
+  final VoidCallback? onAddHour;
 
   const _SessionSummary({
     required this.isPaused,
     required this.elapsed,
     required this.downtime,
+    required this.totalVoca,
+    this.onAddHour,
   });
 
   @override
@@ -407,9 +435,93 @@ class _SessionSummary extends StatelessWidget {
                   accentColor: Colors.orange.shade700,
                 ),
               ),
+            // Total VOCA progress bar
+            if (totalVoca > 0 && elapsed != null) ...[
+              const SizedBox(height: 16),
+              _buildTotalProgressBar(context),
+            ],
+            // Debug button
+            if (onAddHour != null) ...[
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: onAddHour,
+                  icon: const Icon(Icons.fast_forward),
+                  label: const Text('+1 uur (TEST)'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple.shade600,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTotalProgressBar(BuildContext context) {
+    final totalVocaSeconds = totalVoca * 3600;
+    final elapsedSeconds = elapsed!.inSeconds.toDouble();
+    final rawProgress = elapsedSeconds / totalVocaSeconds;
+    final progress = rawProgress.clamp(0.0, 1.0);
+    final percentage = (rawProgress * 100).toInt();
+    
+    // Color based on progress
+    final Color progressColor;
+    if (rawProgress >= 1.0) {
+      progressColor = Colors.green.shade600;
+    } else if (rawProgress >= 0.75) {
+      progressColor = Colors.blue.shade600;
+    } else if (rawProgress >= 0.5) {
+      progressColor = Colors.orange.shade600;
+    } else {
+      progressColor = Colors.grey.shade500;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Totale Voortgang',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            Text(
+              '$percentage%',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: progressColor,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 14,
+            backgroundColor: Colors.grey.shade200,
+            valueColor: AlwaysStoppedAnimation<Color>(progressColor),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Totaal VOCA: ${totalVoca.toStringAsFixed(2).replaceAll('.', ',')} uur',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Colors.grey.shade600,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -444,9 +556,14 @@ class _OrderGrid extends StatelessWidget {
           final order = ordersById[link.orderId];
           final timing = timerService.getOrderTimingSnapshot(link);
           return _OrderSessionCard(
+            ordernummer: order?.ordernummer,
+            orderregel: order?.orderregel,
             orderNumber: order?.orderNumber ?? link.orderId,
             machine: order?.machine ?? 'Unknown machine',
             voca: order?.vocaInUur,
+            omschrijving: order?.omschrijving,
+            leverdatum: order?.leverdatum,
+            statusNaam: order?.statusNaam,
             elapsed: timing.elapsed,
             downtime: timing.downtime,
             onFinish: () => onFinish(link.orderId),
@@ -492,17 +609,27 @@ class _OrderGrid extends StatelessWidget {
 }
 
 class _OrderSessionCard extends StatelessWidget {
+  final String? ordernummer;
+  final String? orderregel;
   final String orderNumber;
   final String machine;
   final double? voca;
+  final String? omschrijving;
+  final DateTime? leverdatum;
+  final String? statusNaam;
   final Duration elapsed;
   final Duration downtime;
   final VoidCallback onFinish;
 
   const _OrderSessionCard({
+    this.ordernummer,
+    this.orderregel,
     required this.orderNumber,
     required this.machine,
     required this.voca,
+    this.omschrijving,
+    this.leverdatum,
+    this.statusNaam,
     required this.elapsed,
     required this.downtime,
     required this.onFinish,
@@ -510,6 +637,35 @@ class _OrderSessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate progress: elapsed time / VOCA time
+    final double progress;
+    final String progressText;
+    final Color progressColor;
+    
+    if (voca != null && voca! > 0) {
+      final vocaInSeconds = voca! * 3600; // Convert hours to seconds
+      final elapsedSeconds = elapsed.inSeconds.toDouble();
+      final rawProgress = elapsedSeconds / vocaInSeconds;
+      progress = rawProgress.clamp(0.0, 1.0);
+      final percentage = (rawProgress * 100).toInt();
+      progressText = '$percentage%';
+      
+      // Color based on progress
+      if (rawProgress >= 1.0) {
+        progressColor = Colors.green.shade600; // Completed target
+      } else if (rawProgress >= 0.75) {
+        progressColor = Colors.blue.shade600; // Almost there
+      } else if (rawProgress >= 0.5) {
+        progressColor = Colors.orange.shade600; // Halfway
+      } else {
+        progressColor = Colors.grey.shade500; // Just started
+      }
+    } else {
+      progress = 0.0;
+      progressText = '-';
+      progressColor = Colors.grey.shade400;
+    }
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -521,28 +677,124 @@ class _OrderSessionCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              orderNumber,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              machine.isNotEmpty ? machine : 'No machine specified',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            if (voca != null) ...[
+            // Ordernummer en Orderregel
+            if (ordernummer != null || orderregel != null) ...[
+              Text(
+                'Ordernummer: ${ordernummer ?? "-"}',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                'Orderregel: ${orderregel ?? "-"}',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Colors.grey.shade700),
+              ),
+            ] else ...[
+              Text(
+                orderNumber,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+            
+            // Omschrijving (max 25 karakters)
+            if (omschrijving != null && omschrijving!.isNotEmpty) ...[
               const SizedBox(height: 4),
               Text(
-                'Voca: ${voca!.toStringAsFixed(2).replaceAll('.', ',')}',
+                omschrijving!.length > 25 
+                    ? '${omschrijving!.substring(0, 25)}...' 
+                    : omschrijving!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey.shade600,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+            
+            const SizedBox(height: 8),
+            
+            // Compact info row: Machine | Status | Leverdatum
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              children: [
+                if (machine.isNotEmpty)
+                  _InfoChip(
+                    icon: Icons.precision_manufacturing,
+                    label: machine,
+                  ),
+                if (statusNaam != null && statusNaam!.isNotEmpty)
+                  _InfoChip(
+                    icon: Icons.flag,
+                    label: statusNaam!,
+                    color: Colors.blue.shade700,
+                  ),
+                if (leverdatum != null)
+                  _InfoChip(
+                    icon: Icons.calendar_today,
+                    label: '${leverdatum!.day.toString().padLeft(2, '0')}-${leverdatum!.month.toString().padLeft(2, '0')}-${leverdatum!.year}',
+                    color: Colors.orange.shade700,
+                  ),
+              ],
+            ),
+            
+            if (voca != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                'Voca: ${voca!.toStringAsFixed(2).replaceAll('.', ',')} uur',
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
                     ?.copyWith(color: Colors.grey.shade700),
               ),
             ],
+            const SizedBox(height: 12),
+            
+            // Progress bar
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Voortgang',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                    Text(
+                      progressText,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: progressColor,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    minHeight: 12,
+                    backgroundColor: Colors.grey.shade200,
+                    valueColor: AlwaysStoppedAnimation<Color>(progressColor),
+                  ),
+                ),
+              ],
+            ),
+            
             const SizedBox(height: 16),
             TimerDisplay(
               duration: elapsed,
@@ -655,4 +907,42 @@ class _EmptyOrdersHint extends StatelessWidget {
   }
 }
 
+class _InfoChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color? color;
 
+  const _InfoChip({
+    required this.icon,
+    required this.label,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final chipColor = color ?? Colors.grey.shade700;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: chipColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: chipColor.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: chipColor),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              color: chipColor,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

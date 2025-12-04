@@ -50,6 +50,11 @@ class SqlRepository implements RepositoryInterface {
   }
 
   @override
+  Future<Map<String, Order>> getOrdersByIds(List<String> ids) async {
+    throw UnimplementedError('SQL repository not yet implemented');
+  }
+
+  @override
   Future<Order?> getOrderByOrderNumber(String orderNumber) async {
     throw UnimplementedError('SQL repository not yet implemented');
   }

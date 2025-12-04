@@ -305,6 +305,20 @@ class ExcelRepository implements RepositoryInterface {
   }
 
   @override
+  Future<Map<String, Order>> getOrdersByIds(List<String> ids) async {
+    if (ids.isEmpty) return {};
+    final idSet = ids.map((e) => e.toLowerCase()).toSet();
+    final all = await getAllOrders();
+    final result = <String, Order>{};
+    for (final order in all) {
+      if (idSet.contains(order.orderId.toLowerCase())) {
+        result[order.orderId] = order;
+      }
+    }
+    return result;
+  }
+
+  @override
   Future<Order?> getOrderByOrderNumber(String orderNumber) async {
     final all = await getAllOrders();
     try {

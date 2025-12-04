@@ -20,6 +20,9 @@ Thumbs.db
 data/*.xlsx
 data/*.xls
 
+# SQL config with credentials (NEVER commit this!)
+data/sql_config.json
+
 # Launcher scripts (user-specific)
 *.bat
 *.vbs

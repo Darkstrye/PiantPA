@@ -1,0 +1,9 @@
+{
+  "server": "Server2016",
+  "port": 1433,
+  "database": "piant_data",
+  "username": "Piant Flutter App",
+  "password": "VULL_HIER_JE_WACHTWOORD_IN",
+  "trustServerCertificate": true
+}
+

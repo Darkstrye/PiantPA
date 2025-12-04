@@ -159,8 +159,8 @@ class TimerService {
           if (conflictedOrder != null) {
             _log(
                 '[TimerService] startTimerForOrders -> conflict detected for $conflictedOrder');
-            return false;
-          }
+          return false;
+        }
 
           final now = DateTime.now();
           final baseElapsed = _accumulatedElapsedTime;
@@ -586,6 +586,13 @@ class TimerService {
     try {
       final active = await repository.getActiveHourRegistrationByUserId(userId);
       if (active == null || !active.isActive) {
+        // Clear any stale state if no active session exists
+        _activeRegistration = null;
+        _activeOrderLinks = [];
+        _startTime = null;
+        _accumulatedElapsedTime = 0.0;
+        _accumulatedDowntime = 0.0;
+        _pauseStartTime = null;
         return;
       }
 

@@ -15,6 +15,7 @@ abstract class RepositoryInterface {
   // Order operations
   Future<List<Order>> getAllOrders();
   Future<Order?> getOrderById(String id);
+  Future<Map<String, Order>> getOrdersByIds(List<String> ids);
   Future<Order?> getOrderByOrderNumber(String orderNumber);
   Future<Order> createOrder(Order order);
   Future<Order> updateOrder(Order order);

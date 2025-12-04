@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../repositories/repository_interface.dart';
 import '../services/auth_service.dart';
 import '../services/timer_service.dart';
+import '../widgets/loading_indicator.dart';
 import 'order_selection_screen.dart';
 import 'active_session_screen.dart';
 import 'completed_orders_screen.dart';
@@ -48,9 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _refreshSessionState() async {
-    final userId = widget.authService.getCurrentUserId();
-    if (userId != null) {
-      await _timerService.loadActiveTimer(userId);
+    // Just trigger a rebuild - the shared TimerService already has the latest state
+    // Only reload from repository if there's no in-memory state
+    if (_timerService.activeRegistration == null) {
+      final userId = widget.authService.getCurrentUserId();
+      if (userId != null) {
+        await _timerService.loadActiveTimer(userId);
+      }
     }
     if (mounted) {
       setState(() {});
@@ -142,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: _isLoadingSession
-            ? const Center(child: CircularProgressIndicator())
+            ? const LoadingIndicator(message: 'Loading session...')
             : Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(

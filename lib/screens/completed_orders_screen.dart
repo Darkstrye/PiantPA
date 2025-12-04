@@ -5,6 +5,7 @@ import '../repositories/repository_interface.dart';
 import '../repositories/excel_repository.dart';
 import '../services/auth_service.dart';
 import '../services/timer_service.dart';
+import '../widgets/loading_indicator.dart';
 import '../widgets/timer_display.dart';
 import '../utils/reset_completed_orders.dart';
 
@@ -25,20 +26,22 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
       Provider.of<RepositoryInterface>(context, listen: false);
   TimerService get _timerService =>
       Provider.of<TimerService>(context, listen: false);
-
+  
   List<Order> _orders = [];
   Order? _selectedOrder;
   bool _isLoading = true;
   Duration? _elapsedTime;
   Duration? _downtime;
+  DateTime? _completedOn;
   final Map<String, Duration> _orderElapsedTotals = {};
   final Map<String, Duration> _orderDowntimeTotals = {};
+  final Map<String, DateTime?> _orderCompletedOnTimes = {};
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadData();
+    _loadData();
     });
   }
 
@@ -95,6 +98,11 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
   Future<void> _loadTotalsForOrders(List<Order> orders) async {
     final elapsedMap = <String, Duration>{};
     final downtimeMap = <String, Duration>{};
+    final completedOnMap = <String, DateTime?>{};
+
+    // Get all order IDs to fetch their registration data
+    final orderIds = orders.map((o) => o.orderId).toList();
+    final registrationOrdersMap = await _repository.getHourRegistrationOrdersByOrderIds(orderIds);
 
     // Compute totals in parallel for responsiveness
     await Future.wait(orders.map((order) async {
@@ -109,11 +117,24 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
         );
         elapsedMap[order.orderId] = elapsed;
         downtimeMap[order.orderId] = downtime;
+
+        // Get the most recent completedOn time for this order
+        final registrationOrders = registrationOrdersMap[order.orderId] ?? [];
+        DateTime? latestCompletedOn;
+        for (final regOrder in registrationOrders) {
+          if (regOrder.completedOn != null) {
+            if (latestCompletedOn == null || regOrder.completedOn!.isAfter(latestCompletedOn)) {
+              latestCompletedOn = regOrder.completedOn;
+            }
+          }
+        }
+        completedOnMap[order.orderId] = latestCompletedOn;
       } catch (e) {
         // ignore: avoid_print
         print('[CompletedOrdersScreen] Error loading totals for order ${order.orderId}: $e');
         elapsedMap[order.orderId] = Duration.zero;
         downtimeMap[order.orderId] = Duration.zero;
+        completedOnMap[order.orderId] = null;
       }
     }));
 
@@ -125,6 +146,19 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
         _orderDowntimeTotals
           ..clear()
           ..addAll(downtimeMap);
+        _orderCompletedOnTimes
+          ..clear()
+          ..addAll(completedOnMap);
+
+        // Re-sort orders by completedOn time (descending)
+        _orders.sort((a, b) {
+          final aTime = _orderCompletedOnTimes[a.orderId];
+          final bTime = _orderCompletedOnTimes[b.orderId];
+          if (aTime == null && bTime == null) return 0;
+          if (aTime == null) return 1;
+          if (bTime == null) return -1;
+          return bTime.compareTo(aTime);
+        });
       });
     }
   }
@@ -136,16 +170,27 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
     return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
+  String _formatDateTime(DateTime dateTime) {
+    final day = dateTime.day.toString().padLeft(2, '0');
+    final month = dateTime.month.toString().padLeft(2, '0');
+    final year = dateTime.year;
+    final hour = dateTime.hour.toString().padLeft(2, '0');
+    final minute = dateTime.minute.toString().padLeft(2, '0');
+    return '$day-$month-$year $hour:$minute';
+  }
+
   void _selectOrder(Order order) {
     final cachedElapsed = _orderElapsedTotals[order.orderId];
     final cachedDowntime = _orderDowntimeTotals[order.orderId];
+    final cachedCompletedOn = _orderCompletedOnTimes[order.orderId];
 
     setState(() {
       _selectedOrder = order;
       _elapsedTime = cachedElapsed;
       _downtime = cachedDowntime;
+      _completedOn = cachedCompletedOn;
     });
-
+    
     // Only load if not already cached (avoids redundant async work)
     if (cachedElapsed == null) {
       _loadDurationsForOrder(order.orderId);
@@ -332,7 +377,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingIndicator(message: 'Loading completed orders...')
           : Row(
               children: [
                 // Left Panel - Completed Order List
@@ -378,6 +423,7 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                     final order = _orders[index];
                                     final elapsed = _orderElapsedTotals[order.orderId];
                                     final downtime = _orderDowntimeTotals[order.orderId];
+                                    final completedOn = _orderCompletedOnTimes[order.orderId];
 
                                     return Card(
                                       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -405,9 +451,21 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                                   color: Colors.grey.shade700,
                                                 ),
                                               ),
-                                            if (elapsed != null)
+                                            if (completedOn != null)
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 4.0),
+                                                child: Text(
+                                                  'Afgerond: ${_formatDateTime(completedOn)}',
+                                                  style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.green.shade700,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
+                                            if (elapsed != null)
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 2.0),
                                                 child: Text(
                                                   'Elapsed: ${_formatDuration(elapsed)}',
                                                   style: const TextStyle(fontSize: 13),
@@ -489,6 +547,10 @@ class _CompletedOrdersScreenState extends State<CompletedOrdersScreen> {
                                   ),
                                 ],
                               ),
+                              if (_completedOn != null) ...[
+                                const SizedBox(height: 16),
+                                _buildDetailRow('Eindtijd', _formatDateTime(_completedOn!)),
+                              ],
                               const SizedBox(height: 32),
                               if (_elapsedTime != null) ...[
                                 const Text(

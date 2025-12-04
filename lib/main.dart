@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'repositories/repository_interface.dart';
-import 'repositories/excel_repository.dart';
+import 'repositories/hybrid_repository.dart';
 import 'services/timer_service.dart';
 import 'screens/login_screen.dart';
 
@@ -10,7 +10,7 @@ void main() {
     MultiProvider(
       providers: [
         Provider<RepositoryInterface>(
-          create: (_) => ExcelRepository(),
+          create: (_) => HybridRepository(),
         ),
         ProxyProvider<RepositoryInterface, TimerService>(
           update: (_, repository, previous) =>
